@@ -12,7 +12,7 @@
 	<name>${project.artifactId}</name>
 	<description>Project to money me with no name [parent].</description>
 	<properties>
-		<main.basedir>${basedir}/../..</main.basedir>
+		<main.basedir>${basedir}/..</main.basedir>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
