@@ -5,37 +5,29 @@
 		<groupId>com.kinlhp</groupId>
 		<artifactId>moname-build</artifactId>
 		<version>${revision}</version>
-		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<artifactId>moname-dependencies</artifactId>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
 	<description>Project to money me with no name [dependencies].</description>
 	<properties>
-		<main.basedir>${basedir}/../..</main.basedir>
+		<main.basedir>${basedir}/..</main.basedir>
 		<!-- dependency versions -->
-		<!-- # Kin.LHP® # -->
 		<!-- # third party # -->
-		<java.version>14</java.version>
+		<java.version>16</java.version>
+		<spring-boot-dependencies.version>2.5.2</spring-boot-dependencies.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
-			<!-- # Kin.LHP® # -->
 			<!-- # third party # -->
-			<!-- # test # -->
 			<!-- springframework -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-test</artifactId>
-				<version>${spring-boot.version}</version>
-				<scope>test</scope>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 				<optional>true</optional>
-				<exclusions>
-					<exclusion>
-						<groupId>org.junit.vintage</groupId>
-						<artifactId>junit-vintage-engine</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

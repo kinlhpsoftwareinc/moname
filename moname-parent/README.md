@@ -4,4 +4,4 @@ Project to money me with no name.
 
 ## parent
 
-Module for managing common project settings.
+Module for managing common project settings between modules.

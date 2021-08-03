@@ -4,4 +4,4 @@ Project to money me with no name.
 
 ## dependencies
 
-Module for managing common project dependencies.
+Dependency management module.

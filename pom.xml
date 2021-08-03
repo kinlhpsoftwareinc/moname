@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- https://maven.apache.org/ref/3.8.1/maven-model/maven.html -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.4.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
 	<groupId>com.kinlhp</groupId>
 	<artifactId>moname-build</artifactId>
 	<version>${revision}</version>
@@ -14,41 +9,112 @@
 	<name>${project.artifactId}</name>
 	<description>Project to money me with no name [build].</description>
 	<url>https://moname.kinlhp.com</url>
+	<organization>
+		<name>Kin.LHP® Software, Inc.</name>
+		<url>https://kinlhp.com</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>kinlhp</id>
+			<name>Luis Henrique Pereira</name>
+			<email>lhp.kin@gmail.com</email>
+			<url>${project.organization.url}/kinlhp</url>
+			<organization>${project.organization.name}</organization>
+			<organizationUrl>${project.organization.url}</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>UTC−03:00</timezone>
+		</developer>
+	</developers>
+	<modules>
+		<module>moname-commons</module>
+		<module>moname-dependencies</module>
+		<module>moname-parent</module>
+	</modules>
+	<scm>
+		<connection>scm:git:ssh://git@github.com:kinlhpsoftwareinc/moname.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:kinlhpsoftwareinc/moname.git</developerConnection>
+		<url>https://github.com/kinlhpsoftwareinc/moname.git</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/kinlhpsoftwareinc/moname/issues</url>
+	</issueManagement>
 	<properties>
 		<main.basedir>${basedir}</main.basedir>
+		<!-- dependency versions -->
 		<revision>1.0.0.BUILD-SNAPSHOT</revision>
-	</properties>
-	<repositories>
-		<!-- # Kin.LHP® # -->
-		<repository>
-			<id>kinlhp-snapshot</id>
-			<name>Kin.LHP® Snapshot</name>
-			<url>file://${user.home}/.m2/repository/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
 		<!-- # third party # -->
-		<repository>
-			<id>central</id>
-			<name>Maven Central</name>
-			<url>https://repo.maven.apache.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+		<maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
+		<maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
+		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+		<maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+		<maven-site-plugin.version>3.9.1</maven-site-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+	</properties>
 	<build>
-		<plugins>
-			<!-- # third party # -->
-			<!-- springframework -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!-- # third party # -->
+				<!-- maven -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven-clean-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven-deploy-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven-install-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
-	<modules>
-		<module>moname-project</module>
-	</modules>
 </project>
