@@ -9,6 +9,6 @@ Module for common abstractions of the JPA layer.
 ### Building from source
 
 ```sh
-../../mvnw --batch-mode --no-transfer-progress --projects \
-com.kinlhp:moname-commons-jpa --update-snapshots clean verify
+../../mvnw --also-make --batch-mode --file .. --no-transfer-progress \
+--projects com.kinlhp:moname-commons-jpa --update-snapshots clean verify
 ```

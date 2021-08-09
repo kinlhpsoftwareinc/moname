@@ -15,14 +15,14 @@ import org.springframework.lang.Nullable;
  * Abstract implementation for read-only entities.
  */
 @Data
-@EntityListeners(value = { ReadOnlyListener.class })
+@EntityListeners(value = {ReadOnlyListener.class})
 @MappedSuperclass
 public abstract class AbstractReadOnly<PK extends Serializable> implements Readable<PK> {
 
 	@Serial
 	private static final long serialVersionUID = -5144077154210515009L;
 
-	@Getter(onMethod = @__({ @Nullable }))
+	@Getter(onMethod = @__({@Nullable}))
 	@Id
 	private PK pk;
 

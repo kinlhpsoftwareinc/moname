@@ -11,10 +11,10 @@ import java.util.ResourceBundle;
 public final class ReadOnlyEntityException extends UnsupportedOperationException {
 
 	@Serial
-	private static final long serialVersionUID = -107428583202517083L;
+	private static final long serialVersionUID = 6261917093295309842L;
 
-	private static final String RESOURCE_BUNDLE_BASE_NAME = "JpaMessages";
 	private static final String MESSAGE_KEY = "jpa.ReadOnlyEntity.message";
+	private static final String RESOURCE_BUNDLE_BASE_NAME = "JpaMessages";
 
 	private final Class<? extends AbstractReadOnly<? extends Serializable>> clazz;
 
@@ -24,7 +24,7 @@ public final class ReadOnlyEntityException extends UnsupportedOperationException
 	}
 
 	@Override
-	public final String getLocalizedMessage() {
+	public String getLocalizedMessage() {
 		final var resourceBundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_BASE_NAME);
 		final var localizedMessage = resourceBundle.getString(MESSAGE_KEY);
 		return MessageFormat.format(localizedMessage, clazz.getSimpleName());
