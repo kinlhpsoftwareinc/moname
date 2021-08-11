@@ -13,9 +13,9 @@ import org.springframework.transaction.TransactionSystemException;
 /**
  * Tests for read-only entities.
  */
-@ActiveProfiles(profiles = { "test" })
+@ActiveProfiles(profiles = {"test"})
 @EnableAutoConfiguration
-@SpringBootTest(classes = { ReadOnlyRepository.class })
+@SpringBootTest(classes = {ReadOnlyRepository.class})
 class AbstractReadOnlyTests {
 
 	@Autowired
@@ -33,7 +33,7 @@ class AbstractReadOnlyTests {
 	}
 
 	@DisplayName(value = "Read-only entities cannot be removed.")
-	@Sql(statements = { "INSERT INTO read_only (id, description) VALUES (2, 'b');" })
+	@Sql(statements = {"INSERT INTO read_only (id, description) VALUES (2, 'b');"})
 	@Test
 	final void shouldNotRemove() {
 		final var entity = repository.findById(2).orElseThrow();
@@ -43,7 +43,7 @@ class AbstractReadOnlyTests {
 	}
 
 	@DisplayName(value = "Read-only entities cannot be updated.")
-	@Sql(statements = { "INSERT INTO read_only (id, description) VALUES (1, 'a');" })
+	@Sql(statements = {"INSERT INTO read_only (id, description) VALUES (1, 'a');"})
 	@Test
 	final void shouldNotUpdate() {
 		final var entity = repository.findById(1).orElseThrow();

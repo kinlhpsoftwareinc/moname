@@ -13,6 +13,7 @@
 	<description>Project to money me with no name [commons].</description>
 	<modules>
 		<module>moname-commons-jpa</module>
+		<module>moname-commons-test</module>
 	</modules>
 	<properties>
 		<main.basedir>${basedir}/..</main.basedir>

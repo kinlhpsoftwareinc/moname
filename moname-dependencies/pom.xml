@@ -14,12 +14,37 @@
 		<main.basedir>${basedir}/..</main.basedir>
 		<!-- dependency versions -->
 		<!-- # third party # -->
+		<hsqldb.version>2.6.0</hsqldb.version>
 		<java.version>16</java.version>
-		<spring-boot-dependencies.version>2.5.2</spring-boot-dependencies.version>
+		<lombok.version>1.18.20</lombok.version>
+		<spring-boot-dependencies.version>2.5.3</spring-boot-dependencies.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.kinlhp</groupId>
+				<artifactId>moname-commons-test</artifactId>
+				<version>${revision}</version>
+				<scope>test</scope>
+				<optional>true</optional>
+			</dependency>
 			<!-- # third party # -->
+			<!-- hsqldb -->
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>${hsqldb.version}</version>
+				<scope>test</scope>
+				<optional>true</optional>
+			</dependency>
+			<!-- lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
+				<optional>true</optional>
+			</dependency>
 			<!-- springframework -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
