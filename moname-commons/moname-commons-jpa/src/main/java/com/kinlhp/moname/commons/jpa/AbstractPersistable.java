@@ -8,11 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
 /**
  * Abstract implementation for persistable entities.
@@ -26,9 +25,8 @@ public abstract class AbstractPersistable<PK extends Serializable> implements Pe
 
 	@Column(updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter(onMethod = @__({@Nullable}))
 	@Id
-	@Setter(onParam = @__({@Nullable}))
+	@Setter(onParam = @__({@NotNull}))
 	private PK pk;
 
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.kinlhp</groupId>
@@ -14,37 +16,14 @@
 		<main.basedir>${basedir}/..</main.basedir>
 		<!-- dependency versions -->
 		<!-- # third party # -->
-		<hsqldb.version>2.6.0</hsqldb.version>
-		<java.version>16</java.version>
-		<lombok.version>1.18.20</lombok.version>
-		<spring-boot-dependencies.version>2.5.3</spring-boot-dependencies.version>
+		<assertj-db.version>2.0.2</assertj-db.version>
+		<groovy-all.version>3.0.12</groovy-all.version>
+		<spring-boot-dependencies.version>2.7.2</spring-boot-dependencies.version>
+		<testcontainers-bom.version>1.17.3</testcontainers-bom.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>com.kinlhp</groupId>
-				<artifactId>moname-commons-test</artifactId>
-				<version>${revision}</version>
-				<scope>test</scope>
-				<optional>true</optional>
-			</dependency>
 			<!-- # third party # -->
-			<!-- hsqldb -->
-			<dependency>
-				<groupId>org.hsqldb</groupId>
-				<artifactId>hsqldb</artifactId>
-				<version>${hsqldb.version}</version>
-				<scope>test</scope>
-				<optional>true</optional>
-			</dependency>
-			<!-- lombok -->
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>${lombok.version}</version>
-				<scope>provided</scope>
-				<optional>true</optional>
-			</dependency>
 			<!-- springframework -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
@@ -56,4 +35,59 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<profiles>
+		<profile>
+			<id>test</id>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<!-- # third party # -->
+						<!-- gmavenplus -->
+						<plugin>
+							<groupId>org.codehaus.gmavenplus</groupId>
+							<artifactId>gmavenplus-plugin</artifactId>
+							<dependencies>
+								<!-- # third party # -->
+								<!-- groovy -->
+								<dependency>
+									<groupId>org.codehaus.groovy</groupId>
+									<artifactId>groovy-all</artifactId>
+									<version>${groovy-all.version}</version>
+									<type>pom</type>
+									<scope>runtime</scope>
+									<optional>true</optional>
+								</dependency>
+							</dependencies>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>com.kinlhp</groupId>
+						<artifactId>moname-commons-test</artifactId>
+						<version>${revision}</version>
+					</dependency>
+					<!-- # third party # -->
+					<!-- assertj -->
+					<dependency>
+						<groupId>org.assertj</groupId>
+						<artifactId>assertj-db</artifactId>
+						<version>${assertj-db.version}</version>
+						<optional>true</optional>
+					</dependency>
+					<!-- testcontainers -->
+					<dependency>
+						<groupId>org.testcontainers</groupId>
+						<artifactId>testcontainers-bom</artifactId>
+						<version>${testcontainers-bom.version}</version>
+						<type>pom</type>
+						<scope>import</scope>
+						<optional>true</optional>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+		</profile>
+	</profiles>
 </project>

@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
-./mvnw --batch-mode --no-transfer-progress clean
+./mvnw --activate-profiles test --batch-mode --no-transfer-progress clean
 
 echo "[INFO] "
-echo "[INFO] --- find -type f {*.classpath,*.factorypath,*.iml,*.project} -exec rm '{}' + ---"
-find . -type f \( -iname \*.classpath -o -iname \*.factorypath -o -iname \*.iml -o -iname \*.project \) \
+echo "[INFO] --- find -type f {*.attach_pid*,*.classpath,*.factorypath,*.iml,*.project} -exec rm '{}' + ---"
+find . -type f \( -iname \*.attach_pid\* -o -iname \*.classpath -o -iname \*.factorypath -o -iname \*.iml -o -iname \*.project \) \
         -exec sh -c 'echo "[INFO] Deleting $(realpath $1)"' sh '{}' \; -exec rm '{}' +
 echo "[INFO] "
 echo "[INFO] ------------------------------------------------------------------------"

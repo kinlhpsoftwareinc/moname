@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.kinlhp</groupId>
@@ -13,15 +15,12 @@
 		<main.basedir>${basedir}/../..</main.basedir>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>com.kinlhp</groupId>
-			<artifactId>moname-commons-test</artifactId>
-		</dependency>
 		<!-- # third party # -->
-		<!-- hsqldb -->
+		<!-- hibernate -->
 		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
+			<!-- README#jsr-380 -->
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<!-- javax.persistence -->
 		<dependency>
@@ -37,6 +36,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- springframework -->
 		<dependency>
@@ -44,4 +44,61 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>test</id>
+			<build>
+				<plugins>
+					<!-- # third party # -->
+					<!-- gmavenplus -->
+					<plugin>
+						<groupId>org.codehaus.gmavenplus</groupId>
+						<artifactId>gmavenplus-plugin</artifactId>
+					</plugin>
+					<!-- maven -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>com.kinlhp</groupId>
+					<artifactId>moname-commons-test</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>hsqldb</id>
+			<dependencies>
+				<!-- # third party # -->
+				<!-- hsqldb -->
+				<dependency>
+					<groupId>org.hsqldb</groupId>
+					<artifactId>hsqldb</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>mysql</id>
+			<dependencies>
+				<!-- # third party # -->
+				<!-- mysql -->
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+				<!-- testcontainers -->
+				<dependency>
+					<groupId>org.testcontainers</groupId>
+					<artifactId>mysql</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>

@@ -1,0 +1,19 @@
+version: '3.8'
+networks:
+  network:
+    name: ${CONTAINER_NETWORK_NAME:?unset or empty in the environment}
+    driver: ${CONTAINER_NETWORK_DRIVER:?unset or empty in the environment}
+services:
+  mysql:
+    env_file:
+      - ./mysql.env
+    image: ${MYSQL_CONTAINER_IMAGE:?unset or empty in the environment}
+    container_name: ${MYSQL_CONTAINER_NAME:?unset or empty in the environment}
+    volumes:
+      - ${HOME:?unset or empty in the environment}/.docker/volumes/${MYSQL_CONTAINER_NAME:?unset or empty in the environment}/data:/var/lib/mysql
+    networks:
+      - network
+    ports:
+      - ${MYSQL_CONTAINER_PORT_MAPPING:?unset or empty in the environment}
+    command: ${MYSQL_CONTAINER_INITIAL_COMMAND:?unset or empty in the environment}
+    restart: ${CONTAINER_RESTART_POLICY:?unset or empty in the environment}

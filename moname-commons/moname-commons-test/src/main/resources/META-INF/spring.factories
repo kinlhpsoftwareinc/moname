@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.kinlhp.moname.commons.test.TestAutoConfiguration,\
+com.kinlhp.moname.commons.test.HSqlDbAutoConfiguration,\
+com.kinlhp.moname.commons.test.MySqlAutoConfiguration

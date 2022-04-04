@@ -2,7 +2,7 @@ package com.kinlhp.moname.commons.jpa;
 
 import java.io.Serializable;
 
-import org.springframework.lang.Nullable;
+import javax.validation.constraints.NotNull;
 
 /**
  * Abstraction for persistable entities.
@@ -14,6 +14,6 @@ public interface Persistable<PK extends Serializable> extends Readable<PK> {
 	 *
 	 * @param pk Primary key (PK) value
 	 */
-	void setPk(@Nullable final PK pk);
+	void setPk(@NotNull final PK pk);
 
 }

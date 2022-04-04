@@ -6,24 +6,28 @@ import java.io.Serializable;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
-import lombok.Data;
 import lombok.Getter;
-import org.springframework.lang.Nullable;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Abstract implementation for read-only entities.
  */
-@Data
 @EntityListeners(value = {ReadOnlyListener.class})
 @MappedSuperclass
+@NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public abstract class AbstractReadOnly<PK extends Serializable> implements Readable<PK> {
 
 	@Serial
-	private static final long serialVersionUID = -5144077154210515009L;
+	private static final long serialVersionUID = 5359284114984076370L;
 
-	@Getter(onMethod = @__({@Nullable}))
+	@Getter
 	@Id
+	@Setter(onParam = @__({@NotNull}))
 	private PK pk;
 
 }

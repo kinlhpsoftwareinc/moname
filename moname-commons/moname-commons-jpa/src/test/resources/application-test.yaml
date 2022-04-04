@@ -1,0 +1,26 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  application:
+    name: @project.artifactId@-test
+  datasource:
+    #
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      #
+      # ${pool-name}
+      # Default: "auto-generated"
+      pool-name: ${spring.application.name}-pool
+    name: ${spring.application.name}-datasource
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-test.yaml
+    contexts: test
+    password: ${spring.datasource.password}
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+  sql:
+    init:
+      encoding: UTF-8

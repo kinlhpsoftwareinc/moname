@@ -1,4 +1,4 @@
-package com.kinlhp.moname.commons.test;
+package com.kinlhp.moname.commons.test.validation;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -11,13 +11,21 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.opentest4j.MultipleFailuresError;
+import org.springframework.test.context.ActiveProfiles;
 
 /**
  * Bean Validation (JSR 380) constraint validator.
  */
+@ActiveProfiles(profiles = { "test" })
 public final class Jsr380ConstraintValidator {
 
-	private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
+	private static final Validator VALIDATOR = getValidator();
+
+	private static Validator getValidator() {
+		try (final var validatorFactory = Validation.buildDefaultValidatorFactory()) {
+			return validatorFactory.getValidator();
+		}
+	}
 
 	/**
 	 * Validate bean constraints and assert that all violations are as expected.

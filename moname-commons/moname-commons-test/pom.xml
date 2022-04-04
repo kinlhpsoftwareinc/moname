@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.kinlhp</groupId>
@@ -14,25 +16,11 @@
 	</properties>
 	<dependencies>
 		<!-- # third party # -->
-		<!-- glassfish -->
-		<dependency>
-			<!-- JSR 341: Expression Language 3.0 (https://jcp.org/en/jsr/detail?id=341) -->
-			<!-- Unified Expression Language (EL) (https://hibernate.org/validator/documentation/getting-started/#unified-expression-language-el) -->
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.el</artifactId>
-		</dependency>
 		<!-- hibernate -->
 		<dependency>
-			<!-- JSR 380: Bean Validation 2.0 (https://jcp.org/en/jsr/detail?id=380) -->
-			<!-- Hibernate Validator (https://hibernate.org/validator/documentation/getting-started/#project-set-up) -->
+			<!-- README#jsr-380 -->
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-		<!-- lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<!-- springframework -->
 		<dependency>
@@ -40,4 +28,36 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>test</id>
+			<dependencies>
+				<!-- # third party # -->
+				<!-- assertj -->
+				<dependency>
+					<groupId>org.assertj</groupId>
+					<artifactId>assertj-db</artifactId>
+				</dependency>
+				<!-- glassfish -->
+				<dependency>
+					<!-- README#jsr-380 -->
+					<groupId>org.glassfish</groupId>
+					<artifactId>jakarta.el</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- lombok -->
+				<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- testcontainers -->
+				<dependency>
+					<groupId>org.testcontainers</groupId>
+					<artifactId>junit-jupiter</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>

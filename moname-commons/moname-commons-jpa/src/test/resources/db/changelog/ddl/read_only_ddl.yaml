@@ -1,0 +1,61 @@
+# https://docs.liquibase.com/concepts/changelogs/working-with-changelogs.html
+#
+# https://docs.liquibase.com/concepts/changelogs/changelog-formats.html
+#
+# https://docs.liquibase.com/concepts/changelogs/yaml-format.html
+#
+# https://docs.liquibase.com/concepts/changelogs/preconditions.html
+#
+# https://docs.liquibase.com/change-types/home.html
+#
+# https://docs.liquibase.com/change-types/create-table.html
+#
+# {@link java.sql.Types}
+# https://stackoverflow.com/a/28626825
+#
+# https://docs.liquibase.com/change-types/create-index.html
+databaseChangeLog:
+  - changeSet:
+      author: kinlhp
+      context: test
+      id: "2022-04-02T02:51:13+00:00"
+      changes:
+        - createTable:
+            catalogName: moname_commons_jpa_test
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    notNullConstraintName: read_only_id_nn
+                    nullable: true
+                    primaryKey: true
+                    primaryKeyName: read_only_pk
+                  incrementBy: 1
+                  name: id
+                  remarks: Primary key for read_only table.
+                  startWith: 1
+                  type: TINYINT
+              - column:
+                  constraints:
+                    notNullConstraintName: read_only_description_nn
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: read_only_description_uk
+                  name: description
+                  remarks: Description of the registry.
+                  type: CHAR(1)
+            remarks: Read-only entity test.
+            tableName: read_only
+        - createIndex:
+            catalogName: moname_commons_jpa_test
+            columns:
+              - column:
+                  name: description
+            indexName: read_only_description_uk_idx
+            tableName: read_only
+            unique: true
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: read_only

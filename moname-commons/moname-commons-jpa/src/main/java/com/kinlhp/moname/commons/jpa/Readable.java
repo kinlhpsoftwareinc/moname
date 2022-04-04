@@ -2,8 +2,6 @@ package com.kinlhp.moname.commons.jpa;
 
 import java.io.Serializable;
 
-import org.springframework.lang.Nullable;
-
 /**
  * Abstraction for readable entities.
  */
@@ -14,7 +12,6 @@ public interface Readable<PK extends Serializable> extends Serializable {
 	 *
 	 * @return Primary key (PK) value
 	 */
-	@Nullable
 	PK getPk();
 
 }

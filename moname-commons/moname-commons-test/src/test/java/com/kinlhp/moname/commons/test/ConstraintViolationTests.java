@@ -3,6 +3,8 @@ package com.kinlhp.moname.commons.test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.kinlhp.moname.commons.test.validation.Jsr380ConstraintValidator;
+
 /**
  * Constraint violation tests.
  */
@@ -18,7 +20,7 @@ class ConstraintViolationTests {
 	@Test
 	final void shouldNotViolateConstraints() {
 		final var bean = ConstraintViolationFittings.withoutViolations();
-		Jsr380ConstraintValidator.validate(bean, new Object[] {});
+		Jsr380ConstraintValidator.validate(bean, new Object[]{});
 	}
 
 	@DisplayName(value = "@Max constraint violations.")

@@ -12,7 +12,7 @@ indent_style=tab
 [*.json]
 insert_final_newline=false
 
-[*.{md,sql,yml}]
+[*.{md,sql,yaml}]
 indent_size=2
 indent_style=space
 

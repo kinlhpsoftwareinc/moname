@@ -1,0 +1,35 @@
+﻿# https://docs.liquibase.com/concepts/changelogs/working-with-changelogs.html
+#
+# https://docs.liquibase.com/concepts/changelogs/changelog-formats.html
+#
+# https://docs.liquibase.com/concepts/changelogs/yaml-format.html
+#
+# https://docs.liquibase.com/change-types/load-data.html
+#
+# https://www.liquibase.org/javadoc/liquibase/change/core/LoadDataChange.LOAD_DATA_TYPE.html
+databaseChangeLog:
+  - changeSet:
+      author: kinlhp
+      context: test
+      id: "2022-04-02T02:51:14+00:00"
+      changes:
+        - loadData:
+            catalogName: moname_commons_jpa_test
+            columns:
+              - column:
+                  name: id
+                  type: NUMERIC
+              - column:
+                  name: description
+                  type: STRING
+            commentLineStartsWith: "#"
+            encoding: UTF-8
+            file: read_only.csv
+            quotchar: "''"
+            relativeToChangelogFile: true
+            separator: ","
+            tableName: read_only
+            #
+            # ${usePreparedStatements}
+            # https://github.com/liquibase/liquibase/issues/1551
+            #usePreparedStatements: true
