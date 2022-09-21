@@ -69,6 +69,16 @@ Can be easily built with the
 -Dplugin=org.codehaus.gmavenplus:gmavenplus-plugin help:describe
 ```
 
+### [OpenAPITools](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md)
+
+#### [Documentation for the Spring Generator](#openapi-generator-spring-metadata)
+
+* [Metadata](https://openapi-generator.tech/docs/generators/spring/#metadata)
+
+#### [Documentation for the Spring Generator](#openapi-generator-spring-config-options)
+
+* [Config options](https://openapi-generator.tech/docs/generators/spring/#config-options)
+
 ### [JaCoCo](#jacoco)
 
 * [Maven Plug-in](https://www.jacoco.org/jacoco/trunk/doc/maven.html)

@@ -1,0 +1,70 @@
+# https://spec.openapis.org/oas/latest.html
+# https://json-schema.org/specification.html
+errorCode:
+  type: integer
+  #additionalProperties:
+  deprecated: false
+  default: 500
+  format: int32
+  multipleOf: 1
+  maximum: 599
+  #exclusiveMaximum:
+  minimum: 500
+  #exclusiveMinimum:
+errorDescription:
+  type: string
+  #additionalProperties:
+  deprecated: false
+  default: Internal Server Error
+  maxLength: 31
+  minLength: 11
+  #pattern:
+description:
+  type: string
+  #additionalProperties:
+  deprecated: false
+  default: a
+  maxLength: 1
+  minLength: 1
+  #pattern:
+id:
+  type: integer
+  #additionalProperties:
+  deprecated: false
+  default: 1
+  format: int32
+  multipleOf: 1
+  maximum: 255
+  #exclusiveMaximum:
+  minimum: 1
+  #exclusiveMinimum:
+pageIndex:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example: # Deprecated in favor of the JSON Schema examples keyword.
+  type: integer
+  #additionalProperties:
+  deprecated: false
+  default: 0
+  format: int32
+  multipleOf: 1
+  maximum: 2147483647
+  #exclusiveMaximum:
+  minimum: 0
+  #exclusiveMinimum:
+pageSize:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example: # Deprecated in favor of the JSON Schema examples keyword.
+  type: integer
+  #additionalProperties:
+  deprecated: false
+  default: 25
+  format: int32
+  multipleOf: 1
+  maximum: 100
+  #exclusiveMaximum:
+  minimum: 1
+  #exclusiveMinimum:

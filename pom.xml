@@ -56,6 +56,10 @@
 		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<openapi-generator.base-package>com.kinlhp.moname.commons.api.oas</openapi-generator.base-package>
+		<openapi-generator.input-spec>
+			${project.basedir}/src/main/resources/openapi/specification.yaml
+		</openapi-generator.input-spec>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
 		<!-- dependency versions -->
@@ -73,6 +77,7 @@
 		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
 		<maven-site-plugin.version>4.0.0-M4</maven-site-plugin.version>
 		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+		<openapi-generator-maven-plugin.version>6.2.1</openapi-generator-maven-plugin.version>
 	</properties>
 	<build>
 		<resources>
@@ -130,6 +135,70 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>${maven-site-plugin.version}</version>
+				</plugin>
+				<!-- openapitools -->
+				<plugin>
+					<groupId>org.openapitools</groupId>
+					<artifactId>openapi-generator-maven-plugin</artifactId>
+					<version>${openapi-generator-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>openapi-generator</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+							<configuration>
+								<!-- README#openapi-generator-spring-metadata -->
+								<generatorName>spring</generatorName>
+								<!-- README#openapi-generator-spring-config-options -->
+								<apiPackage>${openapi-generator.base-package}.endpoint</apiPackage>
+								<artifactId>moname-commons-api-oas</artifactId>
+								<artifactVersion>${revision}</artifactVersion>
+								<generateApiTests>false</generateApiTests>
+								<generateModelTests>false</generateModelTests>
+								<groupId>${project.groupId}</groupId>
+								<ignoreFileOverride>.openapi-generator-ignore</ignoreFileOverride>
+								<inputSpec>${openapi-generator.input-spec}</inputSpec>
+								<invokerPackage>${openapi-generator.base-package}.invoker</invokerPackage>
+								<modelNameSuffix>DTO</modelNameSuffix>
+								<modelPackage>${openapi-generator.base-package}.payload</modelPackage>
+								<configOptions>
+									<!-- README#openapi-generator-spring-metadata -->
+									<generatorLanguage>Java</generatorLanguage>
+									<generatorType>SERVER</generatorType>
+									<!-- README#openapi-generator-spring-config-options -->
+									<artifactDescription>
+										Project to money me with no name [commons-api-oas].
+									</artifactDescription>
+									<artifactUrl>${project.url}</artifactUrl>
+									<basePackage>${openapi-generator.base-package}</basePackage>
+									<bigDecimalAsString>true</bigDecimalAsString>
+									<booleanGetterPrefix>is</booleanGetterPrefix>
+									<configPackage>${openapi-generator.base-package}.configuration</configPackage>
+									<delegatePattern>true</delegatePattern>
+									<developerEmail>lhp.kin@gmail.com</developerEmail>
+									<developerName>Luis Henrique Pereira</developerName>
+									<developerOrganization>${project.organization.name}</developerOrganization>
+									<developerOrganizationUrl>${project.organization.url}</developerOrganizationUrl>
+									<licenseName>MIT</licenseName>
+									<licenseUrl>https://www.opensource.org/licenses/mit-license.php</licenseUrl>
+									<parentArtifactId>moname-commons</parentArtifactId>
+									<parentGroupId>${project.parent.groupId}</parentGroupId>
+									<parentVersion>${revision}</parentVersion>
+									<performBeanValidation>true</performBeanValidation>
+									<scmConnection>${project.scm.connection}</scmConnection>
+									<scmDeveloperConnection>${project.scm.developerConnection}</scmDeveloperConnection>
+									<scmUrl>${project.scm.url}</scmUrl>
+									<serializableModel>true</serializableModel>
+									<title>Project to money me with no name [commons-api-oas].</title>
+									<unhandledException>true</unhandledException>
+									<useSpringBoot3>true</useSpringBoot3>
+									<useSpringController>true</useSpringController>
+								</configOptions>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>

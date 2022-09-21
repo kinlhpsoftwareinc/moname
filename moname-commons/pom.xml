@@ -14,6 +14,7 @@
 	<name>${project.artifactId}</name>
 	<description>Project to money me with no name [commons].</description>
 	<modules>
+		<module>moname-commons-api</module>
 		<module>moname-commons-jpa</module>
 		<module>moname-commons-test</module>
 	</modules>

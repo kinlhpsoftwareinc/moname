@@ -1,0 +1,79 @@
+# https://spec.openapis.org/oas/latest.html
+# https://json-schema.org/specification.html
+internalServerError:
+  description:
+  #headers:
+  content:
+    application/json:
+      schema:
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example: # Deprecated in favor of the JSON Schema examples keyword.
+        type: object
+        #additionalProperties:
+        deprecated: false
+        properties:
+          code:
+            $ref: 'schemas.yaml#/errorCode'
+          description:
+            $ref: 'schemas.yaml#/errorDescription'
+        #maxProperties:
+        #minProperties:
+        required:
+          - code
+          - description
+        #dependentRequired:
+        #example:
+          #code: 500
+          #description: Internal Server Error
+      examples:
+        error:
+          $ref: 'examples.yaml#/error'
+      encoding:
+        description:
+          contentType: text/plain;charset=UTF-8
+          #headers:
+          style: form
+          explode: false
+          allowReserved: true
+  #links:
+ok:
+  description:
+  #headers:
+  content:
+    application/json:
+      schema:
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example: # Deprecated in favor of the JSON Schema examples keyword.
+        type: object
+        #additionalProperties:
+        deprecated: false
+        properties:
+          description:
+            $ref: 'schemas.yaml#/description'
+          id:
+            $ref: 'schemas.yaml#/id'
+        #maxProperties:
+        #minProperties:
+        required:
+          - description
+          - id
+        #dependentRequired:
+        #example:
+          #description: a
+          #id: 1
+      examples:
+        entity:
+          $ref: 'examples.yaml#/entity'
+          #externalValue:
+      encoding:
+        description:
+          contentType: text/plain;charset=UTF-8
+          #headers:
+          style: form
+          explode: false
+          allowReserved: true
+  #links:
