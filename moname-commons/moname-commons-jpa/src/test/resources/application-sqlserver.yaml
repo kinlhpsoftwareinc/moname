@@ -1,7 +1,8 @@
-﻿# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
 spring:
   datasource:
-    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    #driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     #
     # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
     hikari:
@@ -14,14 +15,14 @@ spring:
       # Will be executed after every new connection creation before adding it to the pool.
       # If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
       # Default: none
-      connection-init-sql: &connection-init-sql SELECT 1 FROM information_schema.system_users
+      connection-init-sql: &connection-init-sql SELECT 1
       #
       # ${connection-test-query}
       # If your driver supports JDBC4 we strongly recommend not setting this property.
       # This is for "legacy" drivers that do not support the JDBC4 ${Connection.isValid()} API.
       # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
       # Default: none
-      connection-test-query: *connection-init-sql
+      #connection-test-query: *connection-init-sql
       #
       # ${connection-timeout}
       # The lowest acceptable connection timeout is 250ms.
@@ -44,15 +45,26 @@ spring:
       # For maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
       # Default: same as ${maximum-pool-size}.
       minimum-idle: *maximum-pool-size
-    password: moname
-    url: jdbc:hsqldb:mem:moname_commons_jpa_test
-    username: moname
+    password: A_Str0ng_Required_Password
+    #
+    # ${url}
+    # Learn | SQL | Connect | JDBC | Programming guide | Connections
+    # https://learn.microsoft.com/en-us/sql/connect/jdbc/setting-the-connection-properties?view=sql-server-ver16
+    #
+    # Testcontainers JDBC support
+    # https://www.testcontainers.org/modules/databases/jdbc
+    #
+    # List of all available tags for mssql/server
+    # https://mcr.microsoft.com/v2/mssql/server/tags/list
+    #url: jdbc:sqlserver://sqlserver:1433;trustServerCertificate=true
+    url: jdbc:tc:sqlserver:2022-latest:////moname_commons_jpa_test;TC_REUSABLE=true
+    username: SA
   jpa:
     #
     # ${database}
     # README#org.hibernate.dialect.Database
-    database: HSQL
-    database-platform: org.hibernate.dialect.HSQLDialect
+    database: SQLSERVER
+    database-platform: org.hibernate.dialect.SQLServer2016Dialect
   sql:
     init:
-      platform: hsqldb
+      platform: sqlserver

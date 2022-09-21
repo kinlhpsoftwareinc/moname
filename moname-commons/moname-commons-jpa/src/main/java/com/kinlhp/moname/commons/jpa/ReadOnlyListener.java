@@ -2,9 +2,9 @@ package com.kinlhp.moname.commons.jpa;
 
 import java.io.Serializable;
 
-import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
-import javax.persistence.PreUpdate;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreRemove;
+import jakarta.persistence.PreUpdate;
 
 /**
  * Listener that enables read-only behavior for read-only entities.
@@ -47,7 +47,7 @@ public final class ReadOnlyListener<T extends AbstractReadOnly<PK>, PK extends S
 	/**
 	 * Throws an {@link ReadOnlyEntityException}.
 	 */
-	@SuppressWarnings(value = {"unchecked"})
+	@SuppressWarnings(value = { "unchecked" })
 	private void throwException(final T entity) {
 		throw new ReadOnlyEntityException(entity.getClass());
 	}

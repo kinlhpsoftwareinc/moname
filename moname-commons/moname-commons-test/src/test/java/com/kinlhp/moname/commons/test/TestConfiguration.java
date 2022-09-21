@@ -1,12 +1,10 @@
-package com.kinlhp.moname.commons.jpa;
+package com.kinlhp.moname.commons.test;
 
 import jakarta.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 
-@AutoConfigurationPackage
 @Slf4j
 @SpringBootConfiguration
 public class TestConfiguration {

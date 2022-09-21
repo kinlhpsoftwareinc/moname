@@ -10,6 +10,6 @@ Module for common abstractions.
 
 ```sh
 ../mvnw --activate-profiles <PROFILES> --also-make-dependents --batch-mode \
---no-transfer-progress --projects com.kinlhp:moname-commons --update-snapshots \
-clean verify
+--no-transfer-progress --projects com.kinlhp:moname-commons \
+--threads <THREADS> --update-snapshots clean verify
 ```

@@ -8,12 +8,10 @@ import java.lang.annotation.Target;
 
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 
-import static com.kinlhp.moname.commons.test.context.IfTestProfile.EXPRESSION;
-
-@EnabledIf(expression = EXPRESSION)
+@EnabledIf(expression = IfTestProfile.EXPRESSION)
 @Inherited
 @Retention(value = RetentionPolicy.RUNTIME)
-@Target(value = {ElementType.TYPE, ElementType.METHOD})
+@Target(value = { ElementType.TYPE, ElementType.METHOD })
 public @interface IfTestProfile {
 
 	String EXPRESSION = "#{environment.acceptsProfiles(T(org.springframework.core.env.Profiles).of('test'))}";

@@ -2,7 +2,7 @@ package com.kinlhp.moname.commons.jpa;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Abstraction for persistable entities.

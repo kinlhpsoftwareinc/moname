@@ -1,7 +1,8 @@
-﻿# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
 spring:
+  application:
+    name: @project.artifactId@-test
   datasource:
-    driver-class-name: org.hsqldb.jdbc.JDBCDriver
     #
     # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
     hikari:
@@ -44,6 +45,11 @@ spring:
       # For maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
       # Default: same as ${maximum-pool-size}.
       minimum-idle: *maximum-pool-size
+      #
+      # ${pool-name}
+      # Default: "auto-generated"
+      pool-name: ${spring.application.name}-pool
+    name: ${spring.application.name}-datasource
     password: moname
     url: jdbc:hsqldb:mem:moname_commons_jpa_test
     username: moname
@@ -53,6 +59,21 @@ spring:
     # README#org.hibernate.dialect.Database
     database: HSQL
     database-platform: org.hibernate.dialect.HSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-test.yaml
+    contexts: test
+    parameters:
+      encoding: ${spring.sql.init.encoding}
+      increment-by: 1
+      table-name: read_only
+      use-prepared-statements: true
+    password: ${spring.datasource.password}
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
   sql:
     init:
+      encoding: UTF-8
       platform: hsqldb

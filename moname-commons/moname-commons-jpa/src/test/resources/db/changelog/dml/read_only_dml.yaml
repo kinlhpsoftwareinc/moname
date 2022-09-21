@@ -7,14 +7,19 @@
 # https://docs.liquibase.com/change-types/load-data.html
 #
 # https://www.liquibase.org/javadoc/liquibase/change/core/LoadDataChange.LOAD_DATA_TYPE.html
+#
+# ${databaseChangeLog[].changeSet.id}
+# Pattern: ISO 8601 (e.g.: 1970-01-01T00:00:00+00:00)
+#
+# {@link spring.liquibase.parameters.*}
+# https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.data-migration.spring.liquibase.parameters
 databaseChangeLog:
   - changeSet:
       author: kinlhp
       context: test
-      id: "2022-04-02T02:51:14+00:00"
+      id: 2022-04-02T05:51:14-03:00
       changes:
         - loadData:
-            catalogName: moname_commons_jpa_test
             columns:
               - column:
                   name: id
@@ -23,13 +28,10 @@ databaseChangeLog:
                   name: description
                   type: STRING
             commentLineStartsWith: "#"
-            encoding: UTF-8
-            file: read_only.csv
+            encoding: ${encoding}
+            file: ${table-name}.csv
             quotchar: "''"
             relativeToChangelogFile: true
             separator: ","
-            tableName: read_only
-            #
-            # ${usePreparedStatements}
-            # https://github.com/liquibase/liquibase/issues/1551
-            #usePreparedStatements: true
+            tableName: ${table-name}
+            usePreparedStatements: ${use-prepared-statements}

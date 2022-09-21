@@ -3,12 +3,12 @@ package com.kinlhp.moname.commons.jpa;
 import java.io.Serial;
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements Pe
 	@Column(updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@Setter(onParam = @__({@NotNull}))
+	@Setter(onParam = @__({ @NotNull }))
 	private PK pk;
 
 }

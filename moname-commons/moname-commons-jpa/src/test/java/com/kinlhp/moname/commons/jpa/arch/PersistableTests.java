@@ -3,7 +3,7 @@ package com.kinlhp.moname.commons.jpa.arch;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import com.kinlhp.moname.commons.jpa.Persistable;
 import com.kinlhp.moname.commons.jpa.Readable;
-import com.kinlhp.moname.commons.jpa.arch.PersistableArchTests;
 
 /**
  * Architectural tests for abstraction of persistable entities.
@@ -25,7 +24,7 @@ class PersistableTests implements PersistableArchTests<Persistable<Serializable>
 
 	@Override
 	@ParameterizedTest
-	@ValueSource(classes = {Persistable.class})
+	@ValueSource(classes = { Persistable.class })
 	public final void assertPersistableArch(final Class<Persistable<Serializable>> clazz) throws
 		NoSuchMethodException {
 		PersistableArchTests.super.assertPersistableArch(clazz);

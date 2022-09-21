@@ -1,7 +1,7 @@
-﻿# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
 spring:
   datasource:
-    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #driver-class-name: oracle.jdbc.driver.OracleDriver
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     #
     # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
@@ -15,14 +15,14 @@ spring:
       # Will be executed after every new connection creation before adding it to the pool.
       # If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
       # Default: none
-      connection-init-sql: &connection-init-sql SELECT 1
+      connection-init-sql: &connection-init-sql SELECT 1 FROM DUAL
       #
       # ${connection-test-query}
       # If your driver supports JDBC4 we strongly recommend not setting this property.
       # This is for "legacy" drivers that do not support the JDBC4 ${Connection.isValid()} API.
       # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
       # Default: none
-      #connection-test-query: *connection-init-sql
+      connection-test-query: *connection-init-sql
       #
       # ${connection-timeout}
       # The lowest acceptable connection timeout is 250ms.
@@ -45,29 +45,49 @@ spring:
       # For maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
       # Default: same as ${maximum-pool-size}.
       minimum-idle: *maximum-pool-size
-    password: moname
+    #
+    # ${oracleucp}
+    # https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/optimizing-ucp-behavior.html
+    # Database | Oracle | Oracle Database | Release 21 | Universal Connection Pool Developer's Guide | Optimizing Universal Connection Pool Behavior
+    #
+    # https://docs.oracle.com/en/database/oracle/oracle-database/21/jjuar/oracle/ucp/jdbc/UCPDataSource.html
+    # UCPDataSource (Oracle Universal Connection Pool Java API Reference, Release 21c)
+    #oracleucp:
+      #connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+      #connection-pool-name: ${spring.datasource.hikari.pool-name}
+      #
+      # ${initial-pool-size}
+      # Specifies the number of available connections that are created when the connection pool is initially created or re-initialized.
+      # A value of 0 indicates that no connections are pre-created.
+      # Default: 0
+      #initial-pool-size: *maximumPoolSize
+      #
+      # ${max-pool-size}
+      # Specifies the maximum number of available and borrowed (in use) connections that a pool maintains.
+      # A value of 0 indicates that no connections are maintained by the pool, an attempt to get a connection results in an exception.
+      # Default: 0
+      #max-pool-size: *maximumPoolSize
+      #
+      # ${min-pool-size}
+      # Specifies the minimum amount of available connections and borrowed connections that a pool maintains.
+      # Default: 0
+      #min-pool-size: *maximumPoolSize
+      #sql-for-validate-connection: *connectionInitSql
+    password: test
+    #type: oracle.ucp.jdbc.UCPDataSource
     #
     # ${url}
-    # https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html
-    # MySQL Connector/J 8.0 Developer Guide | Connector/J Reference | Configuration Properties
-    #
     # https://www.testcontainers.org/modules/databases/jdbc
     # Testcontainers JDBC support
-    #url: jdbc:mysql://mysql:3306/moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&serverTimezone=UTC&useLocalSessionState=true&useServerPrepStmts=true
-    url: jdbc:tc:mysql:8.0.31:////moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&serverTimezone=UTC&useLocalSessionState=true&useServerPrepStmts=true&TC_REUSABLE=true
-    username: moname
+    #url: jdbc:oracle:thin:@oracle:1521/moname_commons_jpa_test
+    url: jdbc:tc:oracle:21.3.0-slim-faststart:////moname_commons_jpa_test?TC_REUSABLE=true
+    username: test
   jpa:
     #
     # ${database}
     # README#org.hibernate.dialect.Database
-    database: MYSQL
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-  liquibase:
-    parameters:
-      #
-      # ${increment-by}
-      # java.lang.NumberFormatException: Zero length BigInteger
-      #increment-by:
+    database: ORACLE
+    database-platform: org.hibernate.dialect.Oracle12cDialect
   sql:
     init:
-      platform: mysql
+      platform: oracle

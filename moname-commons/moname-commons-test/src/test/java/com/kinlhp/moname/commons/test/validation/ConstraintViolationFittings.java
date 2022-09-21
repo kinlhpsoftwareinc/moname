@@ -1,4 +1,4 @@
-package com.kinlhp.moname.commons.test;
+package com.kinlhp.moname.commons.test.validation;
 
 /**
  * Fittings for the bean tests.

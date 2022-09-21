@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -23,7 +23,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import com.kinlhp.moname.commons.jpa.AbstractPersistable;
 import com.kinlhp.moname.commons.jpa.Persistable;
-import com.kinlhp.moname.commons.jpa.arch.AbstractPersistableArchTests;
 
 /**
  * Architectural tests for abstract implementation of persistable entities.
@@ -38,7 +37,7 @@ class AbstractPersistableTests implements
 
 	@Override
 	@ParameterizedTest
-	@ValueSource(classes = {AbstractPersistable.class})
+	@ValueSource(classes = { AbstractPersistable.class })
 	public final void assertAbstractPersistableArch(final Class<AbstractPersistable<Serializable>> clazz) throws
 		NoSuchMethodException {
 		AbstractPersistableArchTests.super.assertAbstractPersistableArch(clazz);

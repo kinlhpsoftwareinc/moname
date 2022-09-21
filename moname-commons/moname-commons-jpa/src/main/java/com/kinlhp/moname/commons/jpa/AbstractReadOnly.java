@@ -3,10 +3,10 @@ package com.kinlhp.moname.commons.jpa;
 import java.io.Serial;
 import java.io.Serializable;
 
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * Abstract implementation for read-only entities.
  */
-@EntityListeners(value = {ReadOnlyListener.class})
+@EntityListeners(value = { ReadOnlyListener.class })
 @MappedSuperclass
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
@@ -27,7 +27,7 @@ public abstract class AbstractReadOnly<PK extends Serializable> implements Reada
 
 	@Getter
 	@Id
-	@Setter(onParam = @__({@NotNull}))
+	@Setter(onParam = @__({ @NotNull }))
 	private PK pk;
 
 }

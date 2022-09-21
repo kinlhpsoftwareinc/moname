@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 
-@EnabledIf(expression = IfHSqlDbProfile.EXPRESSION)
+@EnabledIf(expression = IfOracleProfile.EXPRESSION)
 @Inherited
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.TYPE, ElementType.METHOD })
-public @interface IfHSqlDbProfile {
+public @interface IfOracleProfile {
 
-	String EXPRESSION = "#{environment.acceptsProfiles(T(org.springframework.core.env.Profiles).of('hsqldb'))}";
+	String EXPRESSION = "#{environment.acceptsProfiles(T(org.springframework.core.env.Profiles).of('oracle'))}";
 
 }

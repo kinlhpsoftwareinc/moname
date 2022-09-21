@@ -6,10 +6,10 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -21,7 +21,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import com.kinlhp.moname.commons.jpa.AbstractReadOnly;
 import com.kinlhp.moname.commons.jpa.ReadOnlyListener;
 import com.kinlhp.moname.commons.jpa.Readable;
-import com.kinlhp.moname.commons.jpa.arch.AbstractReadOnlyArchTests;
 
 /**
  * Architectural tests for abstract implementation of read-only entities.
@@ -35,7 +34,7 @@ class AbstractReadOnlyTests implements AbstractReadOnlyArchTests<AbstractReadOnl
 
 	@Override
 	@ParameterizedTest
-	@ValueSource(classes = {AbstractReadOnly.class})
+	@ValueSource(classes = { AbstractReadOnly.class })
 	public final void assertAbstractReadOnlyArch(final Class<AbstractReadOnly<Serializable>> clazz) throws
 		NoSuchMethodException, NoSuchFieldException {
 		AbstractReadOnlyArchTests.super.assertAbstractReadOnlyArch(clazz);

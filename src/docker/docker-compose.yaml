@@ -10,10 +10,58 @@ services:
     image: ${MYSQL_CONTAINER_IMAGE:?unset or empty in the environment}
     container_name: ${MYSQL_CONTAINER_NAME:?unset or empty in the environment}
     volumes:
-      - ${HOME:?unset or empty in the environment}/.docker/volumes/${MYSQL_CONTAINER_NAME:?unset or empty in the environment}/data:/var/lib/mysql
+      #- ${HOME:?unset or empty in the environment}/.docker/volumes/${MYSQL_CONTAINER_NAME:?unset or empty in the environment}-data:/var/lib/mysql
+      - type: volume
+        source: ${MYSQL_CONTAINER_NAME:?unset or empty in the environment}-data
+        target: /var/lib/mysql
     networks:
       - network
     ports:
       - ${MYSQL_CONTAINER_PORT_MAPPING:?unset or empty in the environment}
     command: ${MYSQL_CONTAINER_INITIAL_COMMAND:?unset or empty in the environment}
     restart: ${CONTAINER_RESTART_POLICY:?unset or empty in the environment}
+  oracle:
+    env_file:
+      - ./oracle.env
+    image: ${ORACLE_CONTAINER_IMAGE:?unset or empty in the environment}
+    container_name: ${ORACLE_CONTAINER_NAME:?unset or empty in the environment}
+    volumes:
+      #- ${HOME:?unset or empty in the environment}/.docker/volumes/${ORACLE_CONTAINER_NAME:?unset or empty in the environment}-data:/opt/oracle/oradata
+      - type: volume
+        source: ${ORACLE_CONTAINER_NAME:?unset or empty in the environment}-data
+        target: /opt/oracle/oradata
+    networks:
+      - network
+    ports:
+      - ${ORACLE_CONTAINER_PORT_MAPPING:?unset or empty in the environment}
+    #command: ${ORACLE_CONTAINER_INITIAL_COMMAND:?unset or empty in the environment}
+    restart: ${CONTAINER_RESTART_POLICY:?unset or empty in the environment}
+  sqlserver:
+    env_file:
+      - ./sqlserver.env
+    image: ${SQLSERVER_CONTAINER_IMAGE:?unset or empty in the environment}
+    container_name: ${SQLSERVER_CONTAINER_NAME:?unset or empty in the environment}
+    volumes:
+      #- ${HOME:?unset or empty in the environment}/.docker/volumes/${SQLSERVER_CONTAINER_NAME:?unset or empty in the environment}-data:/var/opt/mssql
+      - type: volume
+        source: ${SQLSERVER_CONTAINER_NAME:?unset or empty in the environment}-data
+        target: /var/opt/mssql
+    networks:
+      - network
+    ports:
+      - ${SQLSERVER_CONTAINER_PORT_MAPPING:?unset or empty in the environment}
+    #command: ${SQLSERVER_CONTAINER_INITIAL_COMMAND:?unset or empty in the environment}
+    restart: ${CONTAINER_RESTART_POLICY:?unset or empty in the environment}
+volumes:
+  mysql-data:
+    labels:
+      spring.jpa.database: MYSQL
+    name: ${MYSQL_CONTAINER_NAME:?unset or empty in the environment}-data
+  oracle-data:
+    labels:
+      spring.jpa.database: ORACLE
+    name: ${ORACLE_CONTAINER_NAME:?unset or empty in the environment}-data
+  sqlserver-data:
+    labels:
+      spring.jpa.database: SQLSERVER
+    name: ${SQLSERVER_CONTAINER_NAME:?unset or empty in the environment}-data

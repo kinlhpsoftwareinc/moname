@@ -14,48 +14,67 @@
 # https://stackoverflow.com/a/28626825
 #
 # https://docs.liquibase.com/change-types/create-index.html
+#
+# ${databaseChangeLog[].changeSet.id}
+# Pattern: ISO 8601 (e.g.: 1970-01-01T00:00:00+00:00)
+#
+# {@link spring.liquibase.parameters.*}
+# https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.data-migration.spring.liquibase.parameters
 databaseChangeLog:
   - changeSet:
       author: kinlhp
       context: test
-      id: "2022-04-02T02:51:13+00:00"
+      id: 2022-04-02T05:51:13-03:00
       changes:
         - createTable:
-            catalogName: moname_commons_jpa_test
             columns:
               - column:
                   autoIncrement: true
                   constraints:
-                    notNullConstraintName: read_only_id_nn
+                    notNullConstraintName: ${table-name}_id_nn
                     nullable: true
                     primaryKey: true
-                    primaryKeyName: read_only_pk
-                  incrementBy: 1
+                    primaryKeyName: ${table-name}_pk
+                  #
+                  # ${incrementBy}
+                  # https://forum.liquibase.org/t/incrementby-does-not-work-for-mysql-in-liquibase-4-17/7454
+                  # liquibase.exception.ValidationErrors#checkDisallowedField
+                  #incrementBy: ${increment-by}
                   name: id
-                  remarks: Primary key for read_only table.
+                  remarks: Primary key for ${table-name} table.
                   startWith: 1
                   type: TINYINT
               - column:
                   constraints:
-                    notNullConstraintName: read_only_description_nn
+                    notNullConstraintName: ${table-name}_description_nn
                     nullable: false
                     unique: true
-                    uniqueConstraintName: read_only_description_uk
+                    uniqueConstraintName: ${table-name}_description_uk
                   name: description
                   remarks: Description of the registry.
                   type: CHAR(1)
             remarks: Read-only entity test.
-            tableName: read_only
-        - createIndex:
-            catalogName: moname_commons_jpa_test
-            columns:
-              - column:
-                  name: description
-            indexName: read_only_description_uk_idx
-            tableName: read_only
-            unique: true
+            tableName: ${table-name}
       preConditions:
         - onFail: MARK_RAN
         - not:
             - tableExists:
-                tableName: read_only
+                tableName: ${table-name}
+  - changeSet:
+      author: kinlhp
+      context: test
+      id: 2022-10-16T22:54:02-03:00
+      dbms: '!oracle'
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: description
+            indexName: ${table-name}_description_uk_idx
+            tableName: ${table-name}
+            unique: true
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - indexExists:
+                indexName: ${table-name}_description_uk_idx

@@ -1,13 +1,13 @@
-package com.kinlhp.moname.commons.test;
+package com.kinlhp.moname.commons.test.validation;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 final class Bean implements Serializable {
 
 	@Serial
-	private static final long serialVersionUID = 3051166050701089093L;
+	private static final long serialVersionUID = 4993426173535471003L;
 
 	@Max(value = 0L)
 	@NotNull

@@ -31,6 +31,20 @@
 	<profiles>
 		<profile>
 			<id>test</id>
+			<build>
+				<plugins>
+					<!-- gmavenplus -->
+					<plugin>
+						<groupId>org.codehaus.gmavenplus</groupId>
+						<artifactId>gmavenplus-plugin</artifactId>
+					</plugin>
+					<!-- jacoco -->
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
 			<dependencies>
 				<!-- # third party # -->
 				<!-- assertj -->
@@ -41,9 +55,8 @@
 				<!-- glassfish -->
 				<dependency>
 					<!-- README#jsr-380 -->
-					<groupId>org.glassfish</groupId>
-					<artifactId>jakarta.el</artifactId>
-					<scope>test</scope>
+					<groupId>org.glassfish.expressly</groupId>
+					<artifactId>expressly</artifactId>
 				</dependency>
 				<!-- lombok -->
 				<dependency>
@@ -58,6 +71,18 @@
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>hsqldb</id>
+		</profile>
+		<profile>
+			<id>mysql</id>
+		</profile>
+		<profile>
+			<id>oracle</id>
+		</profile>
+		<profile>
+			<id>sqlserver</id>
 		</profile>
 	</profiles>
 </project>

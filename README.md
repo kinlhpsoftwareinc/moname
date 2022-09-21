@@ -7,9 +7,15 @@ Project to money me with no name.
 ### Profiles
 
 | PROFILE | ACTIVE BY DEFAULT | REQUIRES | DESCRIPTION |
-|-|-|-|-|
-| `hsqldb` | `false` | `test` | Integration tests in the HyperSQL database (in-memory). |
-| `mysql` | `false` | `test` | Integration tests in the MySQL database (testcontainers). |
+| - | - | - | - |
+| `hsqldb` | `false` | `test` | Integration tests in the JPA layer on HyperSQL
+database (in-memory). |
+| `mysql` | `false` | `test` | Integration tests in the JPA layer on MySQL
+database (testcontainers). |
+| `oracle` | `false` | `test` | Integration tests in the JPA layer on Oracle
+database (testcontainers). |
+| `sqlserver` | `false` | `test` | Integration tests in the JPA layer on SQL
+Server database (testcontainers). |
 | `test` | `false` | | Compilation running tests. |
 
 ### Building all from source
@@ -19,7 +25,7 @@ Can be easily built with the
 
 ```sh
 ./mvnw --activate-profiles <PROFILES> --batch-mode --no-transfer-progress \
---update-snapshots clean verify
+--threads <THREADS> --update-snapshots clean verify
 ```
 
 > ***NOTE:*** You also need [JDK 17 or above](https://adoptium.net).
@@ -40,7 +46,7 @@ Can be easily built with the
 ```sh
 ./mvnw --activate-profiles <PROFILES> <--also-make> <--also-make-dependents> \
 --batch-mode --no-transfer-progress --projects com.kinlhp:[REACTOR_PROJECT] \
---update-snapshots clean verify
+--threads <THREADS> --update-snapshots clean verify
 ```
 
 ## Docs and refs
@@ -56,3 +62,19 @@ Can be easily built with the
 ### [GMavenPlus](#gmavenplus)
 
 * [Executing a Groovy script](https://github.com/groovy/GMavenPlus/wiki/Usage#executing-a-groovy-script)
+
+#### Usage:
+```sh
+./mvnw --batch-mode --no-transfer-progress --update-snapshots -Ddetail \
+-Dplugin=org.codehaus.gmavenplus:gmavenplus-plugin help:describe
+```
+
+### [JaCoCo](#jacoco)
+
+* [Maven Plug-in](https://www.jacoco.org/jacoco/trunk/doc/maven.html)
+
+#### Usage:
+```sh
+./mvnw --batch-mode --no-transfer-progress --update-snapshots -Ddetail \
+-Dplugin=org.jacoco:jacoco-maven-plugin help:describe
+```

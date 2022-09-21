@@ -2,12 +2,14 @@ package com.kinlhp.moname.commons.jpa.entity;
 
 import java.io.Serial;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,11 +33,18 @@ import com.kinlhp.moname.commons.jpa.AbstractReadOnly;
 public class ReadOnlyEntity extends AbstractReadOnly<Integer> {
 
 	@Serial
-	private static final long serialVersionUID = 8231703272479099670L;
+	private static final long serialVersionUID = -4943378731460389060L;
 
 	@Getter
 	@NotBlank
 	@Setter(onParam = @__({ @NotNull }))
 	private char description;
+
+	@Max(value = 255L)
+	@Min(value = 1L)
+	@Override
+	public Integer getPk() {
+		return super.getPk();
+	}
 
 }

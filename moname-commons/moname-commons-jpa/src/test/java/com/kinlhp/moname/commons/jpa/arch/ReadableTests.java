@@ -9,7 +9,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import com.kinlhp.moname.commons.jpa.Readable;
-import com.kinlhp.moname.commons.jpa.arch.ReadableArchTests;
 
 /**
  * Architectural tests for abstraction of readable entities.
@@ -21,7 +20,7 @@ class ReadableTests implements ReadableArchTests<Readable<Serializable>, Seriali
 
 	@Override
 	@ParameterizedTest
-	@ValueSource(classes = {Readable.class})
+	@ValueSource(classes = { Readable.class })
 	public final void assertReadableArch(final Class<Readable<Serializable>> clazz) throws NoSuchMethodException {
 		ReadableArchTests.super.assertReadableArch(clazz);
 	}

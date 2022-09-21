@@ -17,13 +17,28 @@
 		<!-- dependency versions -->
 		<!-- # third party # -->
 		<assertj-db.version>2.0.2</assertj-db.version>
-		<groovy-all.version>3.0.12</groovy-all.version>
-		<spring-boot-dependencies.version>2.7.2</spring-boot-dependencies.version>
-		<testcontainers-bom.version>1.17.3</testcontainers-bom.version>
+		<expressly.version>5.0.0</expressly.version>
+		<groovy-all.version>3.0.13</groovy-all.version>
+		<liquibase.version>4.18.0</liquibase.version>
+		<spring-boot-dependencies.version>3.0.0</spring-boot-dependencies.version>
+		<testcontainers-bom.version>1.17.6</testcontainers-bom.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
 			<!-- # third party # -->
+			<!-- liquibase -->
+			<dependency>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-core</artifactId>
+				<version>${liquibase.version}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.liquibase.ext</groupId>
+				<artifactId>liquibase-mssql</artifactId>
+				<version>${liquibase.version}</version>
+				<optional>true</optional>
+			</dependency>
 			<!-- springframework -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
@@ -75,6 +90,13 @@
 						<groupId>org.assertj</groupId>
 						<artifactId>assertj-db</artifactId>
 						<version>${assertj-db.version}</version>
+						<optional>true</optional>
+					</dependency>
+					<!-- glassfish -->
+					<dependency>
+						<groupId>org.glassfish.expressly</groupId>
+						<artifactId>expressly</artifactId>
+						<version>${expressly.version}</version>
 						<optional>true</optional>
 					</dependency>
 					<!-- testcontainers -->

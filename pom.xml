@@ -61,16 +61,17 @@
 		<!-- dependency versions -->
 		<revision>1.0.0.BUILD-SNAPSHOT</revision>
 		<!-- # third party # -->
-		<gmavenplus-plugin.version>1.13.1</gmavenplus-plugin.version>
-		<java.version>18</java.version>
+		<gmavenplus-plugin.version>2.1.0</gmavenplus-plugin.version>
+		<jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+		<java.version>17</java.version>
 		<maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
 		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 		<maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
 		<maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
-		<maven-install-plugin.version>3.0.1</maven-install-plugin.version>
-		<maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
+		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
 		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
-		<maven-site-plugin.version>4.0.0-M3</maven-site-plugin.version>
+		<maven-site-plugin.version>4.0.0-M4</maven-site-plugin.version>
 		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 	</properties>
 	<build>
@@ -121,6 +122,7 @@
 							<!-- README#property-expansion -->
 							<delimiter>@</delimiter>
 						</delimiters>
+						<propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
 						<useDefaultDelimiters>false</useDefaultDelimiters>
 					</configuration>
 				</plugin>
@@ -132,9 +134,31 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<reporting>
+		<plugins>
+			<!-- # third party # -->
+			<!-- jacoco -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<reportSets>
+					<!-- README#jacoco -->
+					<reportSet>
+						<reports>
+							<!-- select non-aggregate reports -->
+							<report>report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 	<profiles>
 		<profile>
 			<id>test</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<build>
 				<testResources>
 					<testResource>
@@ -154,7 +178,7 @@
 							<version>${gmavenplus-plugin.version}</version>
 							<executions>
 								<execution>
-									<id>spring-profiles-active</id>
+									<id>default-profiles-integration</id>
 									<phase>test-compile</phase>
 									<goals>
 										<goal>execute</goal>
@@ -164,13 +188,43 @@
 											<script>
 												<!-- maven + springframework -->
 												<!-- README#gmavenplus -->
-												<![CDATA[
-													project.properties.springProfilesActive = project.activeProfiles.collect{ it.id }.join(',')
-													log.info "The following ${project.activeProfiles.size()} profiles are active: ${project.activeProfiles.collect{ '"' + it.id + '"' }.join(", ")}"
-												]]>
+												${main.basedir}/src/gmavenplus/profiles-integration.groovy
 											</script>
 										</scripts>
 									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+						<!-- jacoco -->
+						<plugin>
+							<groupId>org.jacoco</groupId>
+							<artifactId>jacoco-maven-plugin</artifactId>
+							<version>${jacoco-maven-plugin.version}</version>
+							<executions>
+								<!-- README#jacoco -->
+								<execution>
+									<id>default-prepare-agent</id>
+									<goals>
+										<goal>prepare-agent</goal>
+									</goals>
+								</execution>
+								<execution>
+									<id>default-prepare-agent-integration</id>
+									<goals>
+										<goal>prepare-agent-integration</goal>
+									</goals>
+								</execution>
+								<execution>
+									<id>default-report</id>
+									<goals>
+										<goal>report</goal>
+									</goals>
+								</execution>
+								<execution>
+									<id>default-report-integration</id>
+									<goals>
+										<goal>report-integration</goal>
+									</goals>
 								</execution>
 							</executions>
 						</plugin>
