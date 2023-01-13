@@ -1,0 +1,47 @@
+# .github/workflows/github-actions.yaml
+#
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+#
+# https://json.schemastore.org/github-workflow.json
+name: ci
+on: [push]
+#env:
+#defaults:
+#concurrency:
+jobs:
+  compile:
+    name: compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: set-up-jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          architecture: x64
+          cache: maven
+      - name: compile-with-maven
+        run: ./mvnw --activate-profiles test,hsqldb,mysql,oracle,sqlserver --batch-mode --define skipTests --no-transfer-progress --threads 4 --update-snapshots clean package
+  verify-matrix:
+    name: verify-matrix
+    needs: compile
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        profile: [hsqldb, mysql, oracle, sqlserver]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: set-up-jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          architecture: x64
+          cache: maven
+      - name: verify-with-maven
+        run: ./mvnw --activate-profiles test,${{ matrix.profile }} --batch-mode --no-transfer-progress --threads 4 --update-snapshots clean verify
+run-name: ${{ github.actor }} is executing CI
+#permissions:
