@@ -73,21 +73,21 @@ spring:
       # Default: 0
       #min-pool-size: *maximumPoolSize
       #sql-for-validate-connection: *connectionInitSql
-    password: test
+    password: moname
     #type: oracle.ucp.jdbc.UCPDataSource
     #
     # ${url}
     # https://www.testcontainers.org/modules/databases/jdbc
     # Testcontainers JDBC support
     #url: jdbc:oracle:thin:@oracle:1521/moname_commons_jpa_test
-    url: jdbc:tc:oracle:21.3.0-slim-faststart:////moname_commons_jpa_test?TC_REUSABLE=true
-    username: test
+    url: jdbc:tc:oracleext:21.3.0-slim-faststart:///moname_commons_jpa_test?TC_REUSABLE=true
+    username: moname
   jpa:
     #
     # ${database}
     # README#org.hibernate.dialect.Database
     database: ORACLE
-    database-platform: org.hibernate.dialect.Oracle12cDialect
+    database-platform: org.hibernate.dialect.OracleDialect
   sql:
     init:
       platform: oracle

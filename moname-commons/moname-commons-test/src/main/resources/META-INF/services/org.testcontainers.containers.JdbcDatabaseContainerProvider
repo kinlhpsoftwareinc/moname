@@ -1,0 +1,3 @@
+org.testcontainers.containers.ExtendedMySQLContainerProvider
+org.testcontainers.containers.ExtendedOracleContainerProvider
+org.testcontainers.containers.ExtendedMSSQLServerContainerProvider

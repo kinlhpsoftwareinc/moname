@@ -9,5 +9,6 @@ databaseChangeLog:
   - includeAll:
       context: test
       errorIfMissingOrEmpty: true
+      filter: liquibase.changelog.DmlIncludeAllFilter
       path: dml
       relativeToChangelogFile: true

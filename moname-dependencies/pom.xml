@@ -18,11 +18,11 @@
 		<!-- # third party # -->
 		<assertj-db.version>2.0.2</assertj-db.version>
 		<expressly.version>5.0.0</expressly.version>
-		<groovy-all.version>3.0.13</groovy-all.version>
-		<jackson-databind-nullable.version>0.2.4</jackson-databind-nullable.version>
-		<liquibase.version>4.18.0</liquibase.version>
-		<spring-boot-dependencies.version>3.0.0</spring-boot-dependencies.version>
-		<swagger-core.version>2.2.7</swagger-core.version>
+		<groovy-all.version>3.0.16</groovy-all.version>
+		<jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
+		<liquibase.version>4.20.0</liquibase.version>
+		<spring-boot-dependencies.version>3.0.4</spring-boot-dependencies.version>
+		<swagger-core.version>2.2.8</swagger-core.version>
 		<testcontainers-bom.version>1.17.6</testcontainers-bom.version>
 	</properties>
 	<dependencyManagement>
@@ -75,6 +75,9 @@
 	<profiles>
 		<profile>
 			<id>test</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<build>
 				<pluginManagement>
 					<plugins>

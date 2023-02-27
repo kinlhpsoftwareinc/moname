@@ -69,15 +69,15 @@
 		<jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
 		<java.version>17</java.version>
 		<maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
-		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-		<maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
-		<maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-deploy-plugin.version>3.1.0</maven-deploy-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
 		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
 		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
 		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
-		<maven-site-plugin.version>4.0.0-M4</maven-site-plugin.version>
-		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-		<openapi-generator-maven-plugin.version>6.2.1</openapi-generator-maven-plugin.version>
+		<maven-site-plugin.version>4.0.0-M5</maven-site-plugin.version>
+		<maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+		<openapi-generator-maven-plugin.version>6.4.0</openapi-generator-maven-plugin.version>
 	</properties>
 	<build>
 		<resources>
@@ -256,6 +256,7 @@
 										<scripts>
 											<script>
 												<!-- maven + springframework -->
+												<!-- README#property-expansion -->
 												<!-- README#gmavenplus -->
 												${main.basedir}/src/gmavenplus/profiles-integration.groovy
 											</script>
@@ -313,6 +314,7 @@
 							<configuration>
 								<systemPropertyVariables>
 									<!-- maven + springframework -->
+									<!-- README#property-expansion -->
 									<!-- README#gmavenplus -->
 									<spring.profiles.active>${springProfilesActive}</spring.profiles.active>
 								</systemPropertyVariables>
@@ -325,6 +327,7 @@
 							<configuration>
 								<systemPropertyVariables>
 									<!-- maven + springframework -->
+									<!-- README#property-expansion -->
 									<!-- README#gmavenplus -->
 									<spring.profiles.active>${springProfilesActive}</spring.profiles.active>
 								</systemPropertyVariables>
@@ -333,6 +336,46 @@
 					</plugins>
 				</pluginManagement>
 			</build>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<test.profile>test</test.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>hsqldb</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<database.profile>hsqldb</database.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>mysql</id>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<database.profile>mysql</database.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>oracle</id>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<database.profile>oracle</database.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>sqlserver</id>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<database.profile>sqlserver</database.profile>
+			</properties>
 		</profile>
 	</profiles>
 </project>

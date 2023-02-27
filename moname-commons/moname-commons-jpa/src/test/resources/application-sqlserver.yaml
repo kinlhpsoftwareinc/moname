@@ -45,26 +45,29 @@ spring:
       # For maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
       # Default: same as ${maximum-pool-size}.
       minimum-idle: *maximum-pool-size
-    password: A_Str0ng_Required_Password
+    password: moname
     #
     # ${url}
+    # List of all available tags for mssql/server
+    # https://mcr.microsoft.com/v2/mssql/server/tags/list
+    #
     # Learn | SQL | Connect | JDBC | Programming guide | Connections
-    # https://learn.microsoft.com/en-us/sql/connect/jdbc/setting-the-connection-properties?view=sql-server-ver16
+    # https://learn.microsoft.com/en-us/sql/connect/jdbc/setting-the-connection-properties
+    #
+    # ;sendStringParametersAsUnicode
+    # https://vladmihalcea.com/sql-server-jdbc-sendstringparametersasunicode
     #
     # Testcontainers JDBC support
     # https://www.testcontainers.org/modules/databases/jdbc
-    #
-    # List of all available tags for mssql/server
-    # https://mcr.microsoft.com/v2/mssql/server/tags/list
-    #url: jdbc:sqlserver://sqlserver:1433;trustServerCertificate=true
-    url: jdbc:tc:sqlserver:2022-latest:////moname_commons_jpa_test;TC_REUSABLE=true
-    username: SA
+    #url: jdbc:sqlserver://sqlserver:1433;databaseName=moname_commons_jpa_test;sendStringParametersAsUnicode=false;trustServerCertificate=true
+    url: jdbc:tc:sqlserverext:2022-latest://;databaseName=moname_commons_jpa_test;sendStringParametersAsUnicode=false;TC_REUSABLE=true
+    username: moname
   jpa:
     #
     # ${database}
     # README#org.hibernate.dialect.Database
     database: SQLSERVER
-    database-platform: org.hibernate.dialect.SQLServer2016Dialect
+    database-platform: org.hibernate.dialect.SQLServerDialect
   sql:
     init:
       platform: sqlserver

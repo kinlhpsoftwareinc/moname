@@ -6,7 +6,7 @@ networks:
 services:
   mysql:
     env_file:
-      - ./mysql.env
+      - mysql/.env
     image: ${MYSQL_CONTAINER_IMAGE:?unset or empty in the environment}
     container_name: ${MYSQL_CONTAINER_NAME:?unset or empty in the environment}
     volumes:
@@ -22,7 +22,7 @@ services:
     restart: ${CONTAINER_RESTART_POLICY:?unset or empty in the environment}
   oracle:
     env_file:
-      - ./oracle.env
+      - oracle/.env
     image: ${ORACLE_CONTAINER_IMAGE:?unset or empty in the environment}
     container_name: ${ORACLE_CONTAINER_NAME:?unset or empty in the environment}
     volumes:
@@ -38,10 +38,18 @@ services:
     restart: ${CONTAINER_RESTART_POLICY:?unset or empty in the environment}
   sqlserver:
     env_file:
-      - ./sqlserver.env
+      - sqlserver/.env
     image: ${SQLSERVER_CONTAINER_IMAGE:?unset or empty in the environment}
     container_name: ${SQLSERVER_CONTAINER_NAME:?unset or empty in the environment}
     volumes:
+      #- ../../moname-commons/moname-commons-test/src/main/resources/db/sqlserver/initial-command.sh:/home/mssql/initial-command.sh
+      - type: bind
+        source: ../../moname-commons/moname-commons-test/src/main/resources/db/sqlserver/initial-command.sh
+        target: /home/mssql/initial-command.sh
+      #- ../../moname-commons/moname-commons-test/src/main/resources/db/sqlserver/initial-setup.sql:/home/mssql/initial-setup.sql
+      - type: bind
+        source: ../../moname-commons/moname-commons-test/src/main/resources/db/sqlserver/initial-setup.sql
+        target: /home/mssql/initial-setup.sql
       #- ${HOME:?unset or empty in the environment}/.docker/volumes/${SQLSERVER_CONTAINER_NAME:?unset or empty in the environment}-data:/var/opt/mssql
       - type: volume
         source: ${SQLSERVER_CONTAINER_NAME:?unset or empty in the environment}-data
@@ -50,7 +58,7 @@ services:
       - network
     ports:
       - ${SQLSERVER_CONTAINER_PORT_MAPPING:?unset or empty in the environment}
-    #command: ${SQLSERVER_CONTAINER_INITIAL_COMMAND:?unset or empty in the environment}
+    command: ${SQLSERVER_CONTAINER_INITIAL_COMMAND:?unset or empty in the environment}
     restart: ${CONTAINER_RESTART_POLICY:?unset or empty in the environment}
 volumes:
   mysql-data:

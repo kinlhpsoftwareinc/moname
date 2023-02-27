@@ -53,15 +53,15 @@ spring:
     #
     # https://www.testcontainers.org/modules/databases/jdbc
     # Testcontainers JDBC support
-    #url: jdbc:mysql://mysql:3306/moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&serverTimezone=UTC&useLocalSessionState=true&useServerPrepStmts=true
-    url: jdbc:tc:mysql:8.0.31:////moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&serverTimezone=UTC&useLocalSessionState=true&useServerPrepStmts=true&TC_REUSABLE=true
+    #url: jdbc:mysql://mysql:3306/moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&connectionTimeZone=UTC&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&useLocalSessionState=true&useServerPrepStmts=true
+    url: jdbc:tc:mysqlext:8.0.32:////moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&connectionTimeZone=UTC&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&useLocalSessionState=true&useServerPrepStmts=true&TC_REUSABLE=true
     username: moname
   jpa:
     #
     # ${database}
     # README#org.hibernate.dialect.Database
     database: MYSQL
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
   liquibase:
     parameters:
       #

@@ -8,7 +8,7 @@ Project to money me with no name.
 
 | PROFILE | ACTIVE BY DEFAULT | REQUIRES | DESCRIPTION |
 | - | - | - | - |
-| `hsqldb` | `false` | `test` | Integration tests in the JPA layer on HyperSQL
+| `hsqldb` | `true` | `test` | Integration tests in the JPA layer on HyperSQL
 database (in-memory). |
 | `mysql` | `false` | `test` | Integration tests in the JPA layer on MySQL
 database (testcontainers). |
@@ -16,7 +16,7 @@ database (testcontainers). |
 database (testcontainers). |
 | `sqlserver` | `false` | `test` | Integration tests in the JPA layer on SQL
 Server database (testcontainers). |
-| `test` | `false` | | Compilation running tests. |
+| `test` | `true` | | Compilation running tests. |
 
 ### Building all from source
 
