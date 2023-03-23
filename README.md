@@ -6,17 +6,13 @@ Project to money me with no name.
 
 ### Profiles
 
-| PROFILE | ACTIVE BY DEFAULT | REQUIRES | DESCRIPTION |
-| - | - | - | - |
-| `hsqldb` | `true` | `test` | Integration tests in the JPA layer on HyperSQL
-database (in-memory). |
-| `mysql` | `false` | `test` | Integration tests in the JPA layer on MySQL
-database (testcontainers). |
-| `oracle` | `false` | `test` | Integration tests in the JPA layer on Oracle
-database (testcontainers). |
-| `sqlserver` | `false` | `test` | Integration tests in the JPA layer on SQL
-Server database (testcontainers). |
-| `test` | `true` | | Compilation running tests. |
+| PROFILE     | ACTIVE BY DEFAULT | REQUIRES | DESCRIPTION                                                                 |
+|:------------|:-----------------:|:--------:|:----------------------------------------------------------------------------|
+| `hsqldb`    |      `true`       |  `test`  | Integration tests in the JPA layer on HyperSQL database (in-memory).        |
+| `mysql`     |      `false`      |  `test`  | Integration tests in the JPA layer on MySQL database (testcontainers).      |
+| `oracle`    |      `false`      |  `test`  | Integration tests in the JPA layer on Oracle database (testcontainers).     |
+| `sqlserver` |      `false`      |  `test`  | Integration tests in the JPA layer on SQL Server database (testcontainers). |
+| `test`      |      `true`       |          | Compilation running tests.                                                  |
 
 ### Building all from source
 
