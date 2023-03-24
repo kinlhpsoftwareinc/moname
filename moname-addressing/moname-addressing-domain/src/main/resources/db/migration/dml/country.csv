@@ -1,0 +1,250 @@
+numeric_code,alpha_2_code,alpha_3_code,internet_cctld,english_name,french_name,portuguese_name
+4,AF,AFG,.af,Afghanistan,Afghanistan (l'),Afeganistão
+8,AL,ALB,.al,Albania,Albanie (l'),Albânia
+10,AQ,ATA,.aq,Antarctica,Antarctique (l'),Antárctica
+12,DZ,DZA,.dz,Algeria,Algérie (l'),Argélia
+16,AS,ASM,.as,American Samoa,Samoa américaines (les),Samoa Americana
+20,AD,AND,.ad,Andorra,Andorre (l'),Andorra
+24,AO,AGO,.ao,Angola,Angola (l'),Angola
+28,AG,ATG,.ag,Antigua and Barbuda,Antigua-et-Barbuda,Antígua e Barbuda
+31,AZ,AZE,.az,Azerbaijan,Azerbaïdjan (l'),Azerbaijão
+32,AR,ARG,.ar,Argentina,Argentine (l'),Argentina
+36,AU,AUS,.au,Australia,Australie (l'),Austrália
+40,AT,AUT,.at,Austria,Autriche (l'),Áustria
+44,BS,BHS,.bs,Bahamas (the),Bahamas (les),Bahamas
+48,BH,BHR,.bh,Bahrain,Bahreïn,Bahrain
+50,BD,BGD,.bd,Bangladesh,Bangladesh (le),Bangladesh
+51,AM,ARM,.am,Armenia,Arménie (l'),Armênia
+52,BB,BRB,.bb,Barbados,Barbade (la),Barbados
+56,BE,BEL,.be,Belgium,Belgique (la),Bélgica
+60,BM,BMU,.bm,Bermuda,Bermudes (les),Bermudas
+64,BT,BTN,.bt,Bhutan,Bhoutan (le),Butão
+68,BO,BOL,.bo,Bolivia (Plurinational State of),Bolivie (État plurinational de),Bolívia (Estado Plurinacional da)
+70,BA,BIH,.ba,Bosnia and Herzegovina,Bosnie-Herzégovine (la),Bósnia e Herzegovina
+72,BW,BWA,.bw,Botswana,Botswana (le),Botswana
+74,BV,BVT,NULL,Bouvet Island,Bouvet (l'Île),Ilha Bouvet
+76,BR,BRA,.br,Brazil,Brésil (le),Brasil
+84,BZ,BLZ,.bz,Belize,Belize (le),Belize
+86,IO,IOT,.io,British Indian Ocean Territory (the),Indien (le Territoire britannique de l'océan),Território Britânico do Oceano Índico
+90,SB,SLB,.sb,Solomon Islands,Salomon (les Îles),Ilhas Salomão
+92,VG,VGB,.vg,Virgin Islands (British),Vierges britanniques (les Îles),Ilhas Virgens Britânicas
+96,BN,BRN,.bn,Brunei Darussalam,Brunéi Darussalam (le),Brunei Darussalam
+100,BG,BGR,.bg,Bulgaria,Bulgarie (la),Bulgária
+104,MM,MMR,.mm,Myanmar,Myanmar (le),Myanmar
+108,BI,BDI,.bi,Burundi,Burundi (le),Burundi
+112,BY,BLR,.by,Belarus,Bélarus (le),Bielorrússia
+116,KH,KHM,.kh,Cambodia,Cambodge (le),Camboja
+120,CM,CMR,.cm,Cameroon,Cameroun (le),Camarões
+124,CA,CAN,.ca,Canada,Canada (le),Canadá
+132,CV,CPV,.cv,Cabo Verde,Cabo Verde,Cabo Verde
+136,KY,CYM,.ky,Cayman Islands (the),Caïmans (les Îles),Ilhas Cayman
+140,CF,CAF,.cf,Central African Republic (the),République centrafricaine (la),República Centro-Africana
+144,LK,LKA,.lk,Sri Lanka,Sri Lanka,Sri Lanka
+148,TD,TCD,.td,Chad,Tchad (le),Chade
+152,CL,CHL,.cl,Chile,Chili (le),Chile
+156,CN,CHN,.cn,China,Chine (la),China
+158,TW,TWN,.tw,Taiwan (Province of China),Taïwan (Province de Chine),Taiwan (Província da China)
+162,CX,CXR,.cx,Christmas Island,Christmas (l'Île),Ilha Christmas
+166,CC,CCK,.cc,Cocos (Keeling) Islands (the),Cocos (les Îles)/ Keeling (les Îles),Ilhas Cocos (Keeling)
+170,CO,COL,.co,Colombia,Colombie (la),Colômbia
+174,KM,COM,.km,Comoros (the),Comores (les),Comores
+175,YT,MYT,.yt,Mayotte,Mayotte,Mayotte
+178,CG,COG,.cg,Congo (the),Congo (le),Congo
+180,CD,COD,.cd,Congo (the Democratic Republic of the),Congo (la République démocratique du),Congo (a República Democrática do)
+184,CK,COK,.ck,Cook Islands (the),Cook (les Îles),Ilhas Cook
+188,CR,CRI,.cr,Costa Rica,Costa Rica (le),Costa Rica
+191,HR,HRV,.hr,Croatia,Croatie (la),Croácia
+192,CU,CUB,.cu,Cuba,Cuba,Cuba
+196,CY,CYP,.cy,Cyprus,Chypre,Chipre
+203,CZ,CZE,.cz,Czechia,Tchéquie (la),República Checa
+204,BJ,BEN,.bj,Benin,Bénin (le),Benim
+208,DK,DNK,.dk,Denmark,Danemark (le),Dinamarca
+212,DM,DMA,.dm,Dominica,Dominique (la),Dominica
+214,DO,DOM,.do,Dominican Republic (the),Dominicaine (la République),República Dominicana
+218,EC,ECU,.ec,Ecuador,Équateur (l'),Equador
+222,SV,SLV,.sv,El Salvador,El Salvador,El Salvador
+226,GQ,GNQ,.gq,Equatorial Guinea,Guinée équatoriale (la),Guiné Equatorial
+231,ET,ETH,.et,Ethiopia,Éthiopie (l'),Etiópia
+232,ER,ERI,.er,Eritrea,Érythrée (l'),Eritreia
+233,EE,EST,.ee,Estonia,Estonie (l'),Estónia
+234,FO,FRO,.fo,Faroe Islands (the),Féroé (les Îles),Ilhas Faroé
+238,FK,FLK,.fk,Falkland Islands (the)/Malvinas Islands (the),Falkland (les Îles)/Malouines (les Îles),Ilhas Falkland/Ilhas Malvinas
+239,GS,SGS,.gs,South Georgia and the South Sandwich Islands,Géorgie du Sud-et-les Îles Sandwich du Sud (la),Ilhas Geórgia do Sul e Sandwich do Sul
+242,FJ,FJI,.fj,Fiji,Fidji (les),Fiji
+246,FI,FIN,.fi,Finland,Finlande (la),Finlândia
+248,AX,ALA,.ax,Åland Islands,Åland(les Îles),Ilhas Åland
+250,FR,FRA,.fr,France,France (la),França
+254,GF,GUF,.gf,French Guiana,Guyane française (la),Guiana Francesa
+258,PF,PYF,.pf,French Polynesia,Polynésie française (la),Polinésia Francesa
+260,TF,ATF,.tf,French Southern Territories (the),Terres australes françaises (les),Territórios Franceses do Sul
+262,DJ,DJI,.dj,Djibouti,Djibouti,Djibouti
+266,GA,GAB,.ga,Gabon,Gabon (le),Gabão
+268,GE,GEO,.ge,Georgia,Géorgie (la),Geórgia
+270,GM,GMB,.gm,Gambia (the),Gambie (la),Gâmbia
+275,PS,PSE,.ps,"Palestine, State of","Palestine, État de","Palestina, Estado da"
+276,DE,DEU,.de,Germany,Allemagne (l'),Alemanha
+288,GH,GHA,.gh,Ghana,Ghana (le),Gana
+292,GI,GIB,.gi,Gibraltar,Gibraltar,Gibraltar
+296,KI,KIR,.ki,Kiribati,Kiribati,Kiribati
+300,GR,GRC,.gr,Greece,Grèce (la),Grécia
+304,GL,GRL,.gl,Greenland,Groenland (le),Gronelândia
+308,GD,GRD,.gd,Grenada,Grenade (la),Granada
+312,GP,GLP,.gp,Guadeloupe,Guadeloupe (la),Guadalupe
+316,GU,GUM,.gu,Guam,Guam,Guam
+320,GT,GTM,.gt,Guatemala,Guatemala (le),Guatemala
+324,GN,GIN,.gn,Guinea,Guinée (la),Guiné
+328,GY,GUY,.gy,Guyana,Guyana (le),Guiana
+332,HT,HTI,.ht,Haiti,Haïti,Haiti
+334,HM,HMD,.hm,Heard Island and McDonald Islands,Heard-et-Îles MacDonald (l'Île),Ilha Heard e Ilhas McDonald
+336,VA,VAT,.va,Holy See (the),Saint-Siège (le),Santa Sé (Estado da Cidade do Vaticano)
+340,HN,HND,.hn,Honduras,Honduras (le),Honduras
+344,HK,HKG,.hk,Hong Kong,Hong Kong,Hong Kong
+348,HU,HUN,.hu,Hungary,Hongrie (la),Hungria
+352,IS,ISL,.is,Iceland,Islande (l'),Islândia
+356,IN,IND,.in,India,Inde (l'),Índia
+360,ID,IDN,.id,Indonesia,Indonésie (l'),Indonésia
+364,IR,IRN,.ir,Iran (Islamic Republic of),Iran (République Islamique d'),Irã (República Islâmica do)
+368,IQ,IRQ,.iq,Iraq,Iraq (l'),Iraque
+372,IE,IRL,.ie,Ireland,Irlande (l'),Irlanda
+376,IL,ISR,.il,Israel,Israël,Israel
+380,IT,ITA,.it,Italy,Italie (l'),Itália
+384,CI,CIV,.ci,Côte d'Ivoire,Côte d'Ivoire (la),Costa do Marfim
+388,JM,JAM,.jm,Jamaica,Jamaïque (la),Jamaica
+392,JP,JPN,.jp,Japan,Japon (le),Japão
+398,KZ,KAZ,.kz,Kazakhstan,Kazakhstan (le),Cazaquistão
+400,JO,JOR,.jo,Jordan,Jordanie (la),Jordânia
+404,KE,KEN,.ke,Kenya,Kenya (le),Quénia
+408,KP,PRK,.kp,Korea (the Democratic People's Republic of),Corée (la République populaire démocratique de),Coréia (República Popular Democrática da)
+410,KR,KOR,.kr,Korea (the Republic of),Corée (la République de),Coréia (República da)
+414,KW,KWT,.kw,Kuwait,Koweït (le),Kuwait
+417,KG,KGZ,.kg,Kyrgyzstan,Kirghizistan (le),Quirguistão
+418,LA,LAO,.la,Lao People's Democratic Republic (the),Lao (la République démocratique populaire),Laos (República Democrática Popular do)
+422,LB,LBN,.lb,Lebanon,Liban (le),Líbano
+426,LS,LSO,.ls,Lesotho,Lesotho (le),Lesoto
+428,LV,LVA,.lv,Latvia,Lettonie (la),Letónia
+430,LR,LBR,.lr,Liberia,Libéria (le),Libéria
+434,LY,LBY,.ly,Libya,Libye (la),Líbia
+438,LI,LIE,.li,Liechtenstein,Liechtenstein (le),Liechtenstein
+440,LT,LTU,.lt,Lithuania,Lituanie (la),Lituânia
+442,LU,LUX,.lu,Luxembourg,Luxembourg (le),Luxemburgo
+446,MO,MAC,.mo,Macao,Macao,Macau
+450,MG,MDG,.mg,Madagascar,Madagascar,Madagáscar
+454,MW,MWI,.mw,Malawi,Malawi (le),Malawi
+458,MY,MYS,.my,Malaysia,Malaisie (la),Malásia
+462,MV,MDV,.mv,Maldives,Maldives (les),Maldivas
+466,ML,MLI,.ml,Mali,Mali (le),Mali
+470,MT,MLT,.mt,Malta,Malte,Malta
+474,MQ,MTQ,.mq,Martinique,Martinique (la),Martinica
+478,MR,MRT,.mr,Mauritania,Mauritanie (la),Mauritânia
+480,MU,MUS,.mu,Mauritius,Maurice,Maurícia
+484,MX,MEX,.mx,Mexico,Mexique (le),México
+492,MC,MCO,.mc,Monaco,Monaco,Mônaco
+496,MN,MNG,.mn,Mongolia,Mongolie (la),Mongólia
+498,MD,MDA,.md,Moldova (the Republic of),Moldova (la République de),Moldávia (República da)
+499,ME,MNE,.me,Montenegro,Monténégro (le),Montenegro
+500,MS,MSR,.ms,Montserrat,Montserrat,Montserrat
+504,MA,MAR,.ma,Morocco,Maroc (le),Marrocos
+508,MZ,MOZ,.mz,Mozambique,Mozambique (le),Moçambique
+512,OM,OMN,.om,Oman,Oman,Omã
+516,NA,NAM,.na,Namibia,Namibie (la),Namíbia
+520,NR,NRU,.nr,Nauru,Nauru,Nauru
+524,NP,NPL,.np,Nepal,Népal (le),Nepal
+528,NL,NLD,.nl,Netherlands (the),Pays-Bas (les),Países Baixos
+531,CW,CUW,.cw,Curaçao,Curaçao,Curaçao
+533,AW,ABW,.aw,Aruba,Aruba,Aruba
+534,SX,SXM,.sx,Sint Maarten (Dutch part),Saint-Martin (partie néerlandaise),São Martinho (parte holandesa)
+535,BQ,BES,".bq,.nl","Bonaire, Sint Eustatius and Saba","Bonaire, Saint-Eustache et Saba","Bonaire, Santo Eustáquio e Saba"
+540,NC,NCL,.nc,New Caledonia,Nouvelle-Calédonie (la),Nova Caledónia
+548,VU,VUT,.vu,Vanuatu,Vanuatu (le),Vanuatu
+554,NZ,NZL,.nz,New Zealand,Nouvelle-Zélande (la),Nova Zelândia
+558,NI,NIC,.ni,Nicaragua,Nicaragua (le),Nicarágua
+562,NE,NER,.ne,Niger (the),Niger (le),Níger
+566,NG,NGA,.ng,Nigeria,Nigéria (le),Nigéria
+570,NU,NIU,.nu,Niue,Niue,Niue
+574,NF,NFK,.nf,Norfolk Island,Norfolk (l'Île),Ilha Norfolk
+578,NO,NOR,.no,Norway,Norvège (la),Noruega
+580,MP,MNP,.mp,Northern Mariana Islands (the),Mariannes du Nord (les Îles),Ilhas Marianas do Norte
+581,UM,UMI,NULL,United States Minor Outlying Islands (the),Îles mineures éloignées des États-Unis (les),Ilhas Menores Distantes dos Estados Unidos
+583,FM,FSM,.fm,Micronesia (Federated States of),Micronésie (États fédérés de),Micronésia (Estados Federados da)
+584,MH,MHL,.mh,Marshall Islands (the),Marshall (les Îles),Ilhas Marshall
+585,PW,PLW,.pw,Palau,Palaos (les),Palau
+586,PK,PAK,.pk,Pakistan,Pakistan (le),Paquistão
+591,PA,PAN,.pa,Panama,Panama (le),Panamá
+598,PG,PNG,.pg,Papua New Guinea,Papouasie-Nouvelle-Guinée (la),Papua-Nova Guiné
+600,PY,PRY,.py,Paraguay,Paraguay (le),Paraguai
+604,PE,PER,.pe,Peru,Pérou (le),Peru
+608,PH,PHL,.ph,Philippines (the),Philippines (les),Filipinas
+612,PN,PCN,.pn,Pitcairn,Pitcairn,Ilhas Pitcairn
+616,PL,POL,.pl,Poland,Pologne (la),Polônia
+620,PT,PRT,.pt,Portugal,Portugal (le),Portugal
+624,GW,GNB,.gw,Guinea-Bissau,Guinée-Bissau (la),Guiné-Bissau
+626,TL,TLS,.tl,Timor-Leste,Timor-Leste (le),Timor-Leste
+630,PR,PRI,.pr,Puerto Rico,Porto Rico,Porto Rico
+634,QA,QAT,.qa,Qatar,Qatar (le),Qatar
+638,RE,REU,.re,Réunion,Réunion (La),Reunião
+642,RO,ROU,.ro,Romania,Roumanie (la),Romênia
+643,RU,RUS,.ru,Russian Federation (the),Russie (la Fédération de),Federação Russa
+646,RW,RWA,.rw,Rwanda,Rwanda (le),Rwanda
+652,BL,BLM,.bl,Saint Barthélemy,Saint-Barthélemy,São Bartolomeu
+654,SH,SHN,.sh,"Saint Helena, Ascension and Tristan da Cunha","Sainte-Hélène, Ascension et Tristan da Cunha","Santa Helena, Ascensão e Tristão da Cunha"
+659,KN,KNA,.kn,Saint Kitts and Nevis,Saint-Kitts-et-Nevis,Saint Kitts e Nevis
+660,AI,AIA,.ai,Anguilla,Anguilla,Anguilla
+662,LC,LCA,.lc,Saint Lucia,Sainte-Lucie,Santa Lúcia
+663,MF,MAF,.mf,Saint Martin (French part),Saint-Martin (partie française),Saint-Martin (parte francesa)
+666,PM,SPM,.pm,Saint Pierre and Miquelon,Saint-Pierre-et-Miquelon,Saint Pierre e Miquelon
+670,VC,VCT,.vc,Saint Vincent and the Grenadines,Saint-Vincent-et-les Grenadines,São Vicente e Granadinas
+674,SM,SMR,.sm,San Marino,Saint-Marin,San Marino
+678,ST,STP,.st,Sao Tome and Principe,Sao Tomé-et-Principe,São Tomé e Príncipe
+682,SA,SAU,.sa,Saudi Arabia,Arabie saoudite (l'),Arábia Saudita
+686,SN,SEN,.sn,Senegal,Sénégal (le),Senegal
+688,RS,SRB,.rs,Serbia,Serbie (la),Sérvia
+690,SC,SYC,.sc,Seychelles,Seychelles (les),Seychelles
+694,SL,SLE,.sl,Sierra Leone,Sierra Leone (la),Serra Leoa
+702,SG,SGP,.sg,Singapore,Singapour,Singapura
+703,SK,SVK,.sk,Slovakia,Slovaquie (la),Eslováquia
+704,VN,VNM,.vn,Viet Nam,Viet Nam (le),Vietnã
+705,SI,SVN,.si,Slovenia,Slovénie (la),Eslovênia
+706,SO,SOM,.so,Somalia,Somalie (la),Somália
+710,ZA,ZAF,.za,South Africa,Afrique du Sud (l'),África do Sul
+716,ZW,ZWE,.zw,Zimbabwe,Zimbabwe (le),Zimbabwe
+724,ES,ESP,.es,Spain,Espagne (l'),Espanha
+728,SS,SSD,.ss,South Sudan,Soudan du Sud (le),Sudão do Sul
+729,SD,SDN,.sd,Sudan (the),Soudan (le),Sudão
+732,EH,ESH,NULL,Western Sahara,Sahara occidental (le),Saara Ocidental
+740,SR,SUR,.sr,Suriname,Suriname (le),Suriname
+744,SJ,SJM,NULL,Svalbard and Jan Mayen,Svalbard et l'Île Jan Mayen (le),Svalbard e Jan Mayen
+748,SZ,SWZ,.sz,Eswatini,Eswatini (l'),Suazilândia
+752,SE,SWE,.se,Sweden,Suède (la),Suécia
+756,CH,CHE,.ch,Switzerland,Suisse (la),Suíça
+760,SY,SYR,.sy,Syrian Arab Republic (the),République arabe syrienne (la),República Árabe Síria
+762,TJ,TJK,.tj,Tajikistan,Tadjikistan (le),Tadjiquistão
+764,TH,THA,.th,Thailand,Thaïlande (la),Tailândia
+768,TG,TGO,.tg,Togo,Togo (le),Togo
+772,TK,TKL,.tk,Tokelau,Tokelau (les),Tokelau
+776,TO,TON,.to,Tonga,Tonga (les),Tonga
+780,TT,TTO,.tt,Trinidad and Tobago,Trinité-et-Tobago (la),Trinidad e Tobago
+784,AE,ARE,.ae,United Arab Emirates (the),Émirats arabes unis (les),Emirados Árabes Unidos
+788,TN,TUN,.tn,Tunisia,Tunisie (la),Tunísia
+792,TR,TUR,.tr,Turkey,Turquie (la),Turquia
+795,TM,TKM,.tm,Turkmenistan,Turkménistan (le),Turquemenistão
+796,TC,TCA,.tc,Turks and Caicos Islands (the),Turks-et-Caïcos (les Îles),Ilhas Turks e Caicos
+798,TV,TUV,.tv,Tuvalu,Tuvalu (les),Tuvalu
+800,UG,UGA,.ug,Uganda,Ouganda (l'),Uganda
+804,UA,UKR,.ua,Ukraine,Ukraine (l'),Ucrânia
+807,MK,MKD,.mk,North Macedonia,Macédoine du Nord (la),Macedônia do Norte
+818,EG,EGY,.eg,Egypt,Égypte (l'),Egito
+826,GB,GBR,".gb,.uk",United Kingdom of Great Britain and Northern Ireland (the),Royaume-Uni de Grande-Bretagne et d'Irlande du Nord (le),Reino Unido da Grã-Bretanha e Irlanda do Norte
+831,GG,GGY,.gg,Guernsey,Guernesey,Guernsey
+832,JE,JEY,.je,Jersey,Jersey,Jersey
+833,IM,IMN,.im,Isle of Man,Île de Man,Ilha de Man
+834,TZ,TZA,.tz,Tanzania (the United Republic of),Tanzanie (la République-Unie de),Tanzânia (República Unida da)
+840,US,USA,.us,United States of America (the),États-Unis d'Amérique (les),Estados Unidos da América
+850,VI,VIR,.vi,Virgin Islands (U.S.),Vierges des États-Unis (les Îles),Ilhas Virgens Americanas
+854,BF,BFA,.bf,Burkina Faso,Burkina Faso (le),Burkina Faso
+858,UY,URY,.uy,Uruguay,Uruguay (l'),Uruguai
+860,UZ,UZB,.uz,Uzbekistan,Ouzbékistan (l'),Uzbequistão
+862,VE,VEN,.ve,Venezuela (Bolivarian Republic of),Venezuela (République bolivarienne du),Venezuela (República Bolivariana da)
+876,WF,WLF,.wf,Wallis and Futuna,Wallis-et-Futuna,Wallis e Futuna
+882,WS,WSM,.ws,Samoa,Samoa (le),Samoa
+887,YE,YEM,.ye,Yemen,Yémen (le),Iémen
+894,ZM,ZMB,.zm,Zambia,Zambie (la),Zâmbia

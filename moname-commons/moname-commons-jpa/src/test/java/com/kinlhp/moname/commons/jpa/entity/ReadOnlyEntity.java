@@ -1,7 +1,6 @@
 package com.kinlhp.moname.commons.jpa.entity;
 
 import java.io.Serial;
-
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +24,7 @@ import com.kinlhp.moname.commons.jpa.AbstractReadOnly;
  */
 @AttributeOverride(column = @Column(name = "id"), name = "pk")
 @Entity
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Table(name = "read_only")
@@ -37,7 +36,7 @@ public class ReadOnlyEntity extends AbstractReadOnly<Integer> {
 
 	@Getter
 	@NotBlank
-	@Setter(onParam = @__({ @NotNull }))
+	@Setter(onParam_ = {@NotNull})
 	private char description;
 
 	@Max(value = 255L)

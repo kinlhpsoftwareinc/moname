@@ -1,0 +1,20 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    contexts: configuration
+    parameters:
+      country-table-name: country
+      encoding: ${spring.sql.init.encoding}
+      increment-by: 1
+      use-prepared-statements: true
+    password: ${spring.datasource.password}
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+  profiles:
+    active: @test.profile@,@database.profile@
+  sql:
+    init:
+      encoding: UTF-8

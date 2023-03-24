@@ -8,6 +8,8 @@
 #
 # https://www.liquibase.org/javadoc/liquibase/change/core/LoadDataChange.LOAD_DATA_TYPE.html
 #
+# https://docs.liquibase.com/concepts/changelogs/property-substitution.html
+#
 # ${databaseChangeLog[].changeSet.id}
 # Pattern: ISO 8601 (e.g.: 1970-01-01T00:00:00+00:00)
 #
@@ -30,7 +32,7 @@ databaseChangeLog:
             commentLineStartsWith: "#"
             encoding: ${encoding}
             file: ${table-name}.csv
-            quotchar: "''"
+            quotchar: '""'
             relativeToChangelogFile: true
             separator: ","
             tableName: ${table-name}

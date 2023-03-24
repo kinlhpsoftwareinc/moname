@@ -1,0 +1,8 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  datasource:
+    #
+    # ${url}
+    # https://www.testcontainers.org/modules/databases/jdbc
+    # Testcontainers JDBC support
+    url: jdbc:tc:oracleext:21.3.0-slim-faststart:////moname_addressing_domain_test?TC_REUSABLE=true

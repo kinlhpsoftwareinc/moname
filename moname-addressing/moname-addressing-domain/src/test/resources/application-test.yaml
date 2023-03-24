@@ -1,0 +1,31 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  application:
+    name: @project.artifactId@-test
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    #
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      #
+      # ${connection-init-sql}
+      # Will be executed after every new connection creation before adding it to the pool.
+      # If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
+      # Default: none
+      #connection-init-sql: &connectionInitSql # https://stackoverflow.com/a/10684260
+      #
+      # ${connection-test-query}
+      # If your driver supports JDBC4 we strongly recommend not setting this property.
+      # This is for "legacy" drivers that do not support the JDBC4 ${Connection.isValid()} API.
+      # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
+      # Default: none
+      #connection-test-query: *connectionInitSql
+      #
+      # ${pool-name}
+      # Default: "auto-generated"
+      pool-name: ${spring.application.name}-pool-test
+    name: ${spring.application.name}-datasource-test
+  jpa:
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/migration/changelog.yaml

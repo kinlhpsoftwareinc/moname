@@ -1,0 +1,54 @@
+﻿# https://docs.liquibase.com/concepts/changelogs/working-with-changelogs.html
+#
+# https://docs.liquibase.com/concepts/changelogs/changelog-formats.html
+#
+# https://docs.liquibase.com/concepts/changelogs/yaml-format.html
+#
+# https://docs.liquibase.com/change-types/load-data.html
+#
+# https://www.liquibase.org/javadoc/liquibase/change/core/LoadDataChange.LOAD_DATA_TYPE.html
+#
+# https://docs.liquibase.com/concepts/changelogs/property-substitution.html
+#
+# ${databaseChangeLog[].changeSet.id}
+# Pattern: ISO 8601 (e.g.: 1970-01-01T00:00:00+00:00)
+#
+# {@link spring.liquibase.parameters.*}
+# https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.data-migration.spring.liquibase.parameters
+databaseChangeLog:
+  - changeSet:
+      author: kinlhp
+      context: configuration
+      id: 2023-03-24T23:36:21-03:00
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: numeric_code
+                  type: NUMERIC
+              - column:
+                  name: alpha_2_code
+                  type: STRING
+              - column:
+                  name: alpha_3_code
+                  type: STRING
+              - column:
+                  name: internet_cctld
+                  type: STRING
+              - column:
+                  name: english_name
+                  type: STRING
+              - column:
+                  name: french_name
+                  type: STRING
+              - column:
+                  name: portuguese_name
+                  type: STRING
+            commentLineStartsWith: "#"
+            encoding: ${encoding}
+            file: ${country-table-name}.csv
+            quotchar: '""'
+            relativeToChangelogFile: true
+            separator: ","
+            tableName: ${country-table-name}
+            usePreparedStatements: ${use-prepared-statements}

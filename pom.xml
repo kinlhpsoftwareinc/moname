@@ -38,6 +38,7 @@
 		</developer>
 	</developers>
 	<modules>
+		<module>moname-addressing</module>
 		<module>moname-commons</module>
 		<module>moname-dependencies</module>
 		<module>moname-parent</module>

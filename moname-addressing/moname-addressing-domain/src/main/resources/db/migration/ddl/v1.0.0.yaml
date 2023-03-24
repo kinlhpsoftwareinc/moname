@@ -1,0 +1,114 @@
+# https://docs.liquibase.com/concepts/changelogs/working-with-changelogs.html
+#
+# https://docs.liquibase.com/concepts/changelogs/changelog-formats.html
+#
+# https://docs.liquibase.com/concepts/changelogs/yaml-format.html
+#
+# https://docs.liquibase.com/change-types/home.html
+#
+# https://docs.liquibase.com/change-types/create-table.html
+#
+# https://docs.liquibase.com/workflows/liquibase-community/modify-sql.html
+#
+# https://docs.liquibase.com/concepts/changelogs/preconditions.html
+#
+# https://docs.liquibase.com/concepts/changelogs/property-substitution.html
+#
+# ${databaseChangeLog[].changeSet.id}
+# Pattern: ISO 8601 (e.g.: 1970-01-01T00:00:00+00:00)
+#
+# {@link java.sql.Types}
+# https://stackoverflow.com/a/28626825
+#
+# {@link spring.liquibase.parameters.*}
+# https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.data-migration.spring.liquibase.parameters
+#
+# MySQL 8.0 Reference Manual | Character Sets, Collations, Unicode | Specifying Character Sets and Collations | Database Character Set and Collation
+# https://dev.mysql.com/doc/refman/8.0/en/charset-database.html
+databaseChangeLog:
+  - changeSet:
+      author: kinlhp
+      id: 2023-03-24T21:51:57-03:00
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    notNullConstraintName: ${country-table-name}_numeric_code_nn
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: ${country-table-name}_pk
+                  name: numeric_code
+                  remarks: ISO 3166-1 numeric codes are three-digit (left padded with zero) country codes defined in ISO 3166-1.
+                  startWith: 4
+                  type: SMALLINT
+              - column:
+                  constraints:
+                    notNullConstraintName: ${country-table-name}_alpha_2_code_nn
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: ${country-table-name}_alpha_2_code_uk
+                  name: alpha_2_code
+                  remarks: ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1.
+                  type: CHAR(2)
+              - column:
+                  constraints:
+                    notNullConstraintName: ${country-table-name}_alpha_3_code_nn
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: ${country-table-name}_alpha_3_code_uk
+                  name: alpha_3_code
+                  remarks: ISO 3166-1 alpha-3 codes are three-letter country codes defined in ISO 3166-1.
+                  type: CHAR(3)
+              - column:
+                  name: internet_cctld
+                  remarks: Country code top-level domain (ccTLD).
+                  type: VARCHAR(7)
+              - column:
+                  constraints:
+                    notNullConstraintName: ${country-table-name}_english_name_nn
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: ${country-table-name}_english_name_uk
+                  name: english_name
+                  remarks: The term country refers to a political state or nation or its territory.
+                  type: VARCHAR(58)
+              - column:
+                  constraints:
+                    notNullConstraintName: ${country-table-name}_french_name_nn
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: ${country-table-name}_french_name_uk
+                  name: french_name
+                  remarks: Le terme pays fait référence à un État politique ou à une nation ou à son territoire.
+                  type: VARCHAR(56)
+              - column:
+                  constraints:
+                    notNullConstraintName: ${country-table-name}_portuguese_name_nn
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: ${country-table-name}_portuguese_name_uk
+                  name: portuguese_name
+                  remarks: O termo país refere-se a um estado político ou nação ou seu território.
+                  type: ${portuguese-name-data-type}
+            remarks: Data structure for countries.
+            tableName: ${country-table-name}
+        - modifySql:
+            dbms: mysql
+            append:
+              value: ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: ${country-table-name}
+  - property:
+      dbms: oracle
+      global: false
+      name: portuguese-name-data-type
+      value: VARCHAR2(46 CHAR)
+  - property:
+      dbms: '!oracle'
+      global: false
+      name: portuguese-name-data-type
+      value: VARCHAR(46)

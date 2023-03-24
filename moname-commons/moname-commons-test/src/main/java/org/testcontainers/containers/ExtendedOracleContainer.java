@@ -1,12 +1,10 @@
 package org.testcontainers.containers;
 
-import lombok.extern.slf4j.Slf4j;
 import org.testcontainers.utility.DockerImageName;
 
 /**
  * Extended Oracle container. See {@link OracleContainer} for details.
  */
-@Slf4j
 public class ExtendedOracleContainer extends OracleContainer {
 
 	/**
@@ -25,24 +23,26 @@ public class ExtendedOracleContainer extends OracleContainer {
 	 */
 	static final String SUBPROTOCOL = "oracleext";
 	static final String DEFAULT_TAG = "21.3.0-slim-faststart";
-	private static final String ORACLE_DATABASE = "moname_commons_jpa_test";
 	private static final String APP_USER = "moname";
 	private static final String APP_USER_PASSWORD = APP_USER;
 
 	public ExtendedOracleContainer(final DockerImageName dockerImageName) {
 		super(dockerImageName);
-		LOG.info("Extended Oracle container for \":{}\" JDBC subprotocol.",
+		logger().info("Extended Oracle container for \":{}\" JDBC subprotocol.",
 			SUBPROTOCOL);
+	}
+
+	@Override
+	protected void waitUntilContainerStarted() {
+		logger().info("Waiting for database connection to become available at {} using query '{}'",
+			getJdbcUrl(), getTestQueryString());
+		super.waitUntilContainerStarted();
+		logger().info("Container is started (JDBC URL: {})", getJdbcUrl());
 	}
 
 	@Override
 	public String getDriverClassName() {
 		return "oracle.jdbc.driver.OracleDriver";
-	}
-
-	@Override
-	public String getDatabaseName() {
-		return ORACLE_DATABASE;
 	}
 
 	@Override
@@ -60,9 +60,13 @@ public class ExtendedOracleContainer extends OracleContainer {
 	@Override
 	protected void configure() {
 		super.configure();
-		super.withEnv("APP_USER", APP_USER)
-			.withEnv("APP_USER_PASSWORD", APP_USER_PASSWORD)
-			.withEnv("ORACLE_DATABASE", ORACLE_DATABASE);
+		withEnv();
+	}
+
+	private void withEnv() {
+		super.withEnv("ORACLE_DATABASE", getDatabaseName())
+			.withEnv("APP_USER", APP_USER)
+			.withEnv("APP_USER_PASSWORD", APP_USER_PASSWORD);
 	}
 
 }

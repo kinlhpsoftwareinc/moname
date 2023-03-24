@@ -27,6 +27,11 @@
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.kinlhp</groupId>
+				<artifactId>moname-commons-jpa</artifactId>
+				<version>${revision}</version>
+			</dependency>
 			<!-- # third party # -->
 			<!-- liquibase -->
 			<dependency>

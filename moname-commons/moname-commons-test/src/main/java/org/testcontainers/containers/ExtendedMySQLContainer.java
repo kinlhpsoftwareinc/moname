@@ -2,13 +2,11 @@ package org.testcontainers.containers;
 
 import java.util.stream.Collectors;
 
-import lombok.extern.slf4j.Slf4j;
 import org.testcontainers.utility.DockerImageName;
 
 /**
  * Extended MySQL container. See {@link MySQLContainer} for details.
  */
-@Slf4j
 public class ExtendedMySQLContainer<SELF extends ExtendedMySQLContainer<SELF>>
 	extends MySQLContainer<SELF> {
 
@@ -28,13 +26,12 @@ public class ExtendedMySQLContainer<SELF extends ExtendedMySQLContainer<SELF>>
 	 */
 	static final String SUBPROTOCOL = "mysqlext";
 	static final String DEFAULT_TAG = "8.0.32";
-	private static final String MYSQL_DATABASE = "moname_commons_jpa_test";
 	private static final String MYSQL_USER = "moname";
 	private static final String MYSQL_PASSWORD = MYSQL_USER;
 
 	public ExtendedMySQLContainer(final DockerImageName dockerImageName) {
 		super(dockerImageName);
-		LOG.info("Extended MySQL container for \":{}\" JDBC subprotocol.",
+		logger().info("Extended MySQL container for \":{}\" JDBC subprotocol.",
 			SUBPROTOCOL);
 	}
 
@@ -46,19 +43,14 @@ public class ExtendedMySQLContainer<SELF extends ExtendedMySQLContainer<SELF>>
 	@Override
 	protected String constructUrlParameters(final String startCharacter,
 		final String delimiter, final String endCharacter) {
-		return super.urlParameters.isEmpty()
+		return urlParameters.isEmpty()
 			? ""
 			: startCharacter
-			+ super.urlParameters.entrySet().stream()
+			+ urlParameters.entrySet().stream()
 			.map(Object::toString)
 			.sorted()
 			.collect(Collectors.joining(delimiter))
 			+ endCharacter;
-	}
-
-	@Override
-	public String getDatabaseName() {
-		return MYSQL_DATABASE;
 	}
 
 	@Override
@@ -74,11 +66,19 @@ public class ExtendedMySQLContainer<SELF extends ExtendedMySQLContainer<SELF>>
 	@Override
 	protected void configure() {
 		super.configure();
-		super.withEnv("MYSQL_DATABASE", MYSQL_DATABASE)
-			.withEnv("MYSQL_PASSWORD", MYSQL_PASSWORD)
-			.withEnv("MYSQL_ROOT_PASSWORD", MYSQL_PASSWORD)
-			.withEnv("MYSQL_USER", MYSQL_USER)
-			.withUrlParam("cachePrepStmts", "true")
+		withEnv();
+		withUrlParam();
+	}
+
+	private void withEnv() {
+		super.withEnv("MYSQL_DATABASE", getDatabaseName())
+			.withEnv("MYSQL_PASSWORD", getPassword())
+			.withEnv("MYSQL_ROOT_PASSWORD", getPassword())
+			.withEnv("MYSQL_USER", getUsername());
+	}
+
+	private void withUrlParam() {
+		super.withUrlParam("cachePrepStmts", "true")
 			.withUrlParam("cacheResultSetMetadata", "true")
 			.withUrlParam("cacheServerConfiguration", "true")
 			.withUrlParam("characterEncoding", "UTF-8")

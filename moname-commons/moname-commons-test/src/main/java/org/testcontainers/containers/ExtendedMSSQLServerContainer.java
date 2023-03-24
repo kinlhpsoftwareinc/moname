@@ -2,13 +2,11 @@ package org.testcontainers.containers;
 
 import java.util.stream.Collectors;
 
-import lombok.extern.slf4j.Slf4j;
 import org.testcontainers.utility.DockerImageName;
 
 /**
  * Extended MS SQL Server container. See {@link MSSQLServerContainer} for details.
  */
-@Slf4j
 public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContainer<SELF>>
 	extends MSSQLServerContainer<SELF> {
 
@@ -31,17 +29,19 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 	private static final String ACCEPT_EULA = "Y";
 	private static final String MSSQL_PID = "Developer";
 	private static final String MSSQL_SA_PASSWORD = "A_Str0ng_Required_Password";
-	static final String MSSQL_DATABASE = "moname_commons_jpa_test";
 	static final String MSSQL_USER = "moname";
 	static final String MSSQL_PASSWORD = MSSQL_USER;
 	static final String RESOURCE_PATH_SH = "db/sqlserver/initial-command.sh";
 	static final String CONTAINER_PATH_SH = "/home/mssql/initial-command.sh";
 	static final String RESOURCE_PATH_SQL = "db/sqlserver/initial-setup.sql";
 	static final String CONTAINER_PATH_SQL = "/home/mssql/initial-setup.sql";
+    private String databaseName;
+    private String username = MSSQL_USER;
+    private String password = MSSQL_PASSWORD;
 
 	public ExtendedMSSQLServerContainer(final DockerImageName dockerImageName) {
 		super(dockerImageName);
-		LOG.info("Extended MS SQL Server container for \":{}\" JDBC subprotocol.",
+		logger().info("Extended MS SQL Server container for \":{}\" JDBC subprotocol.",
 			SUBPROTOCOL);
 	}
 
@@ -53,10 +53,10 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 	@Override
 	protected String constructUrlParameters(final String startCharacter,
 		final String delimiter, final String endCharacter) {
-		return super.urlParameters.isEmpty()
+		return urlParameters.isEmpty()
 			? ""
 			: startCharacter
-			+ super.urlParameters.entrySet().stream()
+			+ urlParameters.entrySet().stream()
 			.map(Object::toString)
 			.sorted()
 			.collect(Collectors.joining(delimiter))
@@ -65,32 +65,54 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 
 	@Override
 	public String getDatabaseName() {
-		return MSSQL_DATABASE;
+		return this.databaseName;
 	}
 
 	@Override
 	public String getUsername() {
-		return MSSQL_USER;
+		return this.username;
 	}
 
 	@Override
 	public String getPassword() {
-		return MSSQL_PASSWORD;
+		return this.password;
 	}
 
 	@Override
 	protected void configure() {
 		super.configure();
+		with();
+	}
+
+    @Override
+    public SELF withDatabaseName(final String databaseName) {
+        this.databaseName = databaseName;
+        return self();
+    }
+
+    @Override
+    public SELF withUsername(final String username) {
+        this.username = username;
+        return self();
+    }
+
+    @Override
+    public SELF withPassword(final String password) {
+        this.password = password;
+        return self();
+    }
+
+	private void with() {
 		super.withEnv("ACCEPT_EULA", ACCEPT_EULA)
-			.withEnv("MSSQL_DATABASE", MSSQL_DATABASE)
-			.withEnv("MSSQL_PASSWORD", MSSQL_PASSWORD)
+			.withEnv("MSSQL_DATABASE", getDatabaseName())
+			.withEnv("MSSQL_PASSWORD", getPassword())
 			.withEnv("MSSQL_PID", MSSQL_PID)
 			.withEnv("MSSQL_SA_PASSWORD", MSSQL_SA_PASSWORD)
-			.withEnv("MSSQL_USER", MSSQL_USER)
+			.withEnv("MSSQL_USER", getUsername())
 			.withClasspathResourceMapping(RESOURCE_PATH_SH, CONTAINER_PATH_SH, BindMode.READ_ONLY)
 			.withClasspathResourceMapping(RESOURCE_PATH_SQL, CONTAINER_PATH_SQL, BindMode.READ_ONLY)
 			.withCommand("sh", "-c", initialCommand())
-			.withUrlParam("databaseName", MSSQL_DATABASE)
+			.withUrlParam("databaseName", getDatabaseName())
 			.withUrlParam("sendStringParametersAsUnicode", "false");
 	}
 

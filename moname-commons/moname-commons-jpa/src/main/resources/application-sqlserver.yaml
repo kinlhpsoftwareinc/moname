@@ -1,0 +1,68 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    #
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      #
+      # ${auto-commit}
+      # Default: true
+      #auto-commit: true
+      #
+      # ${connection-init-sql}
+      # Will be executed after every new connection creation before adding it to the pool.
+      # If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
+      # Default: none
+      connection-init-sql: &connection-init-sql SELECT 1
+      #
+      # ${connection-test-query}
+      # If your driver supports JDBC4 we strongly recommend not setting this property.
+      # This is for "legacy" drivers that do not support the JDBC4 ${Connection.isValid()} API.
+      # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
+      # Default: none
+      #connection-test-query: *connection-init-sql
+      #
+      # ${connection-timeout}
+      # The lowest acceptable connection timeout is 250ms.
+      # Default: 30_000ms (30 seconds).
+      #connection-timeout: 30_000
+      #
+      # ${idle-timeout}
+      # This setting only applies when ${minimum-idle} is defined to be less than ${maximum-pool-size}.
+      # The minimum allowed value is 10_000ms (10 seconds).
+      # Default: 600_000ms (10 minutes).
+      # A value of 0 means that idle connections are never removed from the pool.
+      #idle-timeout: 600_000
+      #
+      # ${maximum-pool-size}
+      # When the pool reaches this size, and no idle connections are available, calls to ${getConnection()} will block for up to ${connection-timeout} milliseconds before timing out.
+      # Default: 10
+      maximum-pool-size: &maximum-pool-size 10
+      #
+      # ${minimum-idle}
+      # For maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
+      # Default: same as ${maximum-pool-size}.
+      minimum-idle: *maximum-pool-size
+    password: moname
+    #
+    # ${url}
+    # List of all available tags for mssql/server
+    # https://mcr.microsoft.com/v2/mssql/server/tags/list
+    #
+    # Learn | SQL | Connect | JDBC | Programming guide | Connections
+    # https://learn.microsoft.com/en-us/sql/connect/jdbc/setting-the-connection-properties
+    #
+    # ;sendStringParametersAsUnicode
+    # https://vladmihalcea.com/sql-server-jdbc-sendstringparametersasunicode
+    url: jdbc:sqlserver://sqlserver:1433;databaseName=moname;sendStringParametersAsUnicode=false;trustServerCertificate=true
+    username: moname
+  jpa:
+    #
+    # ${database}
+    # README#org.hibernate.dialect.Database
+    database: SQLSERVER
+    database-platform: org.hibernate.dialect.SQLServerDialect
+  sql:
+    init:
+      platform: sqlserver

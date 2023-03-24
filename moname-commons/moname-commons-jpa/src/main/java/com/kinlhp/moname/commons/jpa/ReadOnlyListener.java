@@ -19,7 +19,7 @@ public final class ReadOnlyListener<T extends AbstractReadOnly<PK>, PK extends S
 	 */
 	@PrePersist
 	void onPrePersist(final T entity) {
-		throwException(entity);
+		this.throwException(entity);
 	}
 
 	/**
@@ -30,7 +30,7 @@ public final class ReadOnlyListener<T extends AbstractReadOnly<PK>, PK extends S
 	 */
 	@PreRemove
 	void onPreRemove(final T entity) {
-		throwException(entity);
+		this.throwException(entity);
 	}
 
 	/**
@@ -41,13 +41,13 @@ public final class ReadOnlyListener<T extends AbstractReadOnly<PK>, PK extends S
 	 */
 	@PreUpdate
 	void onPreUpdate(final T entity) {
-		throwException(entity);
+		this.throwException(entity);
 	}
 
 	/**
 	 * Throws an {@link ReadOnlyEntityException}.
 	 */
-	@SuppressWarnings(value = { "unchecked" })
+	@SuppressWarnings(value = {"unchecked"})
 	private void throwException(final T entity) {
 		throw new ReadOnlyEntityException(entity.getClass());
 	}

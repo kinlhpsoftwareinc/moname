@@ -26,7 +26,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements Pe
 	@Column(updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@Setter(onParam = @__({ @NotNull }))
+	@Setter(onParam_ = {@NotNull})
 	private PK pk;
 
 }

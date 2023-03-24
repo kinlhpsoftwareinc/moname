@@ -1,51 +1,6 @@
 ﻿# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
 spring:
   datasource:
-    #driver-class-name: com.mysql.cj.jdbc.Driver
-    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    #
-    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
-    hikari:
-      #
-      # ${auto-commit}
-      # Default: true
-      #auto-commit: true
-      #
-      # ${connection-init-sql}
-      # Will be executed after every new connection creation before adding it to the pool.
-      # If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
-      # Default: none
-      connection-init-sql: &connection-init-sql SELECT 1
-      #
-      # ${connection-test-query}
-      # If your driver supports JDBC4 we strongly recommend not setting this property.
-      # This is for "legacy" drivers that do not support the JDBC4 ${Connection.isValid()} API.
-      # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
-      # Default: none
-      #connection-test-query: *connection-init-sql
-      #
-      # ${connection-timeout}
-      # The lowest acceptable connection timeout is 250ms.
-      # Default: 30_000ms (30 seconds).
-      #connection-timeout: 30_000
-      #
-      # ${idle-timeout}
-      # This setting only applies when ${minimum-idle} is defined to be less than ${maximum-pool-size}.
-      # The minimum allowed value is 10_000ms (10 seconds).
-      # Default: 600_000ms (10 minutes).
-      # A value of 0 means that idle connections are never removed from the pool.
-      #idle-timeout: 600_000
-      #
-      # ${maximum-pool-size}
-      # When the pool reaches this size, and no idle connections are available, calls to ${getConnection()} will block for up to ${connection-timeout} milliseconds before timing out.
-      # Default: 10
-      maximum-pool-size: &maximum-pool-size 10
-      #
-      # ${minimum-idle}
-      # For maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
-      # Default: same as ${maximum-pool-size}.
-      minimum-idle: *maximum-pool-size
-    password: moname
     #
     # ${url}
     # https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html
@@ -53,21 +8,4 @@ spring:
     #
     # https://www.testcontainers.org/modules/databases/jdbc
     # Testcontainers JDBC support
-    #url: jdbc:mysql://mysql:3306/moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&connectionTimeZone=UTC&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&useLocalSessionState=true&useServerPrepStmts=true
     url: jdbc:tc:mysqlext:8.0.32:////moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&connectionTimeZone=UTC&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&useLocalSessionState=true&useServerPrepStmts=true&TC_REUSABLE=true
-    username: moname
-  jpa:
-    #
-    # ${database}
-    # README#org.hibernate.dialect.Database
-    database: MYSQL
-    database-platform: org.hibernate.dialect.MySQLDialect
-  liquibase:
-    parameters:
-      #
-      # ${increment-by}
-      # java.lang.NumberFormatException: Zero length BigInteger
-      #increment-by:
-  sql:
-    init:
-      platform: mysql

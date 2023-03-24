@@ -21,11 +21,11 @@ sleep 5s && \
 # 2023-03-04 06:15:49.81 spid35s     The default language (LCID 0) has been set for engine and full-text services.
 # 2023-03-04 06:15:49.97 spid35s     The tempdb database has 8 data file(s).
 # 2023-03-04 06:17:51.78 spid73      [5]. Feature Status: PVS: 0. CTR: 0. ConcurrentPFSUpdate: 1. ConcurrentGAMUpdate: 1. ConcurrentSGAMUpdate: 1, CleanupUnderUserTransaction: 0. TranLevelPVS: 0
-# 2023-03-04 06:17:51.78 spid73      Starting up database 'moname_commons_jpa_test'.
+# 2023-03-04 06:17:51.78 spid73      Starting up database 'moname_test'.
 # 2023-03-04 06:17:51.78 spid73      RemoveStaleDbEntries: Cleanup of stale DB entries called for database ID: [5]
 # 2023-03-04 06:17:51.78 spid73      RemoveStaleDbEntries: Cleanup of stale DB entries skipped because master db is not memory optimized. DbId: 5.
-# 2023-03-04 06:17:51.80 spid73      Parallel redo is started for database 'moname_commons_jpa_test' with worker pool size [4].
-# 2023-03-04 06:17:51.81 spid73      Parallel redo is shutdown for database 'moname_commons_jpa_test' with worker pool size [4].
+# 2023-03-04 06:17:51.80 spid73      Parallel redo is started for database 'moname_test' with worker pool size [4].
+# 2023-03-04 06:17:51.81 spid73      Parallel redo is shutdown for database 'moname_test' with worker pool size [4].
 # 2023-03-04 06:18:41.20 spid27s     Always On: The availability replica manager is going offline because SQL Server is shutting down. This is an informational message only. No user action is required.
 # 2023-03-04 06:18:41.20 spid27s     SQL Server is terminating in response to a 'stop' request from Service Control Manager. This is an informational message only. No user action is required.
 # 2023-03-04 06:18:41.21 spid27s     .NET Framework runtime has been stopped.

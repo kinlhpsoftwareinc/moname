@@ -13,13 +13,13 @@ public class ExtendedMySQLContainerProvider extends MySQLContainerProvider {
 	}
 
 	@Override
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings(value = {"rawtypes"})
 	public JdbcDatabaseContainer newInstance() {
 		return newInstance(ExtendedMySQLContainer.DEFAULT_TAG);
 	}
 
 	@Override
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings(value = {"deprecation", "rawtypes"})
 	public JdbcDatabaseContainer newInstance(final String tag) {
 		final DockerImageName dockerImageName = DockerImageName
 			.parse(ExtendedMySQLContainer.IMAGE).withTag(tag);
