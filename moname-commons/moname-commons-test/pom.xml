@@ -16,18 +16,11 @@
 	</properties>
 	<dependencies>
 		<!-- # third party # -->
-		<!-- hibernate -->
+		<!-- jakarta -->
 		<dependency>
 			<!-- README#jsr-380 -->
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
 		</dependency>
 		<!-- springframework -->
 		<dependency>
@@ -47,7 +40,7 @@
 			<groupId>org.testcontainers</groupId>
 			<artifactId>oracle-xe</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 	<profiles>
 		<profile>
 			<id>test</id>
@@ -80,12 +73,30 @@
 					<!-- README#jsr-380 -->
 					<groupId>org.glassfish.expressly</groupId>
 					<artifactId>expressly</artifactId>
+					<scope>test</scope>
+					<optional>true</optional>
+				</dependency>
+				<!-- hibernate -->
+				<dependency>
+					<!-- README#jsr-380 -->
+					<groupId>org.hibernate.validator</groupId>
+					<artifactId>hibernate-validator</artifactId>
+					<scope>test</scope>
+					<optional>true</optional>
+				</dependency>
+				<!-- lombok -->
+				<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<scope>test</scope>
+					<optional>true</optional>
 				</dependency>
 				<!-- testcontainers -->
 				<dependency>
 					<groupId>org.testcontainers</groupId>
 					<artifactId>junit-jupiter</artifactId>
 					<scope>test</scope>
+					<optional>true</optional>
 				</dependency>
 			</dependencies>
 		</profile>

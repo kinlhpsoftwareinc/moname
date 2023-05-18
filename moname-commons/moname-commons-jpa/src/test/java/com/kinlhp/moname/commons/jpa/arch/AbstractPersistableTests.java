@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.NotNull;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -27,40 +27,39 @@ import com.kinlhp.moname.commons.jpa.Persistable;
 /**
  * Architectural tests for abstract implementation of persistable entities.
  */
-class AbstractPersistableTests implements
-	AbstractPersistableArchTests<AbstractPersistable<Serializable>, Serializable> {
+class AbstractPersistableTests implements AbstractPersistableArchTests<AbstractPersistable<Serializable>, Serializable> {
 
-	private static final int GET_PK_METHOD_VISIBILITY = Modifier.PUBLIC;
+	private static final int GET_PK_METHOD_VISIBILITY = Modifier.PUBLIC | Modifier.ABSTRACT;
 	private static final int PK_FIELD_VISIBILITY = Modifier.PRIVATE;
-	private static final int SET_PK_METHOD_VISIBILITY = Modifier.PUBLIC;
+	private static final int SET_PK_METHOD_VISIBILITY = Modifier.PUBLIC | Modifier.ABSTRACT;
 	private static final int TYPE_VISIBILITY = Modifier.PUBLIC | Modifier.ABSTRACT;
 
 	@Override
 	@ParameterizedTest
-	@ValueSource(classes = { AbstractPersistable.class })
-	public final void assertAbstractPersistableArch(final Class<AbstractPersistable<Serializable>> clazz) throws
+	@ValueSource(classes = {AbstractPersistable.class})
+	public final void assertAbstractPersistableArch(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) throws
 		NoSuchMethodException {
-		AbstractPersistableArchTests.super.assertAbstractPersistableArch(clazz);
+		AbstractPersistableArchTests.super.assertAbstractPersistableArch(aClass);
 	}
 
-	@DisplayName(value = "It has an {Serializable getPk()} method.")
+	@DisplayName(value = "It has an {Serializable getPK()} method.")
 	@Override
-	public final void assertGetPkMethod(final Class<AbstractPersistable<Serializable>> clazz) throws
+	public final void assertGetPKMethod(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) throws
 		NoSuchMethodException {
-		final var method = clazz.getDeclaredMethod("getPk");
-		Assertions.assertAll("getPk()",
+		@Nonnull final var method = aClass.getMethod("getPK");
+		Assertions.assertAll("getPK()",
 			() -> Assertions.assertEquals(GET_PK_METHOD_VISIBILITY, method.getModifiers(),
-				"{getPk()} Public visibility."),
-			() -> Assertions.assertEquals(0, method.getParameterCount(), "{getPk()} With no one parameter."),
+				"{getPK()} Public visibility."),
+			() -> Assertions.assertEquals(0, method.getParameterCount(), "{getPK()} With no one parameter."),
 			() -> Assertions.assertEquals(Serializable.class, method.getReturnType(),
-				"{getPk()} Returns a Serializable.")
+				"{getPK()} Returns a Serializable.")
 		);
 	}
 
 	@DisplayName(value = "It is implementing only Persistable.")
 	@Override
-	public final void assertImplements(final Class<AbstractPersistable<Serializable>> clazz) {
-		final var superclasses = clazz.getInterfaces();
+	public final void assertImplements(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) {
+		@Nonnull final var superclasses = aClass.getInterfaces();
 		Assertions.assertAll("implementing",
 			() -> Assertions.assertEquals(Persistable.class, superclasses[0], "It is implementing Persistable."),
 			() -> Assertions.assertEquals(1, superclasses.length, "It is implementing only Persistable.")
@@ -69,8 +68,8 @@ class AbstractPersistableTests implements
 
 	@DisplayName(value = "It is inheriting Object.")
 	@Override
-	public final void assertInherits(final Class<AbstractPersistable<Serializable>> clazz) {
-		final var superclass = clazz.getSuperclass();
+	public final void assertInherits(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) {
+		@Nonnull final var superclass = aClass.getSuperclass();
 		Assertions.assertAll("inheriting",
 			() -> Assertions.assertEquals(Object.class, superclass, "It is inheriting Object.")
 		);
@@ -78,23 +77,23 @@ class AbstractPersistableTests implements
 
 	@DisplayName(value = "It is annotated.")
 	@Override
-	public final void assertIsAnnotated(final Class<AbstractPersistable<Serializable>> clazz) {
-		final var annotations = Arrays.stream(clazz.getDeclaredAnnotations()).map(Annotation::annotationType)
+	public final void assertIsAnnotated(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) {
+		@Nonnull final var annotations = Arrays.stream(aClass.getDeclaredAnnotations()).map(Annotation::annotationType)
 			.collect(Collectors.toUnmodifiableSet());
-		final var expected = Set.of(MappedSuperclass.class);
+		@Nonnull final var expected = Set.of(MappedSuperclass.class);
 		Assertions.assertEquals(expected, annotations, "It is annotated.");
 	}
 
 	@DisplayName(value = "It is not an annotation.")
 	@Override
-	public final void assertIsNotAnnotation(final Class<AbstractPersistable<Serializable>> clazz) {
-		Assertions.assertFalse(clazz.isAnnotation(), "It is not an annotation.");
+	public final void assertIsNotAnnotation(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) {
+		Assertions.assertFalse(aClass.isAnnotation(), "It is not an annotation.");
 	}
 
 	@DisplayName(value = "It has an {Serializable pk} declared field.")
 	@Override
-	public final void assertPkField(final Class<AbstractPersistable<Serializable>> clazz) throws NoSuchFieldException {
-		final var field = clazz.getDeclaredField("pk");
+	public final void assertPkField(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) throws NoSuchFieldException {
+		@Nonnull final var field = aClass.getDeclaredField("pk");
 		Assertions.assertAll("pk",
 			() -> Assertions.assertEquals(PK_FIELD_VISIBILITY, field.getModifiers(), "{pk} Private visibility."),
 			() -> Assertions.assertEquals(Serializable.class, field.getType(), "{pk} Serializable."),
@@ -109,36 +108,35 @@ class AbstractPersistableTests implements
 		);
 	}
 
-	@DisplayName(value = "It has an {void setPk(Serializable)} declared method.")
+	@DisplayName(value = "It has an {void setPK(Serializable)} declared method.")
 	@Override
-	public final void assertSetPkMethod(final Class<AbstractPersistable<Serializable>> clazz) throws
+	public final void assertSetPKMethod(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) throws
 		NoSuchMethodException {
-		final var method = clazz.getDeclaredMethod("setPk", Serializable.class);
-		Assertions.assertAll("setPk(Serializable)",
+		@Nonnull final var method = aClass.getMethod("setPK", Serializable.class);
+		Assertions.assertAll("setPK(Serializable)",
 			() -> Assertions.assertEquals(SET_PK_METHOD_VISIBILITY, method.getModifiers(),
-				"{setPk(Serializable)} Public visibility."),
+				"{setPK(Serializable)} Public visibility."),
 			() -> Assertions.assertEquals(1, method.getParameterCount(),
-				"{setPk(Serializable)} With only one parameter."),
+				"{setPK(Serializable)} With only one parameter."),
 			() -> Assertions.assertEquals(Serializable.class, method.getParameters()[0].getType(),
-				"{setPk(Serializable)} Serializable as first parameter."),
-			() -> Assertions.assertNotNull(method.getParameters()[0].getDeclaredAnnotation(NotNull.class),
-				"{setPk(Serializable)} First parameter annotated with NotNull."),
+				"{setPK(Serializable)} Serializable as first parameter."),
+			() -> Assertions.assertNotNull(method.getParameters()[0].getDeclaredAnnotation(Nonnull.class),
+				"{setPK(Serializable)} First parameter annotated with NotNull."),
 			() -> Assertions.assertEquals(1, method.getParameters()[0].getDeclaredAnnotations().length,
-				"{setPk(Serializable)} First parameter annotated only with NotNull."),
-			() -> Assertions.assertEquals(Void.TYPE, method.getReturnType(), "{setPk(Serializable)} Void return.")
+				"{setPK(Serializable)} First parameter annotated only with NotNull."),
+			() -> Assertions.assertEquals(Void.TYPE, method.getReturnType(), "{setPK(Serializable)} Void return.")
 		);
 	}
 
-	@DisplayName(value = "It's an class.")
+	@DisplayName(value = "It's a class.")
 	@Override
-	public final void assertType(final Class<AbstractPersistable<Serializable>> clazz) {
-		Assertions.assertFalse(clazz.isInterface(), "It's an class.");
+	public final void assertType(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) {
+		Assertions.assertFalse(aClass.isInterface(), "It's a class.");
 	}
 
 	@DisplayName(value = "It's abstract with public visibility.")
 	@Override
-	public final void assertVisibility(final Class<AbstractPersistable<Serializable>> clazz) {
-		Assertions.assertEquals(TYPE_VISIBILITY, clazz.getModifiers(), "It's abstract with public visibility.");
+	public final void assertVisibility(@Nonnull final Class<AbstractPersistable<Serializable>> aClass) {
+		Assertions.assertEquals(TYPE_VISIBILITY, aClass.getModifiers(), "It's abstract with public visibility.");
 	}
-
 }

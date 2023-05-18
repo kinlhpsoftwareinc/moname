@@ -17,16 +17,16 @@
 	</organization>
 	<licenses>
 		<license>
-			<name>MIT License</name>
-			<url>https://www.opensource.org/licenses/mit-license.php</url>
+			<name>${license.name}</name>
+			<url>${license.url}</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
 	<developers>
 		<developer>
 			<id>kinlhp</id>
-			<name>Luis Henrique Pereira</name>
-			<email>lhp.kin@gmail.com</email>
+			<name>${developer.name}</name>
+			<email>${developer.email}</email>
 			<url>${project.organization.url}/kinlhp</url>
 			<organization>${project.organization.name}</organization>
 			<organizationUrl>${project.organization.url}</organizationUrl>
@@ -53,32 +53,41 @@
 		<url>https://github.com/kinlhpsoftwareinc/moname/issues</url>
 	</issueManagement>
 	<properties>
+		<developer.email>lhp.kin@gmail.com</developer.email>
+		<developer.name>Luis Henrique Pereira</developer.name>
+		<license.name>MIT License</license.name>
+		<license.url>https://github.com/kinlhpsoftwareinc/moname/blob/main/LICENSE</license.url>
 		<main.basedir>${basedir}</main.basedir>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<moname-commons-api.includes>openapi/commons</moname-commons-api.includes>
 		<openapi-generator.base-package>com.kinlhp.moname.commons.api.oas</openapi-generator.base-package>
-		<openapi-generator.input-spec>
-			${project.basedir}/src/main/resources/openapi/specification.yaml
-		</openapi-generator.input-spec>
+		<openapi-generator.base-package-path>com/kinlhp/moname/commons/api/oas</openapi-generator.base-package-path>
+		<openapi-generator.input-spec>${project.build.outputDirectory}/openapi/specification.yaml</openapi-generator.input-spec>
+		<openapi-generator.phase>generate-sources</openapi-generator.phase>
+		<openapi-generator.template-resource-path>${project.build.outputDirectory}/${moname-commons-api.includes}/templates/JavaSpring</openapi-generator.template-resource-path>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
 		<!-- dependency versions -->
 		<revision>1.0.0.BUILD-SNAPSHOT</revision>
 		<!-- # third party # -->
-		<gmavenplus-plugin.version>2.1.0</gmavenplus-plugin.version>
-		<jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-		<java.version>17</java.version>
-		<maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
-		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-		<maven-deploy-plugin.version>3.1.0</maven-deploy-plugin.version>
-		<maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
-		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
+		<gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
+		<jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+		<java.version>21</java.version>
+		<lombok.version>1.18.32</lombok.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+		<maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
+		<maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+		<maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
+		<maven-install-plugin.version>3.1.1</maven-install-plugin.version>
 		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
-		<maven-site-plugin.version>4.0.0-M5</maven-site-plugin.version>
-		<maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
-		<openapi-generator-maven-plugin.version>6.4.0</openapi-generator-maven-plugin.version>
+		<maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+		<maven-site-plugin.version>4.0.0-M13</maven-site-plugin.version>
+		<maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+		<openapi-generator-maven-plugin.version>7.4.0</openapi-generator-maven-plugin.version>
 	</properties>
 	<build>
 		<resources>
@@ -102,6 +111,29 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<annotationProcessorPaths>
+							<!-- # third party # -->
+							<!-- lombok -->
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</path>
+							<!-- mapstruct -->
+							<path>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+								<version>${mapstruct.version}</version>
+							</path>
+						</annotationProcessorPaths>
+						<showWarnings>true</showWarnings>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${maven-dependency-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -144,8 +176,8 @@
 					<version>${openapi-generator-maven-plugin.version}</version>
 					<executions>
 						<execution>
-							<id>openapi-generator</id>
-							<phase>generate-sources</phase>
+							<id>default-generate</id>
+							<phase>${openapi-generator.phase}</phase>
 							<goals>
 								<goal>generate</goal>
 							</goals>
@@ -154,37 +186,38 @@
 								<generatorName>spring</generatorName>
 								<!-- README#openapi-generator-spring-config-options -->
 								<apiPackage>${openapi-generator.base-package}.endpoint</apiPackage>
-								<artifactId>moname-commons-api-oas</artifactId>
+								<artifactId>${project.artifactId}</artifactId>
 								<artifactVersion>${revision}</artifactVersion>
 								<generateApiTests>false</generateApiTests>
 								<generateModelTests>false</generateModelTests>
 								<groupId>${project.groupId}</groupId>
 								<ignoreFileOverride>.openapi-generator-ignore</ignoreFileOverride>
+								<importMappings>
+									<importMapping>Pageable=org.springframework.data.domain.Pageable</importMapping>
+								</importMappings>
 								<inputSpec>${openapi-generator.input-spec}</inputSpec>
 								<invokerPackage>${openapi-generator.base-package}.invoker</invokerPackage>
-								<modelNameSuffix>DTO</modelNameSuffix>
 								<modelPackage>${openapi-generator.base-package}.payload</modelPackage>
+								<templateResourcePath>${openapi-generator.template-resource-path}</templateResourcePath>
 								<configOptions>
 									<!-- README#openapi-generator-spring-metadata -->
 									<generatorLanguage>Java</generatorLanguage>
 									<generatorType>SERVER</generatorType>
 									<!-- README#openapi-generator-spring-config-options -->
-									<artifactDescription>
-										Project to money me with no name [commons-api-oas].
-									</artifactDescription>
+									<artifactDescription>${project.description}</artifactDescription>
 									<artifactUrl>${project.url}</artifactUrl>
 									<basePackage>${openapi-generator.base-package}</basePackage>
 									<bigDecimalAsString>true</bigDecimalAsString>
 									<booleanGetterPrefix>is</booleanGetterPrefix>
 									<configPackage>${openapi-generator.base-package}.configuration</configPackage>
 									<delegatePattern>true</delegatePattern>
-									<developerEmail>lhp.kin@gmail.com</developerEmail>
-									<developerName>Luis Henrique Pereira</developerName>
+									<developerEmail>${developer.email}</developerEmail>
+									<developerName>${developer.name}</developerName>
 									<developerOrganization>${project.organization.name}</developerOrganization>
 									<developerOrganizationUrl>${project.organization.url}</developerOrganizationUrl>
-									<licenseName>MIT</licenseName>
-									<licenseUrl>https://www.opensource.org/licenses/mit-license.php</licenseUrl>
-									<parentArtifactId>moname-commons</parentArtifactId>
+									<licenseName>${license.name}</licenseName>
+									<licenseUrl>${license.url}</licenseUrl>
+									<parentArtifactId>${project.parent.artifactId}</parentArtifactId>
 									<parentGroupId>${project.parent.groupId}</parentGroupId>
 									<parentVersion>${revision}</parentVersion>
 									<performBeanValidation>true</performBeanValidation>
@@ -192,10 +225,11 @@
 									<scmDeveloperConnection>${project.scm.developerConnection}</scmDeveloperConnection>
 									<scmUrl>${project.scm.url}</scmUrl>
 									<serializableModel>true</serializableModel>
-									<title>Project to money me with no name [commons-api-oas].</title>
+									<title>${project.description}</title>
 									<unhandledException>true</unhandledException>
 									<useSpringBoot3>true</useSpringBoot3>
 									<useSpringController>true</useSpringController>
+									<useTags>true</useTags>
 								</configOptions>
 							</configuration>
 						</execution>
@@ -248,19 +282,17 @@
 							<version>${gmavenplus-plugin.version}</version>
 							<executions>
 								<execution>
-									<id>default-profiles-integration</id>
+									<id>default-execute</id>
 									<phase>test-compile</phase>
 									<goals>
 										<goal>execute</goal>
 									</goals>
 									<configuration>
 										<scripts>
-											<script>
-												<!-- maven + springframework -->
-												<!-- README#property-expansion -->
-												<!-- README#gmavenplus -->
-												${main.basedir}/src/gmavenplus/profiles-integration.groovy
-											</script>
+											<!-- maven + springframework -->
+											<!-- README#property-expansion -->
+											<!-- README#gmavenplus -->
+											<script>${main.basedir}/src/gmavenplus/profiles-integration.groovy</script>
 										</scripts>
 									</configuration>
 								</execution>
@@ -313,6 +345,8 @@
 								</execution>
 							</executions>
 							<configuration>
+								<!-- https://stackoverflow.com/a/73892829 -->
+								<classesDirectory>${project.build.outputDirectory}</classesDirectory>
 								<systemPropertyVariables>
 									<!-- maven + springframework -->
 									<!-- README#property-expansion -->

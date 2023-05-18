@@ -1,0 +1,79 @@
+# https://spec.openapis.org/oas/latest.html
+# https://datatracker.ietf.org/doc/html/rfc7807
+badRequest:
+  summary: &badRequest-summary 400 Bad Request.
+  description: *badRequest-summary
+  value:
+    detail: |
+      Failed to convert 'bar' with value: 'foo'
+    instance: /v1/bars/foo
+    status: 400
+    title: Bad Request
+    type: about:blank
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+detail:
+  summary: &detail-summary The problem detail.
+  description: *detail-summary
+  value: |
+      Failed to convert 'bar' with value: 'foo'
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+instance:
+  summary: &instance-summary The problem instance.
+  description: *instance-summary
+  value: /v1/bars/foo
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+methodNotAllowed:
+  summary: &methodNotAllowed-summary 405 Method Not Allowed.
+  description: *methodNotAllowed-summary
+  value:
+    detail: Method 'POST' is not supported.
+    instance: /v1/bars
+    status: 405
+    title: Method Not Allowed
+    type: about:blank
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+notFound:
+  summary: &notFound-summary 404 Not Found.
+  description: *notFound-summary
+  value:
+    detail: |
+      Not found 'bar' with value: 'foo'
+    instance: /v1/bars/foo
+    status: 404
+    title: Not Found
+    type: about:blank
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+notImplemented:
+  summary: &notImplemented-summary 501 Not Implemented.
+  description: *notImplemented-summary
+  value:
+    detail: Method 'GET' is not implemented
+    instance: /v1/bars/foo
+    status: 501
+    title: Not Implemented
+    type: about:blank
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+status:
+  summary: &status-summary The status associated with the problem.
+  description: *status-summary
+  value: 400
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+title:
+  summary: &title-summary The problem title.
+  description: *title-summary
+  value: Bad Request
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+type:
+  summary: &type-summary The problem type.
+  description: *type-summary
+  value: about:blank
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions

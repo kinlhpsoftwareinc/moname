@@ -3,6 +3,8 @@ package com.kinlhp.moname.commons.jpa.arch;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
 
+import jakarta.annotation.Nonnull;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,28 +22,28 @@ class ReadableTests implements ReadableArchTests<Readable<Serializable>, Seriali
 
 	@Override
 	@ParameterizedTest
-	@ValueSource(classes = { Readable.class })
-	public final void assertReadableArch(final Class<Readable<Serializable>> clazz) throws NoSuchMethodException {
-		ReadableArchTests.super.assertReadableArch(clazz);
+	@ValueSource(classes = {Readable.class})
+	public final void assertReadableArch(@Nonnull final Class<Readable<Serializable>> aClass) throws NoSuchMethodException {
+		ReadableArchTests.super.assertReadableArch(aClass);
 	}
 
-	@DisplayName(value = "It has an {Serializable getPk()} declared method.")
+	@DisplayName(value = "It has an {Serializable getPK()} declared method.")
 	@Override
-	public final void assertGetPkMethod(final Class<Readable<Serializable>> clazz) throws NoSuchMethodException {
-		final var method = clazz.getDeclaredMethod("getPk");
-		Assertions.assertAll("getPk()",
+	public final void assertGetPKMethod(@Nonnull final Class<Readable<Serializable>> aClass) throws NoSuchMethodException {
+		@Nonnull final var method = aClass.getDeclaredMethod("getPK");
+		Assertions.assertAll("getPK()",
 			() -> Assertions.assertEquals(GET_PK_METHOD_VISIBILITY, method.getModifiers(),
-				"{getPk()} Public visibility."),
-			() -> Assertions.assertEquals(0, method.getParameterCount(), "{getPk()} With no one parameter."),
+				"{getPK()} Public visibility."),
+			() -> Assertions.assertEquals(0, method.getParameterCount(), "{getPK()} With no one parameter."),
 			() -> Assertions.assertEquals(Serializable.class, method.getReturnType(),
-				"{getPk()} Returns a Serializable.")
+				"{getPK()} Returns a Serializable.")
 		);
 	}
 
 	@DisplayName(value = "It is inheriting only Serializable.")
 	@Override
-	public final void assertInherits(final Class<Readable<Serializable>> clazz) {
-		final var superclasses = clazz.getInterfaces();
+	public final void assertInherits(@Nonnull final Class<Readable<Serializable>> aClass) {
+		@Nonnull final var superclasses = aClass.getInterfaces();
 		Assertions.assertAll("inheriting",
 			() -> Assertions.assertEquals(Serializable.class, superclasses[0], "It is inheriting Serializable."),
 			() -> Assertions.assertEquals(1, superclasses.length, "It is inheriting only Serializable.")
@@ -50,20 +52,19 @@ class ReadableTests implements ReadableArchTests<Readable<Serializable>, Seriali
 
 	@DisplayName(value = "It is not an annotation.")
 	@Override
-	public final void assertIsNotAnnotation(final Class<Readable<Serializable>> clazz) {
-		Assertions.assertFalse(clazz.isAnnotation(), "It is not an annotation.");
+	public final void assertIsNotAnnotation(@Nonnull final Class<Readable<Serializable>> aClass) {
+		Assertions.assertFalse(aClass.isAnnotation(), "It is not an annotation.");
 	}
 
 	@DisplayName(value = "It's an interface.")
 	@Override
-	public final void assertType(final Class<Readable<Serializable>> clazz) {
-		Assertions.assertTrue(clazz.isInterface(), "It's an interface.");
+	public final void assertType(@Nonnull final Class<Readable<Serializable>> aClass) {
+		Assertions.assertTrue(aClass.isInterface(), "It's an interface.");
 	}
 
 	@DisplayName(value = "It's public visibility.")
 	@Override
-	public final void assertVisibility(final Class<Readable<Serializable>> clazz) {
-		Assertions.assertEquals(TYPE_VISIBILITY, clazz.getModifiers(), "It's public visibility.");
+	public final void assertVisibility(@Nonnull final Class<Readable<Serializable>> aClass) {
+		Assertions.assertEquals(TYPE_VISIBILITY, aClass.getModifiers(), "It's public visibility.");
 	}
-
 }

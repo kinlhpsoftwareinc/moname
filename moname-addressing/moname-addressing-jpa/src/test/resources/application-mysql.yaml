@@ -1,0 +1,11 @@
+﻿# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  datasource:
+    #
+    # ${url}
+    # https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html
+    # MySQL Connector/J 8.0 Developer Guide | Connector/J Reference | Configuration Properties
+    #
+    # https://www.testcontainers.org/modules/databases/jdbc
+    # Testcontainers JDBC support
+    url: jdbc:tc:mysqlext:8.0.33:////moname_addressing_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&connectionTimeZone=UTC&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&useLocalSessionState=true&useServerPrepStmts=true&TC_REUSABLE=true

@@ -2,26 +2,27 @@ package com.kinlhp.moname.commons.jpa.arch;
 
 import java.io.Serializable;
 
+import jakarta.annotation.Nonnull;
+
 import com.kinlhp.moname.commons.jpa.Readable;
 
 interface ReadableArchTests<T extends Readable<PK>, PK extends Serializable> {
 
-	default void assertReadableArch(final Class<T> clazz) throws NoSuchMethodException {
-		assertGetPkMethod(clazz);
-		assertInherits(clazz);
-		assertIsNotAnnotation(clazz);
-		assertType(clazz);
-		assertVisibility(clazz);
+	default void assertReadableArch(@Nonnull final Class<T> aClass) throws NoSuchMethodException {
+		assertGetPKMethod(aClass);
+		assertInherits(aClass);
+		assertIsNotAnnotation(aClass);
+		assertType(aClass);
+		assertVisibility(aClass);
 	}
 
-	void assertGetPkMethod(Class<T> clazz) throws NoSuchMethodException;
+	void assertGetPKMethod(@Nonnull Class<T> aClass) throws NoSuchMethodException;
 
-	void assertInherits(Class<T> clazz);
+	void assertInherits(@Nonnull Class<T> aClass);
 
-	void assertIsNotAnnotation(Class<T> clazz);
+	void assertIsNotAnnotation(@Nonnull Class<T> aClass);
 
-	void assertType(Class<T> clazz);
+	void assertType(@Nonnull Class<T> aClass);
 
-	void assertVisibility(Class<T> clazz);
-
+	void assertVisibility(@Nonnull Class<T> aClass);
 }

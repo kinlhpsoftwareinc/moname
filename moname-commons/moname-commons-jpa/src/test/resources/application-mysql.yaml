@@ -8,4 +8,4 @@ spring:
     #
     # https://www.testcontainers.org/modules/databases/jdbc
     # Testcontainers JDBC support
-    url: jdbc:tc:mysqlext:8.0.32:////moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&connectionTimeZone=UTC&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&useLocalSessionState=true&useServerPrepStmts=true&TC_REUSABLE=true
+    url: jdbc:tc:mysqlext:8.0.33:////moname_commons_jpa_test?cachePrepStmts=true&cacheResultSetMetadata=true&cacheServerConfiguration=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_general_ci&connectionTimeZone=UTC&createDatabaseIfNotExist=true&elideSetAutoCommits=true&maintainTimeStats=false&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&rewriteBatchedStatements=true&useLocalSessionState=true&useServerPrepStmts=true&TC_REUSABLE=true

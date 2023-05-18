@@ -2,28 +2,28 @@ package com.kinlhp.moname.commons.jpa.arch;
 
 import java.io.Serializable;
 
+import jakarta.annotation.Nonnull;
+
 import com.kinlhp.moname.commons.jpa.AbstractReadOnly;
 
-interface AbstractReadOnlyArchTests<T extends AbstractReadOnly<PK>, PK extends Serializable> extends
-	ReadableArchTests<T, PK> {
+interface AbstractReadOnlyArchTests<T extends AbstractReadOnly<PK>, PK extends Serializable> extends ReadableArchTests<T, PK> {
 
-	default void assertAbstractReadOnlyArch(final Class<T> clazz) throws NoSuchMethodException, NoSuchFieldException {
-		ReadableArchTests.super.assertReadableArch(clazz);
-		assertImplements(clazz);
-		assertIsAnnotated(clazz);
-		assertPkField(clazz);
-		assertReadOnlyListener(clazz);
-		assertSetPkMethod(clazz);
+	default void assertAbstractReadOnlyArch(@Nonnull final Class<T> aClass) throws NoSuchMethodException, NoSuchFieldException {
+		ReadableArchTests.super.assertReadableArch(aClass);
+		assertImplements(aClass);
+		assertIsAnnotated(aClass);
+		assertPkField(aClass);
+		assertReadOnlyListener(aClass);
+		assertSetPKMethod(aClass);
 	}
 
-	void assertImplements(Class<T> clazz);
+	void assertImplements(@Nonnull Class<T> aClass);
 
-	void assertIsAnnotated(Class<T> clazz);
+	void assertIsAnnotated(@Nonnull Class<T> aClass);
 
-	void assertPkField(Class<T> clazz) throws NoSuchFieldException;
+	void assertPkField(@Nonnull Class<T> aClass) throws NoSuchFieldException;
 
-	void assertReadOnlyListener(Class<T> clazz);
+	void assertReadOnlyListener(@Nonnull Class<T> aClass);
 
-	void assertSetPkMethod(Class<T> clazz) throws NoSuchMethodException;
-
+	void assertSetPKMethod(@Nonnull Class<T> aClass) throws NoSuchMethodException;
 }

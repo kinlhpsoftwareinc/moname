@@ -1,0 +1,21 @@
+# https://spec.openapis.org/oas/latest.html
+page:
+  summary: &page-summary Zero-based page index, must not be negative.
+  description: *page-summary
+  value: 0
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+pageable:
+  summary: &pageable-summary The pageable to request a paged result.
+  description: *pageable-summary
+  value:
+    page: 0
+    size: 25
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+size:
+  summary: &size-summary The size of the page to be returned, must be greater than 0.
+  description: *size-summary
+  value: 25
+  #externalValue: # The value field and externalValue field are mutually exclusive.
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions

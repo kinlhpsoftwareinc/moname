@@ -3,7 +3,7 @@ package com.kinlhp.moname.commons.jpa.arch;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.annotation.Nonnull;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,29 +24,29 @@ class PersistableTests implements PersistableArchTests<Persistable<Serializable>
 
 	@Override
 	@ParameterizedTest
-	@ValueSource(classes = { Persistable.class })
-	public final void assertPersistableArch(final Class<Persistable<Serializable>> clazz) throws
+	@ValueSource(classes = {Persistable.class})
+	public final void assertPersistableArch(@Nonnull final Class<Persistable<Serializable>> aClass) throws
 		NoSuchMethodException {
-		PersistableArchTests.super.assertPersistableArch(clazz);
+		PersistableArchTests.super.assertPersistableArch(aClass);
 	}
 
-	@DisplayName(value = "It has an {Serializable getPk()} declared method.")
+	@DisplayName(value = "It has an {Serializable getPK()} declared method.")
 	@Override
-	public final void assertGetPkMethod(final Class<Persistable<Serializable>> clazz) throws NoSuchMethodException {
-		final var method = clazz.getMethod("getPk");
-		Assertions.assertAll("getPk()",
+	public final void assertGetPKMethod(@Nonnull final Class<Persistable<Serializable>> aClass) throws NoSuchMethodException {
+		@Nonnull final var method = aClass.getMethod("getPK");
+		Assertions.assertAll("getPK()",
 			() -> Assertions.assertEquals(GET_PK_METHOD_VISIBILITY, method.getModifiers(),
-				"{getPk()} Public visibility."),
-			() -> Assertions.assertEquals(0, method.getParameterCount(), "{getPk()} With no one parameter."),
+				"{getPK()} Public visibility."),
+			() -> Assertions.assertEquals(0, method.getParameterCount(), "{getPK()} With no one parameter."),
 			() -> Assertions.assertEquals(Serializable.class, method.getReturnType(),
-				"{getPk()} Returns a Serializable.")
+				"{getPK()} Returns a Serializable.")
 		);
 	}
 
 	@DisplayName(value = "It is inheriting only Readable.")
 	@Override
-	public final void assertInherits(final Class<Persistable<Serializable>> clazz) {
-		final var superclasses = clazz.getInterfaces();
+	public final void assertInherits(@Nonnull final Class<Persistable<Serializable>> aClass) {
+		@Nonnull final var superclasses = aClass.getInterfaces();
 		Assertions.assertAll("inheriting",
 			() -> Assertions.assertEquals(Readable.class, superclasses[0], "It is inheriting Readable."),
 			() -> Assertions.assertEquals(1, superclasses.length, "It is inheriting only Readable.")
@@ -55,41 +55,40 @@ class PersistableTests implements PersistableArchTests<Persistable<Serializable>
 
 	@DisplayName(value = "It is not an annotation.")
 	@Override
-	public final void assertIsNotAnnotation(final Class<Persistable<Serializable>> clazz) {
-		Assertions.assertFalse(clazz.isAnnotation(), "It is not an annotation.");
+	public final void assertIsNotAnnotation(@Nonnull final Class<Persistable<Serializable>> aClass) {
+		Assertions.assertFalse(aClass.isAnnotation(), "It is not an annotation.");
 	}
 
-	@DisplayName(value = "It has an {void setPk(Serializable)} declared method.")
+	@DisplayName(value = "It has an {void setPK(Serializable)} declared method.")
 	@Override
-	public final void assertSetPkMethod(final Class<Persistable<Serializable>> clazz) throws NoSuchMethodException {
-		final var method = clazz.getDeclaredMethod("setPk", Serializable.class);
-		Assertions.assertAll("setPk(Serializable)",
+	public final void assertSetPKMethod(@Nonnull final Class<Persistable<Serializable>> aClass) throws NoSuchMethodException {
+		@Nonnull final var method = aClass.getDeclaredMethod("setPK", Serializable.class);
+		Assertions.assertAll("setPK(Serializable)",
 			() -> Assertions.assertEquals(SET_PK_METHOD_VISIBILITY, method.getModifiers(),
-				"{setPk(Serializable)} Public visibility."),
+				"{setPK(Serializable)} Public visibility."),
 			() -> Assertions.assertEquals(1, method.getParameterCount(),
-				"{setPk(Serializable)} With only one parameter."),
+				"{setPK(Serializable)} With only one parameter."),
 			() -> Assertions.assertEquals(Serializable.class, method.getParameters()[0].getType(),
-				"{setPk(Serializable)} Serializable as first parameter."),
+				"{setPK(Serializable)} Serializable as first parameter."),
 			() -> Assertions.assertEquals(Modifier.FINAL, (method.getParameters()[0].getModifiers() | Modifier.FINAL),
-				"{setPk(Serializable)} First parameter is final."),
-			() -> Assertions.assertNotNull(method.getParameters()[0].getDeclaredAnnotation(NotNull.class),
-				"{setPk(Serializable)} First parameter annotated with NotNull."),
+				"{setPK(Serializable)} First parameter is final."),
+			() -> Assertions.assertNotNull(method.getParameters()[0].getDeclaredAnnotation(Nonnull.class),
+				"{setPK(Serializable)} First parameter annotated with NotNull."),
 			() -> Assertions.assertEquals(1, method.getParameters()[0].getDeclaredAnnotations().length,
-				"{setPk(Serializable)} First parameter annotated only with NotNull."),
-			() -> Assertions.assertEquals(Void.TYPE, method.getReturnType(), "{setPk(Serializable)} Void return.")
+				"{setPK(Serializable)} First parameter annotated only with NotNull."),
+			() -> Assertions.assertEquals(Void.TYPE, method.getReturnType(), "{setPK(Serializable)} Void return.")
 		);
 	}
 
 	@DisplayName(value = "It's an interface.")
 	@Override
-	public final void assertType(final Class<Persistable<Serializable>> clazz) {
-		Assertions.assertTrue(clazz.isInterface(), "It's an interface.");
+	public final void assertType(@Nonnull final Class<Persistable<Serializable>> aClass) {
+		Assertions.assertTrue(aClass.isInterface(), "It's an interface.");
 	}
 
 	@DisplayName(value = "It's public visibility.")
 	@Override
-	public final void assertVisibility(final Class<Persistable<Serializable>> clazz) {
-		Assertions.assertEquals(TYPE_VISIBILITY, clazz.getModifiers(), "It's public visibility.");
+	public final void assertVisibility(@Nonnull final Class<Persistable<Serializable>> aClass) {
+		Assertions.assertEquals(TYPE_VISIBILITY, aClass.getModifiers(), "It's public visibility.");
 	}
-
 }

@@ -1,0 +1,1709 @@
+# https://spec.openapis.org/oas/v3.0.3
+openapi: 3.0.3
+info:
+  title: moname-addressing-api
+  description: Project to money me with no name [addressing-api].
+  termsOfService: https://moname.kinlhp.com/api/terms
+  contact:
+    name: Kin.LHP® Software, Inc.
+    url: https://kinlhp.com
+    email: lhp.kin@gmail.com
+    #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  license:
+    name: MIT License
+    url: https://github.com/kinlhpsoftwareinc/moname/blob/main/LICENSE
+    #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  version: 1.0.0.BUILD-SNAPSHOT
+  #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+#jsonSchemaDialect: https://spec.openapis.org/oas/3.1/dialect/base
+servers:
+  - url: http://{host}:{port}/{basePath}
+    description: The local development API server.
+    variables:
+      host:
+        # NOTE! No enum here means it is an open value.
+        enum:
+          - &servers-variables-host localhost
+        default: *servers-variables-host
+        description: The server host.
+        #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      port:
+        # NOTE! No enum here means it is an open value.
+        enum:
+          - &servers-variables-port 8080
+        default: *servers-variables-port
+        description: The server port.
+        #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      basePath:
+        # NOTE! No enum here means it is an open value.
+        enum:
+          - &servers-variables-basePath api
+        default: *servers-variables-basePath
+        description: The API base path.
+        #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  - url: https://{host}
+    description: The production API server.
+    variables:
+      host:
+        # NOTE! No enum here means it is an open value.
+        enum:
+          - &servers-variables-host api.addressing.moname.kinlhp.com
+        default: *servers-variables-host
+        description: The server host.
+        #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+paths:
+  /v1/countries:
+    # Escaped forward-slash is necessary when using JSON references.
+    # https://spec.openapis.org/oas/v3.0.3#operationref-examples
+    #
+    # All the fixed fields declared above are objects that MUST use keys that match the regular expression: ^[a-zA-Z0-9\.\-_]+$.
+    # https://spec.openapis.org/oas/v3.0.3#components-object
+    #$ref: '#/components/pathItems/v1.countries'
+    # Escaped forward-slash is necessary when using JSON references.
+    # https://spec.openapis.org/oas/v3.0.3#operationref-examples
+    summary: &~1-summary Countries operations.
+    description: *~1-summary
+    get:
+      tags:
+        - countries
+      # Escaped forward-slash is necessary when using JSON references.
+      # https://spec.openapis.org/oas/v3.0.3#operationref-examples
+      summary: &~1-get-summary GET countries.
+      description: *~1-get-summary
+      #externalDocs:
+      operationId: getCountries
+      parameters:
+        - $ref: commons/components/parameters/in/query.yaml#/pageable
+        #- name:
+          #in:
+          #description:
+          #required:
+          #deprecated:
+          #allowEmptyValue:
+          #style:
+          #explode:
+          #allowReserved:
+          #schema:
+          #example: The example field is mutually exclusive of the examples field.
+          #examples:
+          #content:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #requestBody:
+      responses:
+        default:
+          $ref: commons/components/responses/problem.yaml#/problemDetail
+          #description:
+          #headers:
+          #content:
+          #links:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        200:
+          # Escaped forward-slash is necessary when using JSON references.
+          # https://spec.openapis.org/oas/v3.0.3#operationref-examples
+          $ref: '#/components/responses/countries'
+          #description:
+          #headers:
+          #content:
+          #links:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #callbacks:
+      deprecated: false
+      #security:
+      #servers:
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    #put:
+    #post:
+    #delete:
+    #options:
+    #head:
+    #patch:
+    #trace:
+    #servers:
+    #parameters:
+    #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  /v1/countries/{numericCode}:
+    # Escaped forward-slash is necessary when using JSON references.
+    # https://spec.openapis.org/oas/v3.0.3#operationref-examples
+    #
+    # All the fixed fields declared above are objects that MUST use keys that match the regular expression: ^[a-zA-Z0-9\.\-_]+$.
+    # https://spec.openapis.org/oas/v3.0.3#components-object
+    #$ref: '#/components/pathItems/v1.countries.numericCode'
+    # Escaped forward-slash is necessary when using JSON references.
+    # https://spec.openapis.org/oas/v3.0.3#operationref-examples
+    summary: &~1id-summary Country operations.
+    description: *~1id-summary
+    get:
+      tags:
+        - countries
+      # Escaped forward-slash is necessary when using JSON references.
+      # https://spec.openapis.org/oas/v3.0.3#operationref-examples
+      summary: &~1id-get-summary GET country.
+      description: *~1id-get-summary
+      #externalDocs:
+      operationId: getCountry
+      parameters:
+        - $ref: '#/components/parameters/numericCode'
+        #- name:
+          #in:
+          #description:
+          #required:
+          #deprecated:
+          #allowEmptyValue:
+          #style:
+          #explode:
+          #allowReserved:
+          #schema:
+          #example: The example field is mutually exclusive of the examples field.
+          #examples:
+          #content:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #requestBody:
+      responses:
+        default:
+          $ref: commons/components/responses/problem.yaml#/problemDetail
+          #description:
+          #headers:
+          #content:
+          #links:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        200:
+          # Escaped forward-slash is necessary when using JSON references.
+          # https://spec.openapis.org/oas/v3.0.3#operationref-examples
+          $ref: '#/components/responses/country'
+          #description:
+          #headers:
+          #content:
+          #links:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #callbacks:
+      deprecated: false
+      #security:
+      #servers:
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    #put:
+    #post:
+    #delete:
+    #options:
+    #head:
+    #patch:
+    #trace:
+    #servers:
+    #parameters:
+    #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+#webhooks:
+components:
+  schemas:
+    alpha2Code:
+      title: alpha2Code
+      description: ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       alpha2Code:
+#         $ref: '#/components/examples/alpha2Code'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      maxLength: 2
+      minLength: 2
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: string
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    alpha3Code:
+      title: alpha3Code
+      description: ISO 3166-1 alpha-3 codes are three-letter country codes defined in ISO 3166-1.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       alpha3Code:
+#         $ref: '#/components/examples/alpha3Code'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      maxLength: 3
+      minLength: 3
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: string
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    countries:
+      title: countries
+      description: Countries.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       countries:
+#         $ref: '#/components/examples/countries'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      #maxLength:
+      #minLength:
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      maxItems: 249
+      minItems: 1
+      uniqueItems: true
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: array
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      items:
+        $ref: '#/components/schemas/country'
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #maxLength:
+        #minLength:
+        #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+        #enum:
+        #type:
+        #allOf:
+        #oneOf:
+        #anyOf:
+        #not:
+        #items:
+        #properties:
+        #additionalProperties:
+        #format:
+        #nullable:
+        #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #properties:
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    countriesResponse:
+      title: countriesResponse
+      description: Countries response.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       countriesResponse:
+#         $ref: '#/components/examples/countriesResponse'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      #maxLength:
+      #minLength:
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      maxProperties: 1
+      #minProperties:
+      required:
+        - countries
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: object
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      properties:
+        countries:
+          $ref: '#/components/schemas/countries'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    country:
+      title: country
+      description: Country.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       country:
+#         $ref: '#/components/examples/country'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      #maxLength:
+      #minLength:
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      maxProperties: 6
+      #minProperties:
+      required:
+        - alpha2Code
+        - alpha3Code
+        - englishName
+        - frenchName
+        - numericCode
+        - portugueseName
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: object
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      properties:
+        alpha2Code:
+          $ref: '#/components/schemas/alpha2Code'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        alpha3Code:
+          $ref: '#/components/schemas/alpha3Code'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        englishName:
+          $ref: '#/components/schemas/englishName'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        frenchName:
+          $ref: '#/components/schemas/frenchName'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        internetCctld:
+          $ref: '#/components/schemas/internetCctld'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        numericCode:
+          $ref: '#/components/schemas/numericCode'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        portugueseName:
+          $ref: '#/components/schemas/portugueseName'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    countryResponse:
+      title: countryResponse
+      description: Country response.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       countryResponse:
+#         $ref: '#/components/examples/countryResponse'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      #maxLength:
+      #minLength:
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      maxProperties: 6
+      #minProperties:
+      required:
+        - alpha2Code
+        - alpha3Code
+        - englishName
+        - frenchName
+        - numericCode
+        - portugueseName
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: object
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      properties:
+        alpha2Code:
+          $ref: '#/components/schemas/alpha2Code'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        alpha3Code:
+          $ref: '#/components/schemas/alpha3Code'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        englishName:
+          $ref: '#/components/schemas/englishName'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        frenchName:
+          $ref: '#/components/schemas/frenchName'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        internetCctld:
+          $ref: '#/components/schemas/internetCctld'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        numericCode:
+          $ref: '#/components/schemas/numericCode'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+        portugueseName:
+          $ref: '#/components/schemas/portugueseName'
+          #title:
+          #description:
+          #default:
+          #deprecated:
+          #readOnly:
+          #writeOnly:
+          #examples:
+          #multipleOf:
+          #maximum:
+          #exclusiveMaximum:
+          #minimum:
+          #exclusiveMinimum:
+          #maxLength:
+          #minLength:
+          #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+          #maxItems:
+          #minItems:
+          #uniqueItems:
+          #maxContains:
+          #minContains:
+          #maxProperties:
+          #minProperties:
+          #required:
+          #dependentRequired:
+          #discriminator:
+          #xml:
+          #externalDocs:
+          #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+          #enum:
+          #type:
+          #allOf:
+          #oneOf:
+          #anyOf:
+          #not:
+          #items:
+          #properties:
+          #additionalProperties:
+          #format:
+          #nullable:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    englishName:
+      title: englishName
+      description: The term country refers to a political state or nation or its territory.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       englishName:
+#         $ref: '#/components/examples/englishName'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      maxLength: 58
+      minLength: 4
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: string
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    frenchName:
+      title: frenchName
+      description: Le terme pays fait référence à un État politique ou à une nation ou à son territoire.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       frenchName:
+#         $ref: '#/components/examples/frenchName'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      maxLength: 56
+      minLength: 4
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: string
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    internetCctld:
+      title: internetCctld
+      description: Country code top-level domain (ccTLD).
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       internetCctld:
+#         $ref: '#/components/examples/internetCctld'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      maxLength: 7
+      minLength: 3
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: string
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      nullable: true
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    numericCode:
+      title: numericCode
+      description: ISO 3166-1 numeric codes are three-digit (left padded with zero) country codes defined in ISO 3166-1.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       numericCode:
+#         $ref: '#/components/examples/numericCode'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      maxLength: 3
+      minLength: 3
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: string
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    portugueseName:
+      title: portugueseName
+      description: O termo país refere-se a um estado político ou nação ou seu território.
+      #default:
+      deprecated: false
+      readOnly: true
+      writeOnly: false
+#     examples: # TODO
+#       portugueseName:
+#         $ref: '#/components/examples/portugueseName'
+#         #summary:
+#         #description:
+#         #value:
+#         #externalValue: # The value field and externalValue field are mutually exclusive.
+#         #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      maxLength: 46
+      minLength: 3
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      type: string
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      nullable: false
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  responses:
+    countries:
+      description: 200 OK.
+      #headers:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/countriesResponse'
+            #title:
+            #description:
+            #default:
+            #deprecated:
+            #readOnly:
+            #writeOnly:
+            #examples:
+            #multipleOf:
+            #maximum:
+            #exclusiveMaximum:
+            #minimum:
+            #exclusiveMinimum:
+            #maxLength:
+            #minLength:
+            #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+            #maxItems:
+            #minItems:
+            #uniqueItems:
+            #maxContains:
+            #minContains:
+            #maxProperties:
+            #minProperties:
+            #required:
+            #dependentRequired:
+            #discriminator:
+            #xml:
+            #externalDocs:
+            #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+            #enum:
+            #type:
+            #allOf:
+            #oneOf:
+            #anyOf:
+            #not:
+            #items:
+            #properties:
+            #additionalProperties:
+            #format:
+            #nullable:
+            #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+          #example: # The example field is mutually exclusive of the examples field.
+          #examples:
+          #encoding:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #links:
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    country:
+      description: 200 OK.
+      #headers:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/countryResponse'
+            #title:
+            #description:
+            #default:
+            #deprecated:
+            #readOnly:
+            #writeOnly:
+            #examples:
+            #multipleOf:
+            #maximum:
+            #exclusiveMaximum:
+            #minimum:
+            #exclusiveMinimum:
+            #maxLength:
+            #minLength:
+            #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+            #maxItems:
+            #minItems:
+            #uniqueItems:
+            #maxContains:
+            #minContains:
+            #maxProperties:
+            #minProperties:
+            #required:
+            #dependentRequired:
+            #discriminator:
+            #xml:
+            #externalDocs:
+            #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+            #enum:
+            #type:
+            #allOf:
+            #oneOf:
+            #anyOf:
+            #not:
+            #items:
+            #properties:
+            #additionalProperties:
+            #format:
+            #nullable:
+            #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+          #example: # The example field is mutually exclusive of the examples field.
+          #examples:
+          #encoding:
+          #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #links:
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  parameters:
+    numericCode:
+      name: numeric-code
+      in: path
+      description: ISO 3166-1 numeric codes are three-digit (left padded with zero) country codes defined in ISO 3166-1.
+      required: true
+      deprecated: false
+      allowEmptyValue: false
+      style: form
+      explode: false
+      allowReserved: false
+      schema:
+        $ref: '#/components/schemas/numericCode'
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #maxLength:
+        #minLength:
+        #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+        #enum:
+        #type:
+        #allOf:
+        #oneOf:
+        #anyOf:
+        #not:
+        #items:
+        #properties:
+        #additionalProperties:
+        #format:
+        #nullable:
+        #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+      #example: # The example field is mutually exclusive of the examples field.
+      #examples:
+      #content:
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  examples:
+    alpha2Code:
+      summary: &alpha2Code-summary ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1.
+      description: *alpha2Code-summary
+      value: BR
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    alpha3Code:
+      summary: &alpha3Code-summary ISO 3166-1 alpha-3 codes are three-letter country codes defined in ISO 3166-1.
+      description: *alpha3Code-summary
+      value: BRA
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    countries:
+      summary: &countries-summary Countries.
+      description: *countries-summary
+      value:
+        - alpha2Code: AF
+          alpha3Code: AFG
+          englishName: Afghanistan
+          frenchName: Afghanistan (l')
+          internetCctld: .af
+          numericCode: 004
+          portugueseName: Afeganistão
+        - alpha2Code: BV
+          alpha3Code: BVT
+          englishName: Bouvet Island
+          frenchName: Bouvet (l'Île)
+          numericCode: 074
+          portugueseName: Ilha Bouvet
+        - alpha2Code: ZM
+          alpha3Code: ZMB
+          englishName: Zambia
+          frenchName: Zambie (la)
+          internetCctld: .zm
+          numericCode: 894
+          portugueseName: Zâmbia
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    countriesResponse:
+      summary: &countriesResponse-summary Countries response.
+      description: *countriesResponse-summary
+      value:
+        countries:
+          - alpha2Code: AF
+            alpha3Code: AFG
+            englishName: Afghanistan
+            frenchName: Afghanistan (l')
+            internetCctld: .af
+            numericCode: 004
+            portugueseName: Afeganistão
+          - alpha2Code: BV
+            alpha3Code: BVT
+            englishName: Bouvet Island
+            frenchName: Bouvet (l'Île)
+            numericCode: 074
+            portugueseName: Ilha Bouvet
+          - alpha2Code: ZM
+            alpha3Code: ZMB
+            englishName: Zambia
+            frenchName: Zambie (la)
+            internetCctld: .zm
+            numericCode: 894
+            portugueseName: Zâmbia
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    country:
+      summary: &country-summary Country.
+      description: *country-summary
+      value:
+        alpha2Code: BR
+        alpha3Code: BRA
+        englishName: Brazil
+        frenchName: Brésil (le)
+        internetCctld: .br
+        numericCode: 076
+        portugueseName: Brasil
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    countryResponse:
+      summary: &countryResponse-summary Country response.
+      description: *countryResponse-summary
+      value:
+        alpha2Code: BR
+        alpha3Code: BRA
+        englishName: Brazil
+        frenchName: Brésil (le)
+        internetCctld: .br
+        numericCode: 076
+        portugueseName: Brasil
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    englishName:
+      summary: &englishName-summary The term country refers to a political state or nation or its territory.
+      description: *englishName-summary
+      value: Brazil
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    frenchName:
+      summary: &frenchName-summary Le terme pays fait référence à un État politique ou à une nation ou à son territoire.
+      description: *frenchName-summary
+      value: Brésil (le)
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    internetCctld:
+      summary: &internetCctld-summary Country code top-level domain (ccTLD).
+      description: *internetCctld-summary
+      value: .br
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    numericCode:
+      summary: &numericCode-summary ISO 3166-1 numeric codes are three-digit (left padded with zero) country codes defined in ISO 3166-1.
+      description: *numericCode-summary
+      value: 076
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+    portugueseName:
+      summary: &portugueseName-summary O termo país refere-se a um estado político ou nação ou seu território.
+      description: *portugueseName-summary
+      value: Brasil
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+  #requestBodies:
+  #headers:
+  #securitySchemes:
+  #links:
+  #callbacks:
+#security:
+tags:
+  - name: countries
+    description: Country related resources.
+    #externalDocs:
+    #^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions
+#externalDocs:
+#^x-: # https://spec.openapis.org/oas/v3.0.3#specificationExtensions

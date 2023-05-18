@@ -1,0 +1,59 @@
+# https://spec.openapis.org/oas/latest.html
+# https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schema-object
+pageable:
+  name: pageable
+  in: query
+  description: The pageable to request a paged result.
+  required: true
+  deprecated: false
+  allowEmptyValue: false
+  style: form
+  explode: true
+  allowReserved: false
+  schema:
+    $ref: ../../schemas/parameters.yaml#/pageable
+    #title:
+    #description:
+    #default:
+    #deprecated:
+    #readOnly:
+    #writeOnly:
+    #examples:
+    #multipleOf:
+    #maximum:
+    #exclusiveMaximum:
+    #minimum:
+    #exclusiveMinimum:
+    #maxLength:
+    #minLength:
+    #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+    #maxItems:
+    #minItems:
+    #uniqueItems:
+    #maxContains:
+    #minContains:
+    #maxProperties:
+    #minProperties:
+    #required:
+    #dependentRequired:
+    #discriminator:
+    #xml:
+    #externalDocs:
+    #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+    #enum:
+    #type:
+    #allOf:
+    #oneOf:
+    #anyOf:
+    #not:
+    #items:
+    #properties:
+    #additionalProperties:
+    #format:
+    #nullable:
+    #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+  #example: # The example field is mutually exclusive of the examples field.
+  #examples:
+  #content:
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions

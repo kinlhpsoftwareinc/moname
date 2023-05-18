@@ -1,2 +1,10 @@
 # https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
-spring.profiles.active: @test.profile@
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: INFO
+spring:
+  mvc:
+    problemdetails:
+      enabled: true
+  profiles:
+    active: @test.profile@

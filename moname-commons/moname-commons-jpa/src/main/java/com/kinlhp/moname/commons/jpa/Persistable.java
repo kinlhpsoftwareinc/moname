@@ -2,18 +2,17 @@ package com.kinlhp.moname.commons.jpa;
 
 import java.io.Serializable;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.annotation.Nonnull;
 
 /**
- * Abstraction for persistable entities.
+ * Contract for persistable entities.
  */
 public interface Persistable<PK extends Serializable> extends Readable<PK> {
 
 	/**
-	 * Defines the value of the primary key (PK).
+	 * Sets the value of the primary key (PK).
 	 *
-	 * @param pk Primary key (PK) value
+	 * @param pk primary key (PK) value.
 	 */
-	void setPk(@NotNull final PK pk);
-
+	void setPK(@Nonnull final PK pk);
 }

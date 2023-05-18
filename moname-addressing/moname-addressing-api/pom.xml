@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.kinlhp</groupId>
+		<artifactId>moname-addressing</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<artifactId>moname-addressing-api</artifactId>
+	<name>${project.artifactId}</name>
+	<description>Project to money me with no name [addressing-api].</description>
+	<properties>
+		<main.basedir>${basedir}/../..</main.basedir>
+		<openapi-generator.base-package>com.kinlhp.moname.addressing.api.oas</openapi-generator.base-package>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.kinlhp</groupId>
+			<artifactId>moname-addressing-domain</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.kinlhp</groupId>
+			<artifactId>moname-addressing-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.kinlhp</groupId>
+			<artifactId>moname-commons-api</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- # third party # -->
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- # third party # -->
+			<!-- maven -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.kinlhp</groupId>
+									<artifactId>moname-commons-api</artifactId>
+									<version>${revision}</version>
+									<type>jar</type>
+									<includes>${moname-commons-api.includes}/**</includes>
+									<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+									<overWrite>true</overWrite>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-copy-openapi-resources</id>
+						<phase>${openapi-generator.phase}</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}/openapi</outputDirectory>
+							<resources>
+								<!-- https://maven.apache.org/ref/current/maven-model/maven.html#resource -->
+								<resource>
+									<!-- OpenAPI specifications -->
+									<directory>${project.build.resources[0].directory}/openapi</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- openapitools -->
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>test</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<!-- # third party # -->
+					<!-- gmavenplus -->
+					<plugin>
+						<groupId>org.codehaus.gmavenplus</groupId>
+						<artifactId>gmavenplus-plugin</artifactId>
+					</plugin>
+					<!-- jacoco -->
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+					</plugin>
+					<!-- maven -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>com.kinlhp</groupId>
+					<artifactId>moname-commons-test</artifactId>
+					<scope>test</scope>
+					<optional>true</optional>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>

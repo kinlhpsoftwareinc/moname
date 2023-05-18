@@ -1,30 +1,42 @@
 package com.kinlhp.moname.commons.api.oas.payload.response;
 
-import com.kinlhp.moname.commons.api.oas.payload.GetEntitiesDefaultResponseDTO;
+import java.net.URI;
+
+import org.springframework.http.HttpStatus;
+
+import com.kinlhp.moname.commons.api.oas.payload.ProblemDetailResponse;
 
 /**
  * Fittings for the bean tests.
  */
 final class ConstraintViolationFittings {
 
-	static GetEntitiesDefaultResponseDTO maxViolations() {
-		return withoutViolations().code(600);
+	static ProblemDetailResponse maxViolations() {
+		return withoutViolations().status(512);
 	}
 
-	static GetEntitiesDefaultResponseDTO minViolations() {
-		return withoutViolations().code(499);
+	static ProblemDetailResponse minViolations() {
+		return withoutViolations().status(399);
 	}
 
-	static GetEntitiesDefaultResponseDTO notNullViolations() {
-		return withoutViolations().code(null).description(null);
+	static ProblemDetailResponse notNullViolations() {
+		return new ProblemDetailResponse(null, null, null, null, null);
 	}
 
-	static GetEntitiesDefaultResponseDTO sizeViolations() {
-		return withoutViolations().description("four");
+	static ProblemDetailResponse sizeViolations() {
+		return withoutViolations()
+			.detail("")
+			.title("");
 	}
 
-	static GetEntitiesDefaultResponseDTO withoutViolations() {
-		return new GetEntitiesDefaultResponseDTO();
+	static ProblemDetailResponse withoutViolations() {
+		return new ProblemDetailResponse(
+			"Failed to convert 'bar' with value: 'foo'",
+			URI.create("/v1/bars/foo"),
+			HttpStatus.BAD_REQUEST.value(),
+			"Bad Request",
+			URI.create("about:blank")
+		);
 	}
 
 }

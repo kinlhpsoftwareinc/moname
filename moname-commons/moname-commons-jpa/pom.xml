@@ -16,22 +16,16 @@
 	</properties>
 	<dependencies>
 		<!-- # third party # -->
-		<!-- hibernate -->
+		<!-- jakarta -->
 		<dependency>
 			<!-- README#jsr-380 -->
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
 		</dependency>
 		<!-- liquibase -->
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
-		</dependency>
-		<!-- lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<!-- springframework -->
 		<dependency>
@@ -74,6 +68,14 @@
 					<groupId>com.kinlhp</groupId>
 					<artifactId>moname-commons-test</artifactId>
 					<scope>test</scope>
+					<optional>true</optional>
+				</dependency>
+				<!-- lombok -->
+				<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<scope>test</scope>
+					<optional>true</optional>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -88,7 +90,7 @@
 				<dependency>
 					<groupId>org.hsqldb</groupId>
 					<artifactId>hsqldb</artifactId>
-					<scope>test</scope>
+					<scope>runtime</scope>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -124,6 +126,7 @@
 				<dependency>
 					<groupId>org.liquibase.ext</groupId>
 					<artifactId>liquibase-mssql</artifactId>
+					<scope>runtime</scope>
 				</dependency>
 				<!-- sqlserver -->
 				<dependency>

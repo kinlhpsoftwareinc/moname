@@ -11,11 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.kinlhp.moname.commons.jpa.ReadOnlyEntityException;
 import com.kinlhp.moname.commons.jpa.entity.ReadOnlyEntity;
 import com.kinlhp.moname.commons.jpa.repository.ReadOnlyRepository;
+import com.kinlhp.moname.commons.test.spring.jpa.AbstractJpaOnlyIT;
 
 /**
  * Tests for read-only entities.
  */
-class AbstractReadOnlyIT extends AbstractIT {
+class AbstractReadOnlyIT extends AbstractJpaOnlyIT {
 
 	@Autowired
 	private DataSource dataSource;
@@ -26,7 +27,8 @@ class AbstractReadOnlyIT extends AbstractIT {
 	@DisplayName(value = "Read-only entities cannot be persisted.")
 	@Test
 	final void shouldNotPersist() {
-		final var entity = ReadOnlyEntity.builder().pk(0).description('-').build();
+		final var entity = ReadOnlyEntity.builder()/*.pk(0)*/.description('-').build();
+		entity.setPK(1);
 		final var exception = Assertions.assertThrows(ReadOnlyEntityException.class, () -> repository.saveAndFlush(entity),
 			"Read-only entities cannot be persisted.");
 		Assertions.assertEquals("ReadOnlyEntity: is read-only", exception.getLocalizedMessage());
@@ -64,5 +66,4 @@ class AbstractReadOnlyIT extends AbstractIT {
 			.column("id").value().isEqualTo(2)
 			.column("description").value().isEqualTo("b");
 	}
-
 }

@@ -1,3 +1,3 @@
-org.testcontainers.containers.ExtendedMySQLContainerProvider
-org.testcontainers.containers.ExtendedOracleContainerProvider
-org.testcontainers.containers.ExtendedMSSQLServerContainerProvider
+com.kinlhp.moname.commons.test.testcontainers.ExtendedMSSQLServerContainerProvider
+com.kinlhp.moname.commons.test.testcontainers.ExtendedMySQLContainerProvider
+com.kinlhp.moname.commons.test.testcontainers.ExtendedOracleContainerProvider

@@ -2,19 +2,20 @@ package com.kinlhp.moname.commons.jpa.arch;
 
 import java.io.Serializable;
 
+import jakarta.annotation.Nonnull;
+
 import com.kinlhp.moname.commons.jpa.AbstractPersistable;
 
 interface AbstractPersistableArchTests<T extends AbstractPersistable<PK>, PK extends Serializable> extends
 	PersistableArchTests<T, PK> {
 
-	default void assertAbstractPersistableArch(final Class<T> clazz) throws NoSuchMethodException {
-		PersistableArchTests.super.assertPersistableArch(clazz);
+	default void assertAbstractPersistableArch(@Nonnull final Class<T> aClass) throws NoSuchMethodException {
+		PersistableArchTests.super.assertPersistableArch(aClass);
 	}
 
-	void assertImplements(Class<T> clazz);
+	void assertImplements(@Nonnull Class<T> aClass);
 
-	void assertIsAnnotated(Class<T> clazz);
+	void assertIsAnnotated(@Nonnull Class<T> aClass);
 
-	void assertPkField(Class<T> clazz) throws NoSuchFieldException;
-
+	void assertPkField(@Nonnull Class<T> aClass) throws NoSuchFieldException;
 }

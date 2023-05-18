@@ -1,0 +1,233 @@
+# https://spec.openapis.org/oas/latest.html
+# https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schema-object
+page:
+  title: page
+  description: Zero-based page index, must not be negative.
+  default: 0
+  deprecated: false
+  readOnly: true
+  writeOnly: false
+  examples:
+    page:
+      $ref: ../examples/parameters.yaml#/page
+      #summary:
+      #description:
+      #value:
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+  multipleOf: 1
+  maximum: 2147483647
+  #exclusiveMaximum:
+  minimum: 0
+  #exclusiveMinimum:
+  #maxLength:
+  #minLength:
+  #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  #maxProperties:
+  #minProperties:
+  #required:
+  #dependentRequired:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+  #enum:
+  type: integer
+  #allOf:
+  #oneOf:
+  #anyOf:
+  #not:
+  #items:
+  #properties:
+  #additionalProperties:
+  format: int32
+  nullable: false
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+pageable:
+  title: pageable
+  description: The pageable to request a paged result.
+  #default:
+  deprecated: false
+  readOnly: true
+  writeOnly: false
+  examples:
+    pageable:
+      $ref: ../examples/parameters.yaml#/pageable
+      #summary:
+      #description:
+      #value:
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+  #multipleOf:
+  #maximum:
+  #exclusiveMaximum:
+  #minimum:
+  #exclusiveMinimum:
+  #maxLength:
+  #minLength:
+  #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  maxProperties: 2
+  #minProperties:
+  required:
+    - page
+    - size
+  #dependentRequired:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+  #enum:
+  type: object
+  #allOf:
+  #oneOf:
+  #anyOf:
+  #not:
+  #items:
+  properties:
+    page:
+      $ref: '#/page'
+      #title:
+      #description:
+      #default:
+      #deprecated:
+      #readOnly:
+      #writeOnly:
+      #examples:
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      #maxLength:
+      #minLength:
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      #type:
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      #nullable:
+      #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+    size:
+      $ref: '#/size'
+      #title:
+      #description:
+      #default:
+      #deprecated:
+      #readOnly:
+      #writeOnly:
+      #examples:
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      #maxLength:
+      #minLength:
+      #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+      #enum:
+      #type:
+      #allOf:
+      #oneOf:
+      #anyOf:
+      #not:
+      #items:
+      #properties:
+      #additionalProperties:
+      #format:
+      #nullable:
+      #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+  #additionalProperties:
+  format:
+  nullable: false
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+size:
+  title: size
+  description: The size of the page to be returned, must be greater than 0.
+  default: 25
+  deprecated: false
+  readOnly: true
+  writeOnly: false
+  examples:
+    size:
+      $ref: ../examples/parameters.yaml#/size
+      #summary:
+      #description:
+      #value:
+      #externalValue: # The value field and externalValue field are mutually exclusive.
+      #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+  multipleOf: 1
+  maximum: 9223372036854775807
+  #exclusiveMaximum:
+  minimum: 1
+  #exclusiveMinimum:
+  #maxLength:
+  #minLength:
+  #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  #maxProperties:
+  #minProperties:
+  #required:
+  #dependentRequired:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+  #enum:
+  type: integer
+  #allOf:
+  #oneOf:
+  #anyOf:
+  #not:
+  #items:
+  #properties:
+  #additionalProperties:
+  format: int64
+  nullable: false
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions

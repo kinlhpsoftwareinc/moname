@@ -13,18 +13,21 @@
 	<description>Project to money me with no name [commons-api].</description>
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
-		<!-- # third party # -->
-		<openapi-generator.input-spec>
-			${project.basedir}/src/test/resources/openapi/specification.yaml
-		</openapi-generator.input-spec>
+		<openapi-generator.input-spec>${project.build.testOutputDirectory}/openapi/specification.yaml</openapi-generator.input-spec>
+		<openapi-generator.template-resource-path>${project.build.testOutputDirectory}/${moname-commons-api.includes}/templates/JavaSpring</openapi-generator.template-resource-path>
 	</properties>
 	<dependencies>
 		<!-- # third party # -->
-		<!-- hibernate -->
+		<!-- jakarta -->
 		<dependency>
 			<!-- README#jsr-380 -->
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+		<!-- mapstruct -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
 		</dependency>
 		<!-- openapitools -->
 		<dependency>
@@ -36,6 +39,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+		</dependency>
 		<!-- swagger -->
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
@@ -46,6 +53,22 @@
 			<artifactId>swagger-models</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<!-- # third party # -->
+			<!-- maven -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<!-- excluded the generated OpenAPI objects/classes -->
+						<exclude>${openapi-generator.base-package-path}/</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
 			<id>test</id>
@@ -72,6 +95,46 @@
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>default-copy-openapi-common-resources</id>
+								<phase>${openapi-generator.phase}</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.testOutputDirectory}/${moname-commons-api.includes}</outputDirectory>
+									<resources>
+										<!-- https://maven.apache.org/ref/current/maven-model/maven.html#resource -->
+										<resource>
+											<!-- OpenAPI common specifications -->
+											<directory>${project.build.resources[0].directory}/${moname-commons-api.includes}</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>default-copy-openapi-test-resources</id>
+								<phase>${openapi-generator.phase}</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.testOutputDirectory}/openapi</outputDirectory>
+									<resources>
+										<!-- https://maven.apache.org/ref/current/maven-model/maven.html#resource -->
+										<resource>
+											<!-- OpenAPI test specifications -->
+											<directory>${project.build.testResources[0].directory}/openapi</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 					</plugin>
 					<!-- openapitools -->
@@ -86,6 +149,23 @@
 					<groupId>com.kinlhp</groupId>
 					<artifactId>moname-commons-test</artifactId>
 					<scope>test</scope>
+					<optional>true</optional>
+				</dependency>
+				<!-- # third party # -->
+				<!-- hibernate -->
+				<dependency>
+					<!-- README#jsr-380 -->
+					<groupId>org.hibernate.validator</groupId>
+					<artifactId>hibernate-validator</artifactId>
+					<scope>test</scope>
+					<optional>true</optional>
+				</dependency>
+				<!-- lombok -->
+				<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<scope>test</scope>
+					<optional>true</optional>
 				</dependency>
 			</dependencies>
 		</profile>

@@ -2,16 +2,18 @@ package com.kinlhp.moname.commons.jpa;
 
 import java.io.Serializable;
 
+import jakarta.annotation.Nonnull;
+
 /**
- * Abstraction for readable entities.
+ * Contract for readable entities.
  */
 public interface Readable<PK extends Serializable> extends Serializable {
 
 	/**
-	 * Obtains the value of the primary key (PK).
+	 * Gets the value of the primary key (PK).
 	 *
-	 * @return Primary key (PK) value
+	 * @return primary key (PK) value.
 	 */
-	PK getPk();
-
+	@Nonnull
+	PK getPK();
 }

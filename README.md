@@ -75,6 +75,14 @@ Can be easily built with the
 
 * [Config options](https://openapi-generator.tech/docs/generators/spring/#config-options)
 
+#### [Using Templates](https://openapi-generator.tech/docs/templating)
+
+### [MapStruct](https://mapstruct.org/documentation/stable/reference/html/)
+
+* [Configuration options](https://mapstruct.org/documentation/stable/reference/html/#configuration-options)
+
+* [\<compilerArgs\>](https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html#compilerArgs)
+
 ### [JaCoCo](#jacoco)
 
 * [Maven Plug-in](https://www.jacoco.org/jacoco/trunk/doc/maven.html)

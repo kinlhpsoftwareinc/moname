@@ -17,14 +17,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.kinlhp</groupId>
-			<artifactId>moname-commons-jpa</artifactId>
+			<artifactId>moname-commons-domain</artifactId>
 		</dependency>
 		<!-- # third party # -->
-		<!-- lombok -->
+		<!-- jakarta -->
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
+			<!-- README#jsr-380 -->
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
 		</dependency>
 	</dependencies>
 	<profiles>
@@ -62,32 +62,9 @@
 					<groupId>com.kinlhp</groupId>
 					<artifactId>moname-commons-test</artifactId>
 					<scope>test</scope>
+					<optional>true</optional>
 				</dependency>
 			</dependencies>
-		</profile>
-		<profile>
-			<id>hsqldb</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
-				<!-- # third party # -->
-				<!-- hsqldb -->
-				<dependency>
-					<groupId>org.hsqldb</groupId>
-					<artifactId>hsqldb</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>mysql</id>
-		</profile>
-		<profile>
-			<id>oracle</id>
-		</profile>
-		<profile>
-			<id>sqlserver</id>
 		</profile>
 	</profiles>
 </project>

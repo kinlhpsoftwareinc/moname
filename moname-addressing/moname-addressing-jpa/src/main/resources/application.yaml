@@ -1,0 +1,46 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  application:
+    name: @project.artifactId@
+  datasource:
+    #
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      #
+      # ${connection-init-sql}
+      # Will be executed after every new connection creation before adding it to the pool.
+      # If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
+      # Default: none
+      #connection-init-sql: &connection-init-sql # https://stackoverflow.com/a/10684260
+      #
+      # ${connection-test-query}
+      # If your driver supports JDBC4 we strongly recommend not setting this property.
+      # This is for "legacy" drivers that do not support the JDBC4 ${Connection.isValid()} API.
+      # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
+      # Default: none
+      #connection-test-query: *connection-init-sql
+      #
+      # ${pool-name}
+      # Default: "auto-generated"
+      pool-name: ${spring.application.name}-pool
+    name: ${spring.application.name}-datasource
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  liquibase:
+    change-log: classpath:/db/migration/changelog.yaml
+    contexts: configuration
+    parameters:
+      country-table-name: country
+      encoding: ${spring.sql.init.encoding}
+      increment-by: 1
+      use-prepared-statements: true
+    password: ${spring.datasource.password}
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+  profiles:
+    active: @database.profile@
+  sql:
+    init:
+      encoding: UTF-8

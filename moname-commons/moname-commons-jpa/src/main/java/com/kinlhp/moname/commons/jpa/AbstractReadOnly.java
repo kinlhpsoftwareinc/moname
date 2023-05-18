@@ -2,33 +2,39 @@ package com.kinlhp.moname.commons.jpa;
 
 import java.io.Serial;
 import java.io.Serializable;
+
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-
 /**
  * Abstract implementation for read-only entities.
  */
 @EntityListeners(value = {ReadOnlyListener.class})
-@EqualsAndHashCode
+//@EqualsAndHashCode
 @MappedSuperclass
-@NoArgsConstructor
-@SuperBuilder(toBuilder = true)
+//@NoArgsConstructor(onConstructor_ = {@Nonnull})
+//@SuperBuilder(toBuilder = true)
 public abstract class AbstractReadOnly<PK extends Serializable> implements Readable<PK> {
 
 	@Serial
-	private static final long serialVersionUID = -5294673564934765394L;
+	private static final long serialVersionUID = 1840618276170713780L;
 
-	@Getter
+	//	@Getter(onMethod_ = {@Nonnull})
 	@Id
-	@Setter(onParam_ = {@NotNull})
+	@NotNull
+//	@Setter(onParam_ = {@Nonnull})
 	private PK pk;
 
+	@Nonnull
+	@Override
+	public PK getPK() {
+		return pk;
+	}
+
+	public void setPK(@Nonnull final PK pk) {
+		this.pk = pk;
+	}
 }

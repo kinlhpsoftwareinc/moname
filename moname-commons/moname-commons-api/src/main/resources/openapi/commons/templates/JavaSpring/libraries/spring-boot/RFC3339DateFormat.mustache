@@ -1,0 +1,45 @@
+package {{basePackage}};
+
+import com.fasterxml.jackson.databind.util.StdDateFormat;
+
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
+import jakarta.annotation.Nonnull;
+
+// TODO: Test.
+public class RFC3339DateFormat extends DateFormat implements Cloneable {
+  private static final long serialVersionUID = 1L;
+  @Nonnull private static final TimeZone TIMEZONE_Z = TimeZone.getTimeZone("UTC");
+
+  @Nonnull
+  private final StdDateFormat fmt = new StdDateFormat()
+          .withTimeZone(TIMEZONE_Z)
+          .withColonInTimeZone(true);
+
+  public RFC3339DateFormat() {
+    this.calendar = new GregorianCalendar();
+  }
+
+  @Nonnull
+  @Override
+  public Date parse(@Nonnull final String source, @Nonnull final ParsePosition pos) {
+    return fmt.parse(source, pos);
+  }
+
+  @Nonnull
+  @Override
+  public StringBuffer format(@Nonnull final Date date, @Nonnull final StringBuffer toAppendTo, @Nonnull final FieldPosition fieldPosition) {
+    return fmt.format(date, toAppendTo, fieldPosition);
+  }
+
+  @Nonnull
+  @Override
+  public Object clone() {
+    return super.clone();
+  }
+}

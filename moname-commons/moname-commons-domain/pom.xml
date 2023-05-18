@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.kinlhp</groupId>
+		<artifactId>moname-commons</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<artifactId>moname-commons-domain</artifactId>
+	<name>${project.artifactId}</name>
+	<description>Project to money me with no name [commons-domain].</description>
+	<properties>
+		<main.basedir>${basedir}/../..</main.basedir>
+	</properties>
+	<dependencies>
+		<!-- # third party # -->
+		<!-- jakarta -->
+		<dependency>
+			<!-- README#jsr-380 -->
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+		</dependency>
+	</dependencies>
+	<profiles>
+		<profile>
+			<id>test</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<!-- # third party # -->
+					<!-- gmavenplus -->
+					<plugin>
+						<groupId>org.codehaus.gmavenplus</groupId>
+						<artifactId>gmavenplus-plugin</artifactId>
+					</plugin>
+					<!-- jacoco -->
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+					</plugin>
+					<!-- maven -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>com.kinlhp</groupId>
+					<artifactId>moname-commons-test</artifactId>
+					<scope>test</scope>
+					<optional>true</optional>
+				</dependency>
+				<!-- # third party # -->
+				<!-- springframework -->
+				<dependency>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-commons</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>

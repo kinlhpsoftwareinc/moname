@@ -1,0 +1,57 @@
+# https://spec.openapis.org/oas/latest.html
+# https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schema-object
+# https://datatracker.ietf.org/doc/html/rfc7807
+problemDetail:
+  description: RFC 7807 Problem Details for HTTP APIs.
+  #headers:
+  content:
+    application/problem+json:
+      schema:
+        $ref: ../schemas/problem.yaml#/problemDetailResponse
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #maxLength:
+        #minLength:
+        #pattern: # This string SHOULD be a valid regular expression, according to the [Ecma-262 Edition 5.1 regular expression](https://www.ecma-international.org/ecma-262/5.1/#sec-15.10.1) dialect
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example: # The example property has been deprecated in favor of the JSON Schema examples keyword.
+        #enum:
+        #type:
+        #allOf:
+        #oneOf:
+        #anyOf:
+        #not:
+        #items:
+        #properties:
+        #additionalProperties:
+        #format:
+        #nullable:
+        #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+      #example: # The example field is mutually exclusive of the examples field.
+      #examples:
+      #encoding:
+      #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
+  #links:
+  #^x-: # https://spec.openapis.org/oas/latest.html#specificationExtensions
