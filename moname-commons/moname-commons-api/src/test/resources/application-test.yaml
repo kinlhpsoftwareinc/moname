@@ -1,0 +1,28 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+info:
+  application:
+    description: @project.description@
+    name: @project.name@-test
+    version: @project.version@
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: beans, env
+        include: '*'
+openapi:
+  '@project.name@':
+    base-path: ''
+server:
+  port: 8081
+spring:
+  application:
+    name: ${info.application.name}
+  datasource:
+    #
+    # Testcontainers JDBC support
+    # https://www.testcontainers.org/modules/databases/jdbc
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  mvc:
+    problemdetails:
+      enabled: true

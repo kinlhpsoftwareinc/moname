@@ -1,0 +1,42 @@
+# https://github.com/compose-spec/compose-spec/blob/main/schema/compose-spec.json
+services:
+  mysql:
+    command: ${MYSQL_COMMAND:?unset or empty in the .env file}
+    container_name: ${MYSQL_NAME:?unset or empty in the .env file}
+    env_file:
+      - .env
+    expose:
+      - ${MYSQL_PORT:?unset or empty in the .env file}
+    healthcheck:
+      disable: false
+      interval: 5s
+      retries: 3
+      test: [
+        'CMD-SHELL',
+        '${MYSQL_HEALTHCHECK:?unset or empty in the .env file}'
+      ]
+      timeout: 3s
+      #start_period:
+      #start_interval:
+    hostname: ${MYSQL_NAME}
+    image: ${MYSQL_IMAGE:?unset or empty in the .env file}
+    networks:
+      - ${MONAME}
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    restart: ${RESTART_POLICY:?unset or empty in the .env file}
+    volumes:
+      #- ../../../${MONAME}-commons/${MONAME}-commons-test/src/main/resources/db/${MYSQL_NAME}/initial-setup.sql:/docker-entrypoint-initdb.d/initial-setup.sql
+      - type: bind
+        source: ../../../${MONAME}-commons/${MONAME}-commons-test/src/main/resources/db/${MYSQL_NAME}/initial-setup.sql
+        target: /docker-entrypoint-initdb.d/initial-setup.sql
+        read_only: true
+      #- ${HOME:?unset or empty in the .env file}/.docker/volumes/${MYSQL_NAME}-data:/var/lib/${MYSQL_NAME}
+      - type: volume
+        source: ${MYSQL_NAME}-data
+        target: /var/lib/${MYSQL_NAME}
+volumes:
+  mysql-data:
+    name: ${MYSQL_NAME}-data
+    labels:
+      spring.jpa.database: MYSQL

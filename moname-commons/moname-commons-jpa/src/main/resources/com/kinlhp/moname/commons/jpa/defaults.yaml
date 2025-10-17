@@ -1,0 +1,40 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  datasource:
+    #
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      #
+      # ${pool-name}
+      # Default: "auto-generated"
+      pool-name: ${spring.application.name}-pool
+    name: ${spring.application.name}-datasource
+    password: ${spring.datasource.username}
+    username: moname
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  liquibase:
+    change-log: classpath:/db/migration/changelog.yaml
+    parameters:
+      encoding: ${spring.sql.init.encoding}
+      increment-by: 1
+      use-prepared-statements: true
+    #
+    # ${password}
+    # README#unified-liquibase-datasource
+    #password: ${spring.datasource.password}
+    #
+    # ${url}
+    # README#unified-liquibase-datasource
+    #url: ${spring.datasource.url}
+    #
+    # ${user}
+    # README#unified-liquibase-datasource
+    #user: ${spring.datasource.username}
+  profiles:
+    active: @database.profile@
+  sql:
+    init:
+      encoding: UTF-8

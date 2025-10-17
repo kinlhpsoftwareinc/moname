@@ -8,8 +8,13 @@ insert_final_newline=true
 [*.{groovy,java,xml}]
 indent_size=4
 indent_style=tab
+ij_groovy_continuation_indent_size=8
+ij_groovy_line_comment_at_first_column=false
+ij_java_continuation_indent_size=8
+ij_java_line_comment_at_first_column=false
+ij_xml_line_comment_at_first_column=false
 
-[*.json]
+[*.{env,json,mustache}]
 insert_final_newline=false
 
 [*.{md,sql,yaml}]

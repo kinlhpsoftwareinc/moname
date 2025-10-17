@@ -17,14 +17,28 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.kinlhp</groupId>
-			<artifactId>moname-commons-jpa</artifactId>
+			<artifactId>moname-commons-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.kinlhp</groupId>
+			<artifactId>moname-commons-stream</artifactId>
 		</dependency>
 		<!-- # third party # -->
-		<!-- lombok -->
+		<!-- jakarta -->
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
+			<!-- README#jsr-380 -->
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+		</dependency>
+		<dependency>
+			<!-- README#jsr-380 -->
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 	</dependencies>
 	<profiles>
@@ -58,36 +72,25 @@
 				</plugins>
 			</build>
 			<dependencies>
-				<dependency>
-					<groupId>com.kinlhp</groupId>
-					<artifactId>moname-commons-test</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>hsqldb</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
 				<!-- # third party # -->
-				<!-- hsqldb -->
+				<!-- junit -->
 				<dependency>
-					<groupId>org.hsqldb</groupId>
-					<artifactId>hsqldb</artifactId>
+					<groupId>org.junit.jupiter</groupId>
+					<artifactId>junit-jupiter-api</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- slf4j -->
+				<dependency>
+					<!--
+					SLF4J(W): No SLF4J providers were found.
+					SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+					SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+					-->
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-nop</artifactId>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
-		</profile>
-		<profile>
-			<id>mysql</id>
-		</profile>
-		<profile>
-			<id>oracle</id>
-		</profile>
-		<profile>
-			<id>sqlserver</id>
 		</profile>
 	</profiles>
 </project>

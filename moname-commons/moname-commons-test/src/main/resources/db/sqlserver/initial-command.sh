@@ -6,14 +6,20 @@
 # In the background in a subshell, wait to be sure that SQL Server came up then
 # run initial setup for DATABASE and LOGIN credentials
 # Note: make sure that the SA password matches with ${MSSQL_SA_PASSWORD}
-sleep 5s && \
-/opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${MSSQL_SA_PASSWORD} \
--d master -i ${HOME}/initial-setup.sql &
+sleep 8s \
+        && /opt/mssql-tools18/bin/sqlcmd \
+                -S localhost \
+                -U sa \
+                -P ${MSSQL_SA_PASSWORD} \
+                -No \
+                -d master \
+                -i ${HOME}/initial-setup.sql \
+                &
 
 # Run SQl Server
 /opt/mssql/bin/sqlservr
 
-# //TODO: Shutdown with no graceful degradation
+# // TODO: Shutdown with no graceful degradation
 #
 # Expected behavior (log):
 # ...

@@ -1,0 +1,25 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  #config:
+    #activate:
+      #on-profile: test
+  datasource:
+    #
+    # Testcontainers JDBC support
+    # https://www.testcontainers.org/modules/databases/jdbc
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    #
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      #
+      # ${pool-name}
+      # Default: "auto-generated"
+      pool-name: @project.name@-pool-test
+    name: @project.name@-datasource-test
+    password: ${spring.datasource.username}
+    username: moname
+  jpa:
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/migration/changelog-test.yaml
+    contexts: test

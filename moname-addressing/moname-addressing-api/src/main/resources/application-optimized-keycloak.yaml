@@ -1,0 +1,13 @@
+# https://datatracker.ietf.org/doc/html/rfc3986
+application:
+  spring:
+    security:
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri:
+              scheme: https
+              authority:
+                host: keycloak
+                port: 8443
+              relative-path: /auth

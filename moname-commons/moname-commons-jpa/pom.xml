@@ -15,28 +15,54 @@
 		<main.basedir>${basedir}/../..</main.basedir>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.kinlhp</groupId>
+			<artifactId>moname-commons-logging</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!-- # third party # -->
 		<!-- hibernate -->
 		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- jakarta -->
+		<dependency>
 			<!-- README#jsr-380 -->
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- liquibase -->
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<!-- springframework -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- ulid -->
+		<dependency>
+			<groupId>com.github.f4b6a3</groupId>
+			<artifactId>ulid-creator</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<profiles>
@@ -72,7 +98,53 @@
 			<dependencies>
 				<dependency>
 					<groupId>com.kinlhp</groupId>
+					<artifactId>moname-commons-stream</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.kinlhp</groupId>
 					<artifactId>moname-commons-test</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- # third party # -->
+				<!-- assertj -->
+				<dependency>
+					<groupId>org.assertj</groupId>
+					<artifactId>assertj-db</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- jakarta -->
+				<dependency>
+					<!-- README#jsr-380 -->
+					<groupId>jakarta.validation</groupId>
+					<artifactId>jakarta.validation-api</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- springframework -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-data-jpa</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-test</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- testcontainers -->
+				<dependency>
+					<groupId>org.testcontainers</groupId>
+					<artifactId>mssqlserver</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.testcontainers</groupId>
+					<artifactId>mysql</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.testcontainers</groupId>
+					<artifactId>oracle-free</artifactId>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
@@ -100,7 +172,7 @@
 				<dependency>
 					<groupId>com.mysql</groupId>
 					<artifactId>mysql-connector-j</artifactId>
-					<scope>runtime</scope>
+					<scope>test</scope>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -112,7 +184,7 @@
 				<dependency>
 					<groupId>com.oracle.database.jdbc</groupId>
 					<artifactId>ojdbc11</artifactId>
-					<scope>runtime</scope>
+					<scope>test</scope>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -120,16 +192,11 @@
 			<id>sqlserver</id>
 			<dependencies>
 				<!-- # third party # -->
-				<!-- liquibase -->
-				<dependency>
-					<groupId>org.liquibase.ext</groupId>
-					<artifactId>liquibase-mssql</artifactId>
-				</dependency>
 				<!-- sqlserver -->
 				<dependency>
 					<groupId>com.microsoft.sqlserver</groupId>
 					<artifactId>mssql-jdbc</artifactId>
-					<scope>runtime</scope>
+					<scope>test</scope>
 				</dependency>
 			</dependencies>
 		</profile>
