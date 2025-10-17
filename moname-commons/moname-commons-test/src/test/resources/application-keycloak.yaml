@@ -1,0 +1,144 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+# README#spring-boot
+# README#spring-security
+application:
+  spring:
+    security:
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri: https://keycloak:8443/auth/realms/moname
+spring:
+  config:
+    activate:
+      #on-cloud-platform:
+      on-profile: test & keycloak
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: ${application.spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/token
+---
+server:
+  ssl:
+    bundle: ed25519-p12
+    client-auth: WANT
+    enabled-protocols: TLSv1.3
+spring:
+  config:
+    activate:
+      #on-cloud-platform:
+      on-profile: keycloak & keycloak-optimized
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          #
+          # ${issuer-uri}
+          # OpenID Connect Discovery | OpenID Provider Issuer Discovery
+          # https://openid.net/specs/openid-connect-discovery-1_0.html#IssuerDiscovery
+          #
+          # Spring Security | Servlet Applications | OAuth2 | OAuth2 Resource Server | JWT | Specifying the Authorization Server
+          # https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#_specifying_the_authorization_server
+          #
+          # Guides | High availability | Single cluster | Concepts for sizing CPU and memory resources
+          # https://www.keycloak.org/high-availability/single-cluster/concepts-memory-and-cpu-sizing
+          issuer-uri: "${application.spring.security.oauth2.resourceserver.jwt.issuer-uri}\
+            ?TC_MEMORY=768MB\
+            &TC_REUSABLE=true"
+  ssl:
+    bundle:
+      jks:
+        # org.springframework.boot.autoconfigure.ssl.JksSslBundleProperties
+        ed25519-p12:
+          key:
+            alias: keycloak
+            password: moname
+          keystore:
+            location: classpath:oidc/keycloak/tls/keystore.ed25519.p12
+            password: moname
+            #provider:
+            type: PKCS12
+          #options:
+            #ciphers:
+            #enabled-protocols:
+          protocol: TLS
+          reload-on-update: true
+          truststore:
+            location: classpath:oidc/keycloak/tls/truststore.ed25519.p12
+            password: moname
+            #provider:
+            type: PKCS12
+        rsa-p12:
+          key:
+            alias: keycloak
+            password: moname
+          keystore:
+            location: classpath:oidc/keycloak/tls/keystore.rsa.p12
+            password: moname
+            #provider:
+            type: PKCS12
+          #options:
+            #ciphers:
+            #enabled-protocols:
+          protocol: TLS
+          reload-on-update: true
+          truststore:
+            location: classpath:oidc/keycloak/tls/truststore.rsa.p12
+            password: moname
+            #provider:
+            type: PKCS12
+      pem:
+        # org.springframework.boot.autoconfigure.ssl.PemSslBundleProperties
+        ed25519-pem:
+          key:
+            alias: keycloak
+            password: moname
+          keystore:
+            certificate: classpath:oidc/keycloak/tls/certificate.ed25519.pem
+            private-key: classpath:oidc/keycloak/tls/private-key.ed25519.pem
+            private-key-password: moname
+            type: PKCS12
+            #verifyKeys:
+          #options:
+            #ciphers:
+            #enabled-protocols:
+          protocol: TLS
+          reload-on-update: true
+          truststore:
+            certificate: classpath:oidc/keycloak/tls/certificate.ed25519.pem
+            private-key: classpath:oidc/keycloak/tls/private-key.ed25519.pem
+            private-key-password: moname
+            type: PKCS12
+            #verifyKeys:
+        rsa-pem:
+          key:
+            alias: keycloak
+            password: moname
+          keystore:
+            certificate: classpath:oidc/keycloak/tls/certificate.rsa.pem
+            private-key: classpath:oidc/keycloak/tls/private-key.rsa.pem
+            private-key-password: moname
+            type: PKCS12
+            #verifyKeys:
+          #options:
+            #ciphers:
+            #enabled-protocols:
+          protocol: TLS
+          reload-on-update: true
+          truststore:
+            certificate: classpath:oidc/keycloak/tls/certificate.rsa.pem
+            private-key: classpath:oidc/keycloak/tls/private-key.rsa.pem
+            private-key-password: moname
+            type: PKCS12
+            #verifyKeys:
+      #watch:
+        #file:
+          #quiet-period:
+---
+spring:
+  config:
+    activate:
+      #on-cloud-platform:
+      on-profile: keycloak & keycloak-unoptimized

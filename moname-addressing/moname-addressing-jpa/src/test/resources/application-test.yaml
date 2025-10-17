@@ -1,0 +1,45 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+info:
+  application:
+    description: @project.description@
+    name: @project.name@-test
+    version: @project.version@
+logging:
+  level:
+    com.kinlhp: TRACE
+    org.springframework.boot.autoconfigure.condition: TRACE
+    org.testcontainers.utility.RyukResourceReaper: ERROR
+spring:
+  application:
+    name: ${info.application.name}
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    #
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      #
+      # ${pool-name}
+      # Default: "auto-generated"
+      pool-name: @project.name@-pool-test
+    name: @project.name@-datasource-test
+    password: ${spring.datasource.username}
+    username: moname
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/migration/changelog.yaml
+    contexts: configuration
+    parameters:
+      encoding: ${spring.sql.init.encoding}
+      increment-by: 1
+      table-name:
+        country: country
+      use-prepared-statements: true
+    #password: ${spring.datasource.password}
+    #url: ${spring.datasource.url}
+    #user: ${spring.datasource.username}
+  sql:
+    init:
+      encoding: UTF-8

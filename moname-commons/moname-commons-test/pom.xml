@@ -15,26 +15,62 @@
 		<main.basedir>${basedir}/../..</main.basedir>
 	</properties>
 	<dependencies>
-		<!-- # third party # -->
-		<!-- hibernate -->
 		<dependency>
-			<!-- README#jsr-380 -->
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>com.kinlhp</groupId>
+			<artifactId>moname-commons-annotation</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- lombok -->
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
+			<groupId>com.kinlhp</groupId>
+			<artifactId>moname-commons-stream</artifactId>
+		</dependency>
+		<!-- # third party # -->
+		<!-- jakarta -->
+		<dependency>
+			<!-- README#jsr-380 -->
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<!-- springframework -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-testcontainers</artifactId>
+		</dependency>
+		<dependency>
+			<!-- unknown enum constant org.springframework.data.repository.config.BootstrapMode.DEFAULT -->
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+		</dependency>
 		<!-- testcontainers -->
+		<dependency>
+			<groupId>com.github.dasniko</groupId>
+			<artifactId>testcontainers-keycloak</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>mssqlserver</artifactId>
@@ -47,7 +83,24 @@
 			<groupId>org.testcontainers</groupId>
 			<artifactId>oracle-xe</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- # third party # -->
+			<!-- maven -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<!-- excludes sensitive TLS resources -->
+						<exclude>**/*.p12</exclude>
+						<exclude>**/*.pem</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
 			<id>test</id>
@@ -56,6 +109,7 @@
 			</activation>
 			<build>
 				<plugins>
+					<!-- # third party # -->
 					<!-- gmavenplus -->
 					<plugin>
 						<groupId>org.codehaus.gmavenplus</groupId>
@@ -65,6 +119,20 @@
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
+					</plugin>
+					<!-- maven -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<!-- README#filtering-tests -->
+							<!-- Flaky with junit-platform-launcher-api -->
+							<excludedGroups>junit-platform-test-kit</excludedGroups>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>
@@ -80,6 +148,32 @@
 					<!-- README#jsr-380 -->
 					<groupId>org.glassfish.expressly</groupId>
 					<artifactId>expressly</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- hibernate -->
+				<dependency>
+					<!-- README#jsr-380 -->
+					<groupId>org.hibernate.validator</groupId>
+					<artifactId>hibernate-validator</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- junit -->
+				<dependency>
+					<!-- README#junit-platform-test-kit -->
+					<groupId>org.junit.platform</groupId>
+					<artifactId>junit-platform-testkit</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- lombok -->
+				<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-data-jpa</artifactId>
+					<scope>test</scope>
 				</dependency>
 				<!-- testcontainers -->
 				<dependency>
@@ -88,6 +182,85 @@
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>hsqldb</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<!-- # third party # -->
+				<!-- hsqldb -->
+				<dependency>
+					<groupId>org.hsqldb</groupId>
+					<artifactId>hsqldb</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>mysql</id>
+			<dependencies>
+				<!-- # third party # -->
+				<!-- mysql -->
+				<dependency>
+					<groupId>com.mysql</groupId>
+					<artifactId>mysql-connector-j</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>oracle</id>
+			<dependencies>
+				<!-- # third party # -->
+				<!-- oracle -->
+				<dependency>
+					<groupId>com.oracle.database.jdbc</groupId>
+					<artifactId>ojdbc11</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>sqlserver</id>
+			<dependencies>
+				<!-- # third party # -->
+				<!-- sqlserver -->
+				<dependency>
+					<groupId>com.microsoft.sqlserver</groupId>
+					<artifactId>mssql-jdbc</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>security</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>insecurity</id>
+		</profile>
+		<profile>
+			<id>keycloak-optimized</id>
+			<build>
+				<plugins>
+					<!-- # third party # -->
+					<!-- maven -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>keycloak-unoptimized</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 	</profiles>
 </project>

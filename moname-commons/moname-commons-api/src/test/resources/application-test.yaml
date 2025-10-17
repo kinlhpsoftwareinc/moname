@@ -1,0 +1,27 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+info:
+  application:
+    description: @project.description@
+    name: @project.name@-test
+    version: @project.version@
+logging:
+  level:
+    com.kinlhp: TRACE
+    org.springframework.boot.autoconfigure.condition: TRACE
+    org.springframework.security: TRACE
+    org.springframework.web.filter.CommonsRequestLoggingFilter: INFO
+    org.testcontainers.utility.RyukResourceReaper: ERROR
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: beans, env
+        include: '*'
+server:
+  port: 8081
+spring:
+  application:
+    name: ${info.application.name}
+  mvc:
+    problemdetails:
+      enabled: true

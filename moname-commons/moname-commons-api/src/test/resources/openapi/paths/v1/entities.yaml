@@ -1,27 +1,176 @@
-# https://spec.openapis.org/oas/latest.html
-# https://json-schema.org/specification.html
-v1/entities:
-  summary:
-  description:
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#path-item-object
+#
+# [Escaped forward-slash is necessary when using JSON/YAML references:](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationref-examples)
+# escaped = "~" ( "0" / "1" )
+#   ; representing '~' and '/', respectively
+#
+# [Percent-encoded curly brackets is necessary when using JSON/YAML references:](https://stackoverflow.com/a/44164413)
+# unescaped = "%" ( "7B" / "7D" )
+#   ; representing '{' and '}', respectively
+/v1/entities:
+  summary: &~1v1~1entities-summary Entities operations.
+  description: *~1v1~1entities-summary
   get:
     tags:
-      - entity
-    summary: &paths-v1-entities-get-summary
-    description: *paths-v1-entities-get-summary
+      - entities
+    summary: &~1v1~1entities-get-summary GET entities.
+    description: *~1v1~1entities-get-summary
     #externalDocs:
     operationId: getEntities
     parameters:
-      - $ref: '../../components/parameters.yaml#/pageIndex'
-      - $ref: '../../components/parameters.yaml#/pageSize'
+      - $ref: ../../commons/components/parameters/in/query.yaml#/pageable
+      #- name:
+        #in:
+        #description:
+        #required:
+        #deprecated:
+        #allowEmptyValue:
+        #style:
+        #explode:
+        #allowReserved:
+        #schema:
+        #example:
+        #examples:
+        #content:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
     #requestBody:
     responses:
-      200:
-        $ref: '../../components/responses.yaml#/ok'
       default:
-        $ref: '../../components/responses.yaml#/internalServerError'
+        $ref: ../../commons/components/responses/default.yaml#/problemDetail
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      200:
+        $ref: ../../components/responses/entities.yaml#/~1v1~1entities/200
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      400:
+        $ref: ../../commons/components/responses/default.yaml#/400
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      401:
+        $ref: ../../commons/components/responses/default.yaml#/401
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      403:
+        $ref: ../../commons/components/responses/default.yaml#/403
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
     #callbacks:
-    deprecated: false
-    #security:
+    #deprecated:
+    security:
+      - oauth2:
+          - read:entities
     #servers:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #put:
+  #post:
+  #delete:
+  #options:
+  #head:
+  #patch:
+  #trace:
   #servers:
   #parameters:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+/v1/entities/{id}:
+  summary: &~1v1~1entities~1%7Bid%7D-summary Entity operations.
+  description: *~1v1~1entities~1%7Bid%7D-summary
+  get:
+    tags:
+      - entities
+    summary: &~1v1~1entities~1%7Bid%7D-get-summary GET entity.
+    description: *~1v1~1entities~1%7Bid%7D-get-summary
+    #externalDocs:
+    operationId: getEntity
+    parameters:
+      - $ref: ../../components/parameters/in/path.yaml#/id
+      #- name:
+        #in:
+        #description:
+        #required:
+        #deprecated:
+        #allowEmptyValue:
+        #style:
+        #explode:
+        #allowReserved:
+        #schema:
+        #example:
+        #examples:
+        #content:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #requestBody:
+    responses:
+      default:
+        $ref: ../../commons/components/responses/default.yaml#/problemDetail
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      200:
+        $ref: ../../components/responses/entities.yaml#/~1v1~1entities~1%7Bid%7D/200
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      400:
+        $ref: ../../commons/components/responses/default.yaml#/400
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      401:
+        $ref: ../../commons/components/responses/default.yaml#/401
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      403:
+        $ref: ../../commons/components/responses/default.yaml#/403
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      404:
+        $ref: ../../commons/components/responses/default.yaml#/404
+        #description:
+        #headers:
+        #content:
+        #links:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #callbacks:
+    #deprecated:
+    security:
+      - oauth2:
+          - read:entities
+    #servers:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #put:
+  #post:
+  #delete:
+  #options:
+  #head:
+  #patch:
+  #trace:
+  #servers:
+  #parameters:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)

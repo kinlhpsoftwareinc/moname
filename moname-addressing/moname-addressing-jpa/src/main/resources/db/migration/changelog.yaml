@@ -1,0 +1,13 @@
+# https://docs.liquibase.com/concepts/changelogs/working-with-changelogs.html
+#
+# https://docs.liquibase.com/concepts/changelogs/attributes/includeall.html
+databaseChangeLog:
+  - includeAll:
+      errorIfMissingOrEmpty: true
+      path: ddl
+      relativeToChangelogFile: true
+  - includeAll:
+      errorIfMissingOrEmpty: true
+      filter: com.kinlhp.moname.commons.jpa.liquibase.changelog.DmlIncludeAllFilter
+      path: dml
+      relativeToChangelogFile: true

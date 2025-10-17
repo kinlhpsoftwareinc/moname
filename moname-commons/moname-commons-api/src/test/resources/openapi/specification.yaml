@@ -1,22 +1,80 @@
-# https://spec.openapis.org/oas/latest.html
-# https://json-schema.org/specification.html
-#openapi: 3.1.0
-openapi: 3.0.3
+# TODO: https://developer.mamezou-tech.com/en/blogs/2025/06/25/custom-serviceconnection
+# TODO: Remove the `shaded` packages and move its content to appropriated packages
+#   continue from stream (OK), annotation (OK)
+# TODO: Make the class `KeycloakAutoConfiguration` receive a factory of Keycloak to construct on optimized of unoptimized instance
+# TODO: Review if is still needed tha following maven-failsafe-plugin configuration:
+#       <!-- https://stackoverflow.com/a/73892829 -->
+#       <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+# TODO: Adjust JavaDoc that have annotation's link (example: {@link ServiceConnection @ServiceConnection}-annotated in org.springframework.boot.testcontainers.service.connection.liquibase.LiquibaseContainerConnectionDetailsFactory)
+# TODO: maven plugin to generate moname-commons/moname-commons-test/src/main/resources/oidc/keycloak/tls/* files
+# TODO: remove System.properties related to SSL/TLS (pom.xml and Java classes)
+# TODO: remove property `application.spring.security.oauth2.resourceserver` and all usages
+# TODO: Testcontainers Oracle latest version (.../oracle-free)
+# TODO: Reuse was requested but the environment does not support the reuse of containers
+#       To enable reuse of containers, you must set 'testcontainers.reuse.enable=true' in a file located at /home/kin/.testcontainers.properties
+# TODO: Implement tests for com.kinlhp.moname.commons.test.testcontainers (validate versions and default configs)
+# TODO: Spring Boot profiles group
+# TODO: Renew ALL serialVersionUID
+# TODO: Requires a MySQL instance having {@literal mysql} as hostname on a bridge network named {@literal moname}
+# TODO: Implementar testes para moname-addressing-api
+# TODO: Difference between @Nonnull and @NotNull (is it have to have both together?)
+# TODO: Substituir todos @Value por classe de properties configuration (see OAuth2ClientProviderAutoConfiguration and OAuth2ClientProviderProperties)
+# TODO: Revisar se os args: no docker-compose.yaml podem ser movidos para um .env
+# TODO: Configure WebNonSecurityConfiguration
+# TODO: [redocly OpenAPI](https://marketplace.visualstudio.com/items?itemName=Redocly.openapi-vs-code)
+# TODO: Padronizar docker-compose para os demais servicos
+# TODO: Spring Boot problem details integration (review)
+# TODO: Spring Boot request logging (CommonsRequestLoggingFilter) (review)
+# TODO: Remove lombok
+# TODO: Remove all commented files (//package | //import | <!--)
+# TODO: WARNING: The following run time options were found, but will be ignored during build time: kc.hostname
+# TODO: Review log level (logging.level.*)
+# TODO: Replace logging.level.* by logback.xml (is it possible to be logback.yaml?)
+# TODO: Remove DynamicPropertyRegistrar bean and load DynamicPropertyRegistry bean on @WebMvcTest
+# TODO: Change MySQL 8 doc refs to MySQL 9
+# TODO: Quando o testcontainer do MySQL subir o testcontainer do Keycloak deve apontar para ele (host:port)
+# TODO: OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+# TODO: Check all WARN level logs (./mvnw ...)
+# TODO: Padronizar arquivos README
+# TODO: [Jakarta Validation 3.1](https://beanvalidation.org/3.1/)
+# TODO: [WARNING] No application/json content media type found in response. Response examples can currently only be generated for application/json media type.
+# TODO: Remove duplicate properties defined in main/resources and test/resources
+# TODO: Spring Data JPA Auditing + Spring Security (@CreatedBy/@LastUpdatedBy + JWT) + Hibernate Envers
+# TODO: Analyse all "Recompile with -Xlint:unchecked for details" mvn logs
+# TODO: On profile test use surefire for unit tests and failsafe for integration tests
+# TODO: "o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]"
+# TODO: Concrete implementations often implement AfterTestExecutionCallback as well (com.kinlhp.moname.commons.test.spring.security.ClientCredentialsFlowExtension)
+# TODO: Bulk Delete GitHub Actions Workflow Runs (Complete Guide): https://medium.com/@vaghasiya.mahipal/how-to-bulk-delete-github-actions-workflow-runs-complete-guide-c85b57b2b3c7
+# TODO: Create the moname-domain module to execute all changelogs in a centralized way.
+#
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schema
+#
+# [Escaped forward-slash is necessary when using JSON/YAML references:](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationref-examples)
+# escaped = "~" ( "0" / "1" )
+#   ; representing '~' and '/', respectively
+#
+# [Percent-encoded curly brackets is necessary when using JSON/YAML references:](https://stackoverflow.com/a/44164413)
+# unescaped = "%" ( "7B" / "7D" )
+#   ; representing '{' and '}', respectively
+openapi: 3.1.0
 info:
   title: moname-commons-api
-  #summary: *info-title
-  description: Project to money me with no name [commons-api].
+  summary: &info-summary Project to money me with no name [commons-api].
+  description: *info-summary
   termsOfService: https://moname.kinlhp.com/api/terms
   contact:
     name: Kin.LHP® Software, Inc.
     url: https://kinlhp.com
     email: lhp.kin@gmail.com
+    #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
   license:
     name: MIT License
-    #identifier: MIT
-    url: https://www.opensource.org/licenses/mit-license.php
+    #identifier: MIT # attribute info.license.identifier is unexpected
+    url: https://opensource.org/license/mit
+    #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
   version: 1.0.0.BUILD-SNAPSHOT
-#jsonSchemaDialect: https://spec.openapis.org/oas/3.1/dialect/base
+  #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+#jsonSchemaDialect:
 servers:
   - url: http://{host}:{port}/{basePath}
     description: The local development API server.
@@ -24,57 +82,98 @@ servers:
       host:
         # NOTE! No enum here means it is an open value.
         enum:
-          - localhost
-        default: localhost
-        description:
+          - &servers-variables-host localhost
+        default: *servers-variables-host
+        description: The server host.
+        #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
       port:
         # NOTE! No enum here means it is an open value.
         enum:
-          - 8080
-        default: 8080
-        description:
+          - &servers-variables-port 8080
+        default: *servers-variables-port
+        description: The server port.
+        #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
       basePath:
         # NOTE! No enum here means it is an open value.
+        #       Open meaning there is the opportunity to use special base paths
+        #       as assigned by the provider, default is `api` in this case.
         enum:
-          - api
-        default: api
-        description:
-  - url: https://{host}:{port}
+          - &servers-variables-basePath api
+        default: *servers-variables-basePath
+        description: The API base path.
+        #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  - url: https://{host}
     description: The production API server.
     variables:
       host:
         # NOTE! No enum here means it is an open value.
         enum:
-          - api.moname.kinlhp.com
-        default: api.moname.kinlhp.com
-        description: This value is assigned by the service provider.
-      port:
-        # NOTE! No enum here means it is an open value.
-        enum:
-          - 8080
-        default: 8080
-        description: This value is assigned by the service provider.
+          - &servers-variables-host commons-api.moname.kinlhp.com
+        default: *servers-variables-host
+        description: The server host.
+        #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
 paths:
   /v1/entities:
-    #
-    # Escaped forward-slash is necessary when using JSON references.
-    # https://spec.openapis.org/oas/latest.html#operationref-examples
-    $ref: 'paths/v1/entities.yaml#/v1~1entities'
+    $ref: paths/v1/entities.yaml#/~1v1~1entities
+    #summary:
+    #description:
+    #get:
+    #put:
+    #post:
+    #delete:
+    #options:
+    #head:
+    #patch:
+    #trace:
+    #servers:
+    #parameters:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  /v1/entities/{id}:
+    $ref: paths/v1/entities.yaml#/~1v1~1entities~1%7Bid%7D
+    #summary:
+    #description:
+    #get:
+    #put:
+    #post:
+    #delete:
+    #options:
+    #head:
+    #patch:
+    #trace:
+    #servers:
+    #parameters:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
 #webhooks:
-#components:
+components:
   #schemas:
   #responses:
   #parameters:
   #examples:
   #requestBodies:
   #headers:
-  #securitySchemes:
+  securitySchemes:
+    oauth2:
+      $ref: commons/components/securitySchemes/oauth2.yaml
+      #type:
+      #description:
+      #name:
+      #in:
+      #scheme:
+      #bearerFormat:
+      #flows:
+      #openIdConnectUrl:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
   #links:
   #callbacks:
   #pathItems:
 #security:
 tags:
-  - name: entity
-    description:
+  - name: entities
+    description: Entity related resources.
     #externalDocs:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
 #externalDocs:
+#^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)

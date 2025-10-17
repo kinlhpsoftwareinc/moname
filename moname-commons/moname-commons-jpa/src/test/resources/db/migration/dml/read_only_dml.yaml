@@ -10,17 +10,26 @@
 #
 # https://docs.liquibase.com/concepts/changelogs/property-substitution.html
 #
+# https://docs.liquibase.com/concepts/changelogs/attributes/dbms.html
+#
+# https://docs.liquibase.com/change-types/sql.html
+#
 # ${databaseChangeLog[].changeSet.id}
 # Pattern: ISO 8601 (e.g.: 1970-01-01T00:00:00+00:00)
 #
-# {@link spring.liquibase.parameters.*}
+# {@link spring.liquibase.parameters.* parameters}
 # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.data-migration.spring.liquibase.parameters
+#
+# Learn | SQL | SQL Serve | SET IDENTITY_INSERT (Transact-SQL)
+# https://learn.microsoft.com/en-us/sql/t-sql/statements/set-identity-insert-transact-sql
 databaseChangeLog:
   - changeSet:
       author: kinlhp
-      context: test
       id: 2022-04-02T05:51:14-03:00
       changes:
+        - sql:
+            dbms: mssql
+            sql: SET IDENTITY_INSERT ${table-name.read-only} ON
         - loadData:
             columns:
               - column:
@@ -31,9 +40,12 @@ databaseChangeLog:
                   type: STRING
             commentLineStartsWith: "#"
             encoding: ${encoding}
-            file: ${table-name}.csv
+            file: ${table-name.read-only}.csv
             quotchar: '""'
             relativeToChangelogFile: true
             separator: ","
-            tableName: ${table-name}
+            tableName: ${table-name.read-only}
             usePreparedStatements: ${use-prepared-statements}
+        - sql:
+            dbms: mssql
+            sql: SET IDENTITY_INSERT ${table-name.read-only} OFF

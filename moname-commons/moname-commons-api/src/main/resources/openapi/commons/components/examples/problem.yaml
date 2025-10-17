@@ -1,0 +1,98 @@
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#example-object
+# https://datatracker.ietf.org/doc/html/rfc7807
+badRequest:
+  summary: 400 Bad Request.
+  description: RFC 7807 Problem Details for HTTP APIs.
+  value:
+    detail: "Failed to convert 'bar' with value: 'foo'"
+    instance: /v1/bars/foo
+    status: 400
+    title: Bad Request
+    type: about:blank
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+detail:
+  summary: &detail-summary The problem detail.
+  description: *detail-summary
+  value: "Failed to convert 'bar' with value: 'foo'"
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+forbidden:
+  summary: 403 Forbidden.
+  description: RFC 7807 Problem Details for HTTP APIs.
+  value:
+    detail: Insufficient permissions to access the resource
+    instance: /v1/bars
+    status: 403
+    title: Forbidden
+    type: about:blank
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+instance:
+  summary: &instance-summary The problem instance.
+  description: *instance-summary
+  value: /v1/bars/foo
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+methodNotAllowed:
+  summary: 405 Method Not Allowed.
+  description: RFC 7807 Problem Details for HTTP APIs.
+  value:
+    detail: Method 'POST' is not supported
+    instance: /v1/bars
+    status: 405
+    title: Method Not Allowed
+    type: about:blank
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+notFound:
+  summary: 404 Not Found.
+  description: RFC 7807 Problem Details for HTTP APIs.
+  value:
+    detail: "Not found 'bar' with value: 'foo'"
+    instance: /v1/bars/foo
+    status: 404
+    title: Not Found
+    type: about:blank
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+notImplemented:
+  summary: 501 Not Implemented.
+  description: RFC 7807 Problem Details for HTTP APIs.
+  value:
+    detail: Method 'GET' is not implemented
+    instance: /v1/bars/foo
+    status: 501
+    title: Not Implemented
+    type: about:blank
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+status:
+  summary: &status-summary The status associated with the problem.
+  description: *status-summary
+  value: 400
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+title:
+  summary: &title-summary The problem title.
+  description: *title-summary
+  value: Bad Request
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+type:
+  summary: &type-summary The problem type.
+  description: *type-summary
+  value: about:blank
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+unauthorized:
+  summary: 401 Unauthorized.
+  description: RFC 7807 Problem Details for HTTP APIs.
+  value:
+    detail: Lacks valid authentication credentials for the target resource
+    instance: /v1/bars
+    status: 401
+    title: Unauthorized
+    type: about:blank
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)

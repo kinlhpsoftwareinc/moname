@@ -1,0 +1,14 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+info:
+  application:
+    description: @project.description@
+    name: @project.name@-test
+    version: @project.version@
+logging:
+  level:
+    com.kinlhp: TRACE
+    org.springframework.boot.autoconfigure.condition: TRACE
+    org.testcontainers.utility.RyukResourceReaper: ERROR
+spring:
+  application:
+    name: ${info.application.name}

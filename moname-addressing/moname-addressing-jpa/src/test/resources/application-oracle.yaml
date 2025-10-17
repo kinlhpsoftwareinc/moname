@@ -1,0 +1,11 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+spring:
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    #
+    # ${url}
+    # Testcontainers JDBC support
+    # https://www.testcontainers.org/modules/databases/jdbc
+    url: "jdbc:tc:oracleext:21.3.0-slim-faststart:////moname_addressing_jpa_test\
+      ?TC_MEMORY=2560MB\
+      &TC_REUSABLE=true"

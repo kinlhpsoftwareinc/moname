@@ -1,0 +1,1286 @@
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schema-object
+#
+# [Escaped forward-slash is necessary when using JSON/YAML references:](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationref-examples)
+# escaped = "~" ( "0" / "1" )
+#   ; representing '~' and '/', respectively
+#
+# [Percent-encoded curly brackets is necessary when using JSON/YAML references:](https://stackoverflow.com/a/44164413)
+# unescaped = "%" ( "7B" / "7D" )
+#   ; representing '{' and '}', respectively
+/v1/countries:
+  200:
+    #discriminator:
+    #xml:
+    #externalDocs:
+    #example:
+    #
+    # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+    #allOf:
+    #anyOf:
+    #oneOf:
+    #not:
+    #
+    # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+    #if:
+    #then:
+    #else:
+    #dependentSchemas:
+    #
+    # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+    #prefixItems:
+    items:
+      $ref: '#/~1v1~1countries~1%7BnumericCode%7D/200'
+      #discriminator:
+      #xml:
+      #externalDocs:
+      #example:
+      #
+      # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+      #allOf:
+      #anyOf:
+      #oneOf:
+      #not:
+      #
+      # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+      #if:
+      #then:
+      #else:
+      #dependentSchemas:
+      #
+      # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+      #prefixItems:
+      #items:
+      #contains:
+      #
+      # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+      #properties:
+      #patternProperties:
+      #additionalProperties:
+      #propertyNames:
+      #
+      # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+      #unevaluatedItems:
+      #unevaluatedProperties:
+      #
+      # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+      # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+      #type: # ["<primitive type>", "null"] for nullable
+      #enum:
+      #const:
+      #
+      # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+      #multipleOf:
+      #maximum:
+      #exclusiveMaximum:
+      #minimum:
+      #exclusiveMinimum:
+      #
+      # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+      #maxLength:
+      #minLength:
+      #pattern:
+      #
+      # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+      #maxItems:
+      #minItems:
+      #uniqueItems:
+      #maxContains:
+      #minContains:
+      #
+      # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+      #maxProperties:
+      #minProperties:
+      #required:
+      #dependentRequired:
+      #
+      # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+      #format:
+      #
+      # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+      #contentEncoding:
+      #contentMediaType:
+      #contentSchema:
+      #
+      # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+      #title:
+      #description:
+      #default:
+      #deprecated:
+      #readOnly:
+      #writeOnly:
+      #examples:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #contains:
+    #
+    # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+    #properties:
+    #patternProperties:
+    #additionalProperties:
+    #propertyNames:
+    #
+    # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+    #unevaluatedItems:
+    #unevaluatedProperties:
+    #
+    # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+    # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+    type: array # ["<primitive type>", "null"] for nullable
+    #enum:
+    #const:
+    #
+    # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+    #multipleOf:
+    #maximum:
+    #exclusiveMaximum:
+    #minimum:
+    #exclusiveMinimum:
+    #
+    # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+    #maxLength:
+    #minLength:
+    #pattern:
+    #
+    # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+    maxItems: 249
+    minItems: 1
+    uniqueItems: true
+    #maxContains:
+    #minContains:
+    #
+    # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+    #maxProperties:
+    #minProperties:
+    #required:
+    #dependentRequired:
+    #
+    # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+    #format:
+    #
+    # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+    #contentEncoding:
+    #contentMediaType:
+    #contentSchema:
+    #
+    # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+    title: countries
+    description: Countries.
+    #default:
+    #deprecated:
+    readOnly: true
+    #writeOnly:
+    examples:
+      - $ref: ../examples/countries.yaml#/~1v1~1countries/200
+      #- summary:
+        #description:
+        #value:
+        #externalValue:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+/v1/countries/{numericCode}:
+  200:
+    #discriminator:
+    #xml:
+    #externalDocs:
+    #example:
+    #
+    # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+    #allOf:
+    #anyOf:
+    #oneOf:
+    #not:
+    #
+    # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+    #if:
+    #then:
+    #else:
+    #dependentSchemas:
+    #
+    # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+    #prefixItems:
+    #items:
+    #contains:
+    #
+    # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+    properties:
+      alpha2Code:
+        $ref: '#/alpha2Code'
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example:
+        #
+        # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+        #allOf:
+        #anyOf:
+        #oneOf:
+        #not:
+        #
+        # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+        #if:
+        #then:
+        #else:
+        #dependentSchemas:
+        #
+        # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+        #prefixItems:
+        #items:
+        #contains:
+        #
+        # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+        #properties:
+        #patternProperties:
+        #additionalProperties:
+        #propertyNames:
+        #
+        # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+        #unevaluatedItems:
+        #unevaluatedProperties:
+        #
+        # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+        # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+        #type: # ["<primitive type>", "null"] for nullable
+        #enum:
+        #const:
+        #
+        # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #
+        # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+        #maxLength:
+        #minLength:
+        #pattern:
+        #
+        # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #
+        # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #
+        # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+        #format:
+        #
+        # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+        #contentEncoding:
+        #contentMediaType:
+        #contentSchema:
+        #
+        # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      englishName:
+        $ref: '#/englishName'
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example:
+        #
+        # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+        #allOf:
+        #anyOf:
+        #oneOf:
+        #not:
+        #
+        # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+        #if:
+        #then:
+        #else:
+        #dependentSchemas:
+        #
+        # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+        #prefixItems:
+        #items:
+        #contains:
+        #
+        # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+        #properties:
+        #patternProperties:
+        #additionalProperties:
+        #propertyNames:
+        #
+        # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+        #unevaluatedItems:
+        #unevaluatedProperties:
+        #
+        # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+        # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+        #type: # ["<primitive type>", "null"] for nullable
+        #enum:
+        #const:
+        #
+        # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #
+        # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+        #maxLength:
+        #minLength:
+        #pattern:
+        #
+        # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #
+        # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #
+        # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+        #format:
+        #
+        # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+        #contentEncoding:
+        #contentMediaType:
+        #contentSchema:
+        #
+        # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      frenchName:
+        $ref: '#/frenchName'
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example:
+        #
+        # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+        #allOf:
+        #anyOf:
+        #oneOf:
+        #not:
+        #
+        # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+        #if:
+        #then:
+        #else:
+        #dependentSchemas:
+        #
+        # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+        #prefixItems:
+        #items:
+        #contains:
+        #
+        # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+        #properties:
+        #patternProperties:
+        #additionalProperties:
+        #propertyNames:
+        #
+        # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+        #unevaluatedItems:
+        #unevaluatedProperties:
+        #
+        # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+        # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+        #type: # ["<primitive type>", "null"] for nullable
+        #enum:
+        #const:
+        #
+        # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #
+        # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+        #maxLength:
+        #minLength:
+        #pattern:
+        #
+        # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #
+        # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #
+        # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+        #format:
+        #
+        # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+        #contentEncoding:
+        #contentMediaType:
+        #contentSchema:
+        #
+        # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      internetCctld:
+        $ref: '#/internetCctld'
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example:
+        #
+        # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+        #allOf:
+        #anyOf:
+        #oneOf:
+        #not:
+        #
+        # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+        #if:
+        #then:
+        #else:
+        #dependentSchemas:
+        #
+        # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+        #prefixItems:
+        #items:
+        #contains:
+        #
+        # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+        #properties:
+        #patternProperties:
+        #additionalProperties:
+        #propertyNames:
+        #
+        # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+        #unevaluatedItems:
+        #unevaluatedProperties:
+        #
+        # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+        # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+        #type: # ["<primitive type>", "null"] for nullable
+        #enum:
+        #const:
+        #
+        # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #
+        # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+        #maxLength:
+        #minLength:
+        #pattern:
+        #
+        # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #
+        # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #
+        # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+        #format:
+        #
+        # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+        #contentEncoding:
+        #contentMediaType:
+        #contentSchema:
+        #
+        # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      numericCode:
+        $ref: '#/numericCode'
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example:
+        #
+        # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+        #allOf:
+        #anyOf:
+        #oneOf:
+        #not:
+        #
+        # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+        #if:
+        #then:
+        #else:
+        #dependentSchemas:
+        #
+        # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+        #prefixItems:
+        #items:
+        #contains:
+        #
+        # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+        #properties:
+        #patternProperties:
+        #additionalProperties:
+        #propertyNames:
+        #
+        # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+        #unevaluatedItems:
+        #unevaluatedProperties:
+        #
+        # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+        # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+        #type: # ["<primitive type>", "null"] for nullable
+        #enum:
+        #const:
+        #
+        # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #
+        # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+        #maxLength:
+        #minLength:
+        #pattern:
+        #
+        # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #
+        # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #
+        # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+        #format:
+        #
+        # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+        #contentEncoding:
+        #contentMediaType:
+        #contentSchema:
+        #
+        # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      portugueseName:
+        $ref: '#/portugueseName'
+        #discriminator:
+        #xml:
+        #externalDocs:
+        #example:
+        #
+        # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+        #allOf:
+        #anyOf:
+        #oneOf:
+        #not:
+        #
+        # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+        #if:
+        #then:
+        #else:
+        #dependentSchemas:
+        #
+        # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+        #prefixItems:
+        #items:
+        #contains:
+        #
+        # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+        #properties:
+        #patternProperties:
+        #additionalProperties:
+        #propertyNames:
+        #
+        # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+        #unevaluatedItems:
+        #unevaluatedProperties:
+        #
+        # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+        # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+        #type: # ["<primitive type>", "null"] for nullable
+        #enum:
+        #const:
+        #
+        # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+        #multipleOf:
+        #maximum:
+        #exclusiveMaximum:
+        #minimum:
+        #exclusiveMinimum:
+        #
+        # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+        #maxLength:
+        #minLength:
+        #pattern:
+        #
+        # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+        #maxItems:
+        #minItems:
+        #uniqueItems:
+        #maxContains:
+        #minContains:
+        #
+        # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+        #maxProperties:
+        #minProperties:
+        #required:
+        #dependentRequired:
+        #
+        # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+        #format:
+        #
+        # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+        #contentEncoding:
+        #contentMediaType:
+        #contentSchema:
+        #
+        # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+        #title:
+        #description:
+        #default:
+        #deprecated:
+        #readOnly:
+        #writeOnly:
+        #examples:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #patternProperties:
+    #additionalProperties:
+    #propertyNames:
+    #
+    # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+    #unevaluatedItems:
+    #unevaluatedProperties:
+    #
+    # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+    # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+    type: object # ["<primitive type>", "null"] for nullable
+    #enum:
+    #const:
+    #
+    # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+    #multipleOf:
+    #maximum:
+    #exclusiveMaximum:
+    #minimum:
+    #exclusiveMinimum:
+    #
+    # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+    #maxLength:
+    #minLength:
+    #pattern:
+    #
+    # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+    #maxItems:
+    #minItems:
+    #uniqueItems:
+    #maxContains:
+    #minContains:
+    #
+    # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+    maxProperties: 6
+    #minProperties:
+    required:
+      - alpha2Code
+      - englishName
+      - frenchName
+      - internetCctld
+      - numericCode
+      - portugueseName
+    #dependentRequired:
+    #
+    # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+    #format:
+    #
+    # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+    #contentEncoding:
+    #contentMediaType:
+    #contentSchema:
+    #
+    # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+    title: country
+    description: Country.
+    #default:
+    #deprecated:
+    readOnly: true
+    #writeOnly:
+    examples:
+      - $ref: ../examples/countries.yaml#/~1v1~1countries~1%7BnumericCode%7D/200
+      #- summary:
+        #description:
+        #value:
+        #externalValue:
+        #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+alpha2Code:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example:
+  #
+  # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+  #allOf:
+  #anyOf:
+  #oneOf:
+  #not:
+  #
+  # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+  #if:
+  #then:
+  #else:
+  #dependentSchemas:
+  #
+  # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+  #prefixItems:
+  #items:
+  #contains:
+  #
+  # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+  #properties:
+  #patternProperties:
+  #additionalProperties:
+  #propertyNames:
+  #
+  # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+  #unevaluatedItems:
+  #unevaluatedProperties:
+  #
+  # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+  # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+  type: string # ["<primitive type>", "null"] for nullable
+  #enum:
+  #const:
+  #
+  # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+  #multipleOf:
+  #maximum:
+  #exclusiveMaximum:
+  #minimum:
+  #exclusiveMinimum:
+  #
+  # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+  maxLength: 2
+  minLength: 2
+  #pattern:
+  #
+  # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  #
+  # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+  #maxProperties:
+  #minProperties:
+  #required:
+  #dependentRequired:
+  #
+  # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+  #format:
+  #
+  # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+  #contentEncoding:
+  #contentMediaType:
+  #contentSchema:
+  #
+  # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+  title: alpha2Code
+  description: ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1.
+  default: BR
+  #deprecated:
+  readOnly: true
+  #writeOnly:
+  examples:
+    - $ref: ../examples/countries.yaml#/alpha2Code
+    #- summary:
+      #description:
+      #value:
+      #externalValue:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+englishName:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example:
+  #
+  # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+  #allOf:
+  #anyOf:
+  #oneOf:
+  #not:
+  #
+  # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+  #if:
+  #then:
+  #else:
+  #dependentSchemas:
+  #
+  # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+  #prefixItems:
+  #items:
+  #contains:
+  #
+  # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+  #properties:
+  #patternProperties:
+  #additionalProperties:
+  #propertyNames:
+  #
+  # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+  #unevaluatedItems:
+  #unevaluatedProperties:
+  #
+  # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+  # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+  type: string # ["<primitive type>", "null"] for nullable
+  #enum:
+  #const:
+  #
+  # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+  #multipleOf:
+  #maximum:
+  #exclusiveMaximum:
+  #minimum:
+  #exclusiveMinimum:
+  #
+  # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+  maxLength: 58
+  minLength: 4
+  #pattern:
+  #
+  # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  #
+  # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+  #maxProperties:
+  #minProperties:
+  #required:
+  #dependentRequired:
+  #
+  # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+  #format:
+  #
+  # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+  #contentEncoding:
+  #contentMediaType:
+  #contentSchema:
+  #
+  # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+  title: englishName
+  description: The term country refers to a political state or nation or its territory.
+  default: Brazil
+  #deprecated:
+  readOnly: true
+  #writeOnly:
+  examples:
+    - $ref: ../examples/countries.yaml#/englishName
+    #- summary:
+      #description:
+      #value:
+      #externalValue:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+frenchName:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example:
+  #
+  # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+  #allOf:
+  #anyOf:
+  #oneOf:
+  #not:
+  #
+  # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+  #if:
+  #then:
+  #else:
+  #dependentSchemas:
+  #
+  # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+  #prefixItems:
+  #items:
+  #contains:
+  #
+  # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+  #properties:
+  #patternProperties:
+  #additionalProperties:
+  #propertyNames:
+  #
+  # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+  #unevaluatedItems:
+  #unevaluatedProperties:
+  #
+  # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+  # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+  type: string # ["<primitive type>", "null"] for nullable
+  #enum:
+  #const:
+  #
+  # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+  #multipleOf:
+  #maximum:
+  #exclusiveMaximum:
+  #minimum:
+  #exclusiveMinimum:
+  #
+  # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+  maxLength: 56
+  minLength: 4
+  #pattern:
+  #
+  # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  #
+  # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+  #maxProperties:
+  #minProperties:
+  #required:
+  #dependentRequired:
+  #
+  # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+  #format:
+  #
+  # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+  #contentEncoding:
+  #contentMediaType:
+  #contentSchema:
+  #
+  # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+  title: frenchName
+  description: Le terme pays fait référence à un État politique ou à une nation ou à son territoire.
+  default: Brésil (le)
+  #deprecated:
+  readOnly: true
+  #writeOnly:
+  examples:
+    - $ref: ../examples/countries.yaml#/frenchName
+    #- summary:
+      #description:
+      #value:
+      #externalValue:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+internetCctld:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example:
+  #
+  # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+  #allOf:
+  #anyOf:
+  #oneOf:
+  #not:
+  #
+  # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+  #if:
+  #then:
+  #else:
+  #dependentSchemas:
+  #
+  # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+  #prefixItems:
+  #items:
+  #contains:
+  #
+  # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+  #properties:
+  #patternProperties:
+  #additionalProperties:
+  #propertyNames:
+  #
+  # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+  #unevaluatedItems:
+  #unevaluatedProperties:
+  #
+  # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+  # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+  type: string # ["<primitive type>", "null"] for nullable
+  #enum:
+  #const:
+  #
+  # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+  #multipleOf:
+  #maximum:
+  #exclusiveMaximum:
+  #minimum:
+  #exclusiveMinimum:
+  #
+  # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+  maxLength: 2
+  #minLength:
+  #pattern:
+  #
+  # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  #
+  # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+  #maxProperties:
+  #minProperties:
+  #required:
+  #dependentRequired:
+  #
+  # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+  #format:
+  #
+  # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+  #contentEncoding:
+  #contentMediaType:
+  #contentSchema:
+  #
+  # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+  title: internetCctld
+  description: Country code top-level domain (ccTLD).
+  default: .br
+  #deprecated:
+  readOnly: true
+  #writeOnly:
+  examples:
+    - $ref: ../examples/countries.yaml#/internetCctld
+    #- summary:
+      #description:
+      #value:
+      #externalValue:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+numericCode:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example:
+  #
+  # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+  #allOf:
+  #anyOf:
+  #oneOf:
+  #not:
+  #
+  # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+  #if:
+  #then:
+  #else:
+  #dependentSchemas:
+  #
+  # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+  #prefixItems:
+  #items:
+  #contains:
+  #
+  # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+  #properties:
+  #patternProperties:
+  #additionalProperties:
+  #propertyNames:
+  #
+  # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+  #unevaluatedItems:
+  #unevaluatedProperties:
+  #
+  # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+  # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+  type: string # ["<primitive type>", "null"] for nullable
+  #enum:
+  #const:
+  #
+  # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+  #multipleOf:
+  #maximum:
+  #exclusiveMaximum:
+  #minimum:
+  #exclusiveMinimum:
+  #
+  # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+  maxLength: 3
+  minLength: 3
+  #pattern:
+  #
+  # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  #
+  # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+  #maxProperties:
+  #minProperties:
+  #required:
+  #dependentRequired:
+  #
+  # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+  #format:
+  #
+  # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+  #contentEncoding:
+  #contentMediaType:
+  #contentSchema:
+  #
+  # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+  title: numericCode
+  description: ISO 3166-1 numeric codes are three-digit (left padded with zero) country codes defined in ISO 3166-1.
+  default: 076
+  #deprecated:
+  readOnly: true
+  #writeOnly:
+  examples:
+    - $ref: ../examples/countries.yaml#/numericCode
+    #- summary:
+      #description:
+      #value:
+      #externalValue:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+portugueseName:
+  #discriminator:
+  #xml:
+  #externalDocs:
+  #example:
+  #
+  # [Keywords for Applying Subschemas With Logic](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.1)
+  #allOf:
+  #anyOf:
+  #oneOf:
+  #not:
+  #
+  # [Keywords for Applying Subschemas Conditionally](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.2.2)
+  #if:
+  #then:
+  #else:
+  #dependentSchemas:
+  #
+  # [Keywords for Applying Subschemas to Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.1)
+  #prefixItems:
+  #items:
+  #contains:
+  #
+  # [Keywords for Applying Subschemas to Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-10.3.2)
+  #properties:
+  #patternProperties:
+  #additionalProperties:
+  #propertyNames:
+  #
+  # [A Vocabulary for Unevaluated Locations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-11)
+  #unevaluatedItems:
+  #unevaluatedProperties:
+  #
+  # [Validation Keywords for Any Instance Type](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1)
+  # [Assertions and Instance Primitive Types](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-7.6.1)
+  type: string # ["<primitive type>", "null"] for nullable
+  #enum:
+  #const:
+  #
+  # [Validation Keywords for Numeric Instances (number and integer)](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.2)
+  #multipleOf:
+  #maximum:
+  #exclusiveMaximum:
+  #minimum:
+  #exclusiveMinimum:
+  #
+  # [Validation Keywords for Strings](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.3)
+  maxLength: 46
+  minLength: 3
+  #pattern:
+  #
+  # [Validation Keywords for Arrays](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.4)
+  #maxItems:
+  #minItems:
+  #uniqueItems:
+  #maxContains:
+  #minContains:
+  #
+  # [Validation Keywords for Objects](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.5)
+  #maxProperties:
+  #minProperties:
+  #required:
+  #dependentRequired:
+  #
+  # [Vocabularies for Semantic Content With "format"](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-7)
+  #format:
+  #
+  # [A Vocabulary for the Contents of String-Encoded Data](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-8)
+  #contentEncoding:
+  #contentMediaType:
+  #contentSchema:
+  #
+  # [A Vocabulary for Basic Meta-Data Annotations](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9)
+  title: portugueseName
+  description: O termo país refere-se a um estado político ou nação ou seu território.
+  default: Brasil
+  #deprecated:
+  readOnly: true
+  #writeOnly:
+  examples:
+    - $ref: ../examples/countries.yaml#/portugueseName
+    #- summary:
+      #description:
+      #value:
+      #externalValue:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)

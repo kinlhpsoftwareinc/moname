@@ -17,16 +17,16 @@
 	</organization>
 	<licenses>
 		<license>
-			<name>MIT License</name>
-			<url>https://www.opensource.org/licenses/mit-license.php</url>
+			<name>${license.name}</name>
+			<url>${license.url}</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
 	<developers>
 		<developer>
 			<id>kinlhp</id>
-			<name>Luis Henrique Pereira</name>
-			<email>lhp.kin@gmail.com</email>
+			<name>${developer.name}</name>
+			<email>${developer.email}</email>
 			<url>${project.organization.url}/kinlhp</url>
 			<organization>${project.organization.name}</organization>
 			<organizationUrl>${project.organization.url}</organizationUrl>
@@ -53,32 +53,42 @@
 		<url>https://github.com/kinlhpsoftwareinc/moname/issues</url>
 	</issueManagement>
 	<properties>
+		<developer.email>lhp.kin@gmail.com</developer.email>
+		<developer.name>Luis Henrique Pereira</developer.name>
+		<license.name>MIT License</license.name>
+		<license.url>https://github.com/kinlhpsoftwareinc/moname/blob/main/LICENSE</license.url>
 		<main.basedir>${basedir}</main.basedir>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<moname-commons-api.includes>openapi/commons</moname-commons-api.includes>
 		<openapi-generator.base-package>com.kinlhp.moname.commons.api.oas</openapi-generator.base-package>
-		<openapi-generator.input-spec>
-			${project.basedir}/src/main/resources/openapi/specification.yaml
-		</openapi-generator.input-spec>
+		<openapi-generator.base-package-path>com/kinlhp/moname/commons/api/oas</openapi-generator.base-package-path>
+		<openapi-generator.input-spec>${project.build.outputDirectory}/openapi/specification.yaml</openapi-generator.input-spec>
+		<openapi-generator.phase>generate-sources</openapi-generator.phase>
+		<openapi-generator.template-resource-path>${project.build.outputDirectory}/${moname-commons-api.includes}/templates/JavaSpring</openapi-generator.template-resource-path>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
 		<!-- dependency versions -->
 		<revision>1.0.0.BUILD-SNAPSHOT</revision>
 		<!-- # third party # -->
-		<gmavenplus-plugin.version>2.1.0</gmavenplus-plugin.version>
-		<jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-		<java.version>17</java.version>
-		<maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
-		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-		<maven-deploy-plugin.version>3.1.0</maven-deploy-plugin.version>
-		<maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
-		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
-		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
-		<maven-site-plugin.version>4.0.0-M5</maven-site-plugin.version>
-		<maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
-		<openapi-generator-maven-plugin.version>6.4.0</openapi-generator-maven-plugin.version>
+		<gmavenplus-plugin.version>4.2.0</gmavenplus-plugin.version>
+		<jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+		<java.version>21</java.version>
+		<lombok.version>1.18.42</lombok.version><!-- TODO: To be removed --><!-- Keep the same as org.springframework.boot:spring-boot-dependencies#lombok.version -->
+		<mapstruct.version>1.6.3</mapstruct.version>
+		<maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
+		<maven-clean-plugin.version>3.4.1</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+		<maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+		<maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
+		<maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
+		<maven-install-plugin.version>3.1.4</maven-install-plugin.version>
+		<maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+		<maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+		<maven-site-plugin.version>4.0.0-M16</maven-site-plugin.version>
+		<maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+		<openapi-generator-maven-plugin.version>7.13.0</openapi-generator-maven-plugin.version>
 	</properties>
 	<build>
 		<resources>
@@ -95,6 +105,11 @@
 				<!-- maven -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>${maven-antrun-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>${maven-clean-plugin.version}</version>
 				</plugin>
@@ -102,6 +117,30 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<annotationProcessorPaths>
+							<!-- # third party # -->
+							<!-- lombok -->
+							<path>
+								<!-- TODO: To be removed -->
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</path>
+							<!-- mapstruct -->
+							<path>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+								<version>${mapstruct.version}</version>
+							</path>
+						</annotationProcessorPaths>
+						<showWarnings>true</showWarnings>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${maven-dependency-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -128,6 +167,9 @@
 							<!-- README#property-expansion -->
 							<delimiter>@</delimiter>
 						</delimiters>
+						<nonFilteredFileExtensions>
+							<nonFilteredFileExtension>p12</nonFilteredFileExtension>
+						</nonFilteredFileExtensions>
 						<propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
 						<useDefaultDelimiters>false</useDefaultDelimiters>
 					</configuration>
@@ -144,8 +186,8 @@
 					<version>${openapi-generator-maven-plugin.version}</version>
 					<executions>
 						<execution>
-							<id>openapi-generator</id>
-							<phase>generate-sources</phase>
+							<id>default-generate</id>
+							<phase>${openapi-generator.phase}</phase>
 							<goals>
 								<goal>generate</goal>
 							</goals>
@@ -154,37 +196,38 @@
 								<generatorName>spring</generatorName>
 								<!-- README#openapi-generator-spring-config-options -->
 								<apiPackage>${openapi-generator.base-package}.endpoint</apiPackage>
-								<artifactId>moname-commons-api-oas</artifactId>
+								<artifactId>${project.artifactId}</artifactId>
 								<artifactVersion>${revision}</artifactVersion>
 								<generateApiTests>false</generateApiTests>
 								<generateModelTests>false</generateModelTests>
 								<groupId>${project.groupId}</groupId>
 								<ignoreFileOverride>.openapi-generator-ignore</ignoreFileOverride>
+								<importMappings>
+									<importMapping>Pageable=org.springframework.data.domain.Pageable</importMapping>
+								</importMappings>
 								<inputSpec>${openapi-generator.input-spec}</inputSpec>
 								<invokerPackage>${openapi-generator.base-package}.invoker</invokerPackage>
-								<modelNameSuffix>DTO</modelNameSuffix>
 								<modelPackage>${openapi-generator.base-package}.payload</modelPackage>
+								<templateResourcePath>${openapi-generator.template-resource-path}</templateResourcePath>
 								<configOptions>
 									<!-- README#openapi-generator-spring-metadata -->
 									<generatorLanguage>Java</generatorLanguage>
 									<generatorType>SERVER</generatorType>
 									<!-- README#openapi-generator-spring-config-options -->
-									<artifactDescription>
-										Project to money me with no name [commons-api-oas].
-									</artifactDescription>
+									<artifactDescription>${project.description}</artifactDescription>
 									<artifactUrl>${project.url}</artifactUrl>
 									<basePackage>${openapi-generator.base-package}</basePackage>
 									<bigDecimalAsString>true</bigDecimalAsString>
 									<booleanGetterPrefix>is</booleanGetterPrefix>
 									<configPackage>${openapi-generator.base-package}.configuration</configPackage>
 									<delegatePattern>true</delegatePattern>
-									<developerEmail>lhp.kin@gmail.com</developerEmail>
-									<developerName>Luis Henrique Pereira</developerName>
+									<developerEmail>${developer.email}</developerEmail>
+									<developerName>${developer.name}</developerName>
 									<developerOrganization>${project.organization.name}</developerOrganization>
 									<developerOrganizationUrl>${project.organization.url}</developerOrganizationUrl>
-									<licenseName>MIT</licenseName>
-									<licenseUrl>https://www.opensource.org/licenses/mit-license.php</licenseUrl>
-									<parentArtifactId>moname-commons</parentArtifactId>
+									<licenseName>${license.name}</licenseName>
+									<licenseUrl>${license.url}</licenseUrl>
+									<parentArtifactId>${project.parent.artifactId}</parentArtifactId>
 									<parentGroupId>${project.parent.groupId}</parentGroupId>
 									<parentVersion>${revision}</parentVersion>
 									<performBeanValidation>true</performBeanValidation>
@@ -192,10 +235,11 @@
 									<scmDeveloperConnection>${project.scm.developerConnection}</scmDeveloperConnection>
 									<scmUrl>${project.scm.url}</scmUrl>
 									<serializableModel>true</serializableModel>
-									<title>Project to money me with no name [commons-api-oas].</title>
+									<title>${project.artifactId}</title>
 									<unhandledException>true</unhandledException>
 									<useSpringBoot3>true</useSpringBoot3>
 									<useSpringController>true</useSpringController>
+									<useTags>true</useTags>
 								</configOptions>
 							</configuration>
 						</execution>
@@ -248,19 +292,17 @@
 							<version>${gmavenplus-plugin.version}</version>
 							<executions>
 								<execution>
-									<id>default-profiles-integration</id>
+									<id>default-execute</id>
 									<phase>test-compile</phase>
 									<goals>
 										<goal>execute</goal>
 									</goals>
 									<configuration>
 										<scripts>
-											<script>
-												<!-- maven + springframework -->
-												<!-- README#property-expansion -->
-												<!-- README#gmavenplus -->
-												${main.basedir}/src/gmavenplus/profiles-integration.groovy
-											</script>
+											<!-- maven + springframework -->
+											<!-- README#property-expansion -->
+											<!-- README#gmavenplus -->
+											<script>${main.basedir}/src/gmavenplus/profiles-integration.groovy</script>
 										</scripts>
 									</configuration>
 								</execution>
@@ -313,12 +355,18 @@
 								</execution>
 							</executions>
 							<configuration>
+								<!-- README#parallel-test-execution -->
+								<parallel>classes</parallel>
+								<!-- README#parallel-test-execution -->
+								<perCoreThreadCount>true</perCoreThreadCount>
 								<systemPropertyVariables>
 									<!-- maven + springframework -->
 									<!-- README#property-expansion -->
 									<!-- README#gmavenplus -->
+									<!--suppress MavenModelInspection -->
 									<spring.profiles.active>${springProfilesActive}</spring.profiles.active>
 								</systemPropertyVariables>
+								<threadCountClasses>1</threadCountClasses>
 							</configuration>
 						</plugin>
 						<plugin>
@@ -326,18 +374,32 @@
 							<artifactId>maven-surefire-plugin</artifactId>
 							<version>${maven-surefire-plugin.version}</version>
 							<configuration>
+								<argLine>
+									<!-- README#inline-mock-maker -->
+									@{argLine}
+									-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+								</argLine>
+								<!-- README#parallel-test-execution -->
+								<parallel>classes</parallel>
+								<!-- README#parallel-test-execution -->
+								<perCoreThreadCount>true</perCoreThreadCount>
 								<systemPropertyVariables>
 									<!-- maven + springframework -->
 									<!-- README#property-expansion -->
 									<!-- README#gmavenplus -->
+									<!--suppress MavenModelInspection -->
 									<spring.profiles.active>${springProfilesActive}</spring.profiles.active>
 								</systemPropertyVariables>
+								<threadCountClasses>1</threadCountClasses>
 							</configuration>
 						</plugin>
 					</plugins>
 				</pluginManagement>
 			</build>
 			<properties>
+				<!-- Java agent -->
+				<!-- README#inline-mock-maker -->
+				<mockito.version>5.17.0</mockito.version><!-- Keep the same as org.springframework.boot:spring-boot-dependencies#mockito.version -->
 				<!-- maven + springframework -->
 				<!-- README#property-expansion -->
 				<test.profile>test</test.profile>
@@ -376,6 +438,83 @@
 				<!-- maven + springframework -->
 				<!-- README#property-expansion -->
 				<database.profile>sqlserver</database.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>security</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<security.profile>security</security.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>insecurity</id>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<security.profile>insecurity</security.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>keycloak-optimized</id>
+			<build>
+				<pluginManagement>
+					<!-- # third party # -->
+					<!-- maven -->
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-antrun-plugin</artifactId>
+							<version>${maven-antrun-plugin.version}</version>
+							<executions>
+								<execution>
+									<id>default-run</id>
+									<phase>generate-test-resources</phase>
+									<goals>
+										<goal>run</goal>
+									</goals>
+									<configuration>
+										<target>
+											<!-- TODO: tee: /dev/tty: No such device or address -->
+											<exec executable="mkdir">
+												<arg value="--parents"/>
+												<arg value="${oidc-keycloak-tls.dest-path}"/>
+											</exec>
+											<!--<exec executable="${main.basedir}/src/docker/keycloak/generate-tls-files.sh" timeout="71000">-->
+											<exec executable="${main.basedir}/src/docker/keycloak/generate-tls-files.sh">
+												<arg value="--dest-path"/>
+												<arg value="${oidc-keycloak-tls.dest-path}"/>
+												<arg value="--timeout"/>
+												<arg value="70s"/>
+											</exec>
+										</target>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<keycloak.profile>keycloak-optimized</keycloak.profile>
+				<oidc-keycloak-tls.dest-path>${project.build.testOutputDirectory}/oidc/keycloak/tls</oidc-keycloak-tls.dest-path>
+			</properties>
+		</profile>
+		<profile>
+			<id>keycloak-unoptimized</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- maven + springframework -->
+				<!-- README#property-expansion -->
+				<keycloak.profile>keycloak-unoptimized</keycloak.profile>
 			</properties>
 		</profile>
 	</profiles>

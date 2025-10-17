@@ -13,18 +13,28 @@
 	<description>Project to money me with no name [commons-api].</description>
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
-		<!-- # third party # -->
-		<openapi-generator.input-spec>
-			${project.basedir}/src/test/resources/openapi/specification.yaml
-		</openapi-generator.input-spec>
+		<openapi-generator.input-spec>${project.build.testOutputDirectory}/openapi/specification.yaml</openapi-generator.input-spec>
+		<openapi-generator.template-resource-path>${project.build.testOutputDirectory}/${moname-commons-api.includes}/templates/JavaSpring</openapi-generator.template-resource-path>
 	</properties>
 	<dependencies>
 		<!-- # third party # -->
-		<!-- hibernate -->
+		<!-- jakarta -->
 		<dependency>
 			<!-- README#jsr-380 -->
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- mapstruct -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<!-- openapitools -->
 		<dependency>
@@ -34,7 +44,23 @@
 		<!-- springframework -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
 		</dependency>
 		<!-- swagger -->
 		<dependency>
@@ -46,6 +72,22 @@
 			<artifactId>swagger-models</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<!-- # third party # -->
+			<!-- maven -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<!-- excludes generated OpenAPI classes -->
+						<exclude>${openapi-generator.base-package-path}/</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
 			<id>test</id>
@@ -69,6 +111,50 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<!-- https://stackoverflow.com/a/73892829 -->
+							<classesDirectory>${project.build.outputDirectory}</classesDirectory>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>default-copy-openapi-common-resources</id>
+								<phase>${openapi-generator.phase}</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.testOutputDirectory}/${moname-commons-api.includes}</outputDirectory>
+									<resources>
+										<!-- https://maven.apache.org/ref/current/maven-model/maven.html#resource -->
+										<resource>
+											<!-- OpenAPI common specifications -->
+											<directory>${project.build.resources[0].directory}/${moname-commons-api.includes}</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>default-copy-openapi-test-resources</id>
+								<phase>${openapi-generator.phase}</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.testOutputDirectory}/openapi</outputDirectory>
+									<resources>
+										<!-- https://maven.apache.org/ref/current/maven-model/maven.html#resource -->
+										<resource>
+											<!-- OpenAPI test specifications -->
+											<directory>${project.build.testResources[0].directory}/openapi</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -83,11 +169,70 @@
 			</build>
 			<dependencies>
 				<dependency>
+					<!-- TODO: Ajustar onde deve ficar -->
+					<groupId>org.testcontainers</groupId>
+					<artifactId>junit-jupiter</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
 					<groupId>com.kinlhp</groupId>
 					<artifactId>moname-commons-test</artifactId>
 					<scope>test</scope>
 				</dependency>
+				<!-- # third party # -->
+				<!-- hibernate -->
+				<dependency>
+					<!-- README#jsr-380 -->
+					<groupId>org.hibernate.validator</groupId>
+					<artifactId>hibernate-validator</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- springframework -->
+				<dependency>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-test</artifactId>
+					<scope>test</scope>
+				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<!-- Optimized Keycloak container requires a MySQL instance having mysql as hostname on the same bridge network -->
+			<id>mysql</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-data-jpa</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>security</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>insecurity</id>
+		</profile>
+		<profile>
+			<id>keycloak-optimized</id>
+			<build>
+				<plugins>
+					<!-- # third party # -->
+					<!-- maven -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>keycloak-unoptimized</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 	</profiles>
 </project>

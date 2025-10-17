@@ -1,34 +1,55 @@
 # https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+info:
+  application:
+    description: @project.description@
+    name: @project.name@-test
+    version: @project.version@
+logging:
+  level:
+    com.kinlhp: TRACE
+    org.springframework.boot.autoconfigure.condition: TRACE
+    org.testcontainers.utility.RyukResourceReaper: ERROR
 spring:
   application:
-    name: @project.artifactId@-test
+    name: ${info.application.name}
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     #
     # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
     hikari:
       #
-      # ${connection-init-sql}
-      # Will be executed after every new connection creation before adding it to the pool.
-      # If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
-      # Default: none
-      #connection-init-sql: &connectionInitSql # https://stackoverflow.com/a/10684260
-      #
-      # ${connection-test-query}
-      # If your driver supports JDBC4 we strongly recommend not setting this property.
-      # This is for "legacy" drivers that do not support the JDBC4 ${Connection.isValid()} API.
-      # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
-      # Default: none
-      #connection-test-query: *connectionInitSql
-      #
       # ${pool-name}
       # Default: "auto-generated"
-      pool-name: ${spring.application.name}-pool-test
-    name: ${spring.application.name}-datasource-test
+      pool-name: @project.name@-pool-test
+    name: @project.name@-datasource-test
+    password: ${spring.datasource.username}
+    username: moname
   jpa:
+    hibernate:
+      ddl-auto: none
     show-sql: true
   liquibase:
     change-log: classpath:/db/migration/changelog-test.yaml
     contexts: test
     parameters:
-      table-name: read_only
+      encoding: ${spring.sql.init.encoding}
+      increment-by: 1
+      table-name:
+        read-only: read_only
+        ulid-identifiable: ulid_identifiable
+      use-prepared-statements: true
+    #
+    # ${password}
+    # README#unified-liquibase-datasource
+    #password: ${spring.datasource.password}
+    #
+    # ${url}
+    # README#unified-liquibase-datasource
+    #url: ${spring.datasource.url}
+    #
+    # ${user}
+    # README#unified-liquibase-datasource
+    #user: ${spring.datasource.username}
+  sql:
+    init:
+      encoding: UTF-8

@@ -16,34 +16,66 @@
 		<main.basedir>${basedir}/..</main.basedir>
 		<!-- dependency versions -->
 		<!-- # third party # -->
-		<assertj-db.version>2.0.2</assertj-db.version>
-		<expressly.version>5.0.0</expressly.version>
-		<groovy-all.version>3.0.16</groovy-all.version>
+		<assertj-db.version>3.0.0</assertj-db.version>
+		<expressly.version>6.0.0-M1</expressly.version>
+		<groovy.version>3.0.24</groovy.version>
 		<jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
-		<liquibase.version>4.20.0</liquibase.version>
-		<spring-boot-dependencies.version>3.0.4</spring-boot-dependencies.version>
-		<swagger-core.version>2.2.8</swagger-core.version>
-		<testcontainers-bom.version>1.17.6</testcontainers-bom.version>
+		<liquibase.version>4.31.1</liquibase.version><!-- Keep the same as org.springframework.boot:spring-boot-dependencies#lombok.version -->
+		<spring-boot.version>3.5.12</spring-boot.version>
+		<swagger.version>2.2.31</swagger.version>
+		<testcontainers-keycloak.version>3.7.0</testcontainers-keycloak.version>
+		<ulid.version>5.2.3</ulid.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>com.kinlhp</groupId>
-				<artifactId>moname-commons-jpa</artifactId>
+				<artifactId>moname-addressing-domain</artifactId>
 				<version>${revision}</version>
-			</dependency>
-			<!-- # third party # -->
-			<!-- liquibase -->
-			<dependency>
-				<groupId>org.liquibase</groupId>
-				<artifactId>liquibase-core</artifactId>
-				<version>${liquibase.version}</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>
-				<groupId>org.liquibase.ext</groupId>
-				<artifactId>liquibase-mssql</artifactId>
-				<version>${liquibase.version}</version>
+				<groupId>com.kinlhp</groupId>
+				<artifactId>moname-addressing-jpa</artifactId>
+				<version>${revision}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.kinlhp</groupId>
+				<artifactId>moname-commons-annotation</artifactId>
+				<version>${revision}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.kinlhp</groupId>
+				<artifactId>moname-commons-api</artifactId>
+				<version>${revision}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.kinlhp</groupId>
+				<artifactId>moname-commons-domain</artifactId>
+				<version>${revision}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.kinlhp</groupId>
+				<artifactId>moname-commons-jpa</artifactId>
+				<version>${revision}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.kinlhp</groupId>
+				<artifactId>moname-commons-stream</artifactId>
+				<version>${revision}</version>
+				<optional>true</optional>
+			</dependency>
+			<!-- # third party # -->
+			<!-- mapstruct -->
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct</artifactId>
+				<version>${mapstruct.version}</version>
 				<optional>true</optional>
 			</dependency>
 			<!-- openapitools -->
@@ -53,26 +85,33 @@
 				<version>${jackson-databind-nullable.version}</version>
 				<optional>true</optional>
 			</dependency>
+			<!-- springframework -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+				<optional>true</optional>
+			</dependency>
 			<!-- swagger -->
 			<dependency>
 				<groupId>io.swagger.core.v3</groupId>
 				<artifactId>swagger-annotations</artifactId>
-				<version>${swagger-core.version}</version>
+				<version>${swagger.version}</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>
 				<groupId>io.swagger.core.v3</groupId>
 				<artifactId>swagger-models</artifactId>
-				<version>${swagger-core.version}</version>
+				<version>${swagger.version}</version>
 				<optional>true</optional>
 			</dependency>
-			<!-- springframework -->
+			<!-- ulid -->
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot-dependencies.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
+				<groupId>com.github.f4b6a3</groupId>
+				<artifactId>ulid-creator</artifactId>
+				<version>${ulid.version}</version>
 				<optional>true</optional>
 			</dependency>
 		</dependencies>
@@ -97,7 +136,7 @@
 								<dependency>
 									<groupId>org.codehaus.groovy</groupId>
 									<artifactId>groovy-all</artifactId>
-									<version>${groovy-all.version}</version>
+									<version>${groovy.version}</version>
 									<type>pom</type>
 									<scope>runtime</scope>
 									<optional>true</optional>
@@ -113,6 +152,7 @@
 						<groupId>com.kinlhp</groupId>
 						<artifactId>moname-commons-test</artifactId>
 						<version>${revision}</version>
+						<optional>true</optional>
 					</dependency>
 					<!-- # third party # -->
 					<!-- assertj -->
@@ -131,12 +171,16 @@
 					</dependency>
 					<!-- testcontainers -->
 					<dependency>
-						<groupId>org.testcontainers</groupId>
-						<artifactId>testcontainers-bom</artifactId>
-						<version>${testcontainers-bom.version}</version>
-						<type>pom</type>
-						<scope>import</scope>
+						<groupId>com.github.dasniko</groupId>
+						<artifactId>testcontainers-keycloak</artifactId>
+						<version>${testcontainers-keycloak.version}</version>
 						<optional>true</optional>
+						<exclusions>
+							<exclusion>
+								<groupId>org.testcontainers</groupId>
+								<artifactId>testcontainers</artifactId>
+							</exclusion>
+						</exclusions>
 					</dependency>
 				</dependencies>
 			</dependencyManagement>

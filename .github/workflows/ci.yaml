@@ -1,0 +1,25 @@
+# GitHub Actions | Reference | Workflows and actions | Workflow syntax
+# https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+#
+# GitHub Actions | Reference | Workflows and actions | Reusable workflows
+# https://docs.github.com/en/actions/reference/workflows-and-actions/reusable-workflows
+#
+# https://www.schemastore.org/github-workflow.json
+name: ci
+on:
+  push:
+jobs:
+  build-matrix:
+    name: build-matrix
+    uses: ./.github/workflows/build.yaml
+    with:
+      database-profile: ${{ matrix.database-profile }}
+      keycloak-profile: ${{ matrix.keycloak-profile }}
+      security-profile: ${{ matrix.security-profile }}
+    strategy:
+      matrix:
+        database-profile: [hsqldb, mysql, oracle, sqlserver]
+        keycloak-profile: [keycloak-optimized, keycloak-unoptimized]
+        security-profile: [security]
+      fail-fast: false
+run-name: ${{ github.actor }} is executing CI

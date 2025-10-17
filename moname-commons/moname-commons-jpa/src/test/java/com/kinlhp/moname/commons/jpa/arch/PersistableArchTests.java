@@ -2,15 +2,31 @@ package com.kinlhp.moname.commons.jpa.arch;
 
 import java.io.Serializable;
 
-import com.kinlhp.moname.commons.jpa.Persistable;
+import jakarta.annotation.Nonnull;
 
-interface PersistableArchTests<T extends Persistable<PK>, PK extends Serializable> extends ReadableArchTests<T, PK> {
+import com.kinlhp.moname.commons.jpa.entity.Persistable;
 
-	default void assertPersistableArch(final Class<T> clazz) throws NoSuchMethodException {
-		ReadableArchTests.super.assertReadableArch(clazz);
-		assertSetPkMethod(clazz);
+@SuppressWarnings("java:S119")
+interface PersistableArchTests<T extends Persistable<PK>, PK extends Serializable> {
+
+	default void assertPersistableArch(@Nonnull final Class<T> type) throws NoSuchMethodException {
+		assertGetPkMethod(type);
+		assertInherits(type);
+		assertIsNotAnnotation(type);
+		assertSetPkMethod(type);
+		assertType(type);
+		assertVisibility(type);
 	}
 
-	void assertSetPkMethod(Class<T> clazz) throws NoSuchMethodException;
+	void assertGetPkMethod(@Nonnull Class<T> type) throws NoSuchMethodException;
 
+	void assertInherits(@Nonnull Class<T> type);
+
+	void assertIsNotAnnotation(@Nonnull Class<T> type);
+
+	void assertSetPkMethod(@Nonnull Class<T> type) throws NoSuchMethodException;
+
+	void assertType(@Nonnull Class<T> type);
+
+	void assertVisibility(@Nonnull Class<T> type);
 }

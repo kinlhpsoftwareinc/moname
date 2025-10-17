@@ -1,0 +1,24 @@
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#example-object
+# https://datatracker.ietf.org/doc/html/rfc6750#section-3
+wwwAuthenticate:
+  401:
+    summary: &wwwAuthenticate-401-summary 401 Unauthorized.
+    description: *wwwAuthenticate-401-summary
+    value: |
+      Bearer
+      realm="commons-api.moname.kinlhp.com",
+      error="invalid_token",
+      error_description="The access token is missing, invalid or expired"
+    #externalValue:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  403:
+    summary: &wwwAuthenticate-403-summary 403 Forbidden.
+    description: *wwwAuthenticate-403-summary
+    value: |
+      Bearer
+      realm="commons-api.moname.kinlhp.com",
+      error="insufficient_scope",
+      error_description="The access token does not have the required scope",
+      scope="read:entities write:entities"
+    #externalValue:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
