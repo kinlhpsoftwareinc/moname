@@ -1,0 +1,83 @@
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#example-object
+#
+# [Escaped forward-slash is necessary when using JSON/YAML references:](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationref-examples)
+# escaped = "~" ( "0" / "1" )
+#   ; representing '~' and '/', respectively
+#
+# [Percent-encoded curly brackets is necessary when using JSON/YAML references:](https://stackoverflow.com/a/44164413)
+# unescaped = "%" ( "7B" / "7D" )
+#   ; representing '{' and '}', respectively
+/v1/countries:
+  200:
+    summary: &~1v1~1countries-200-summary 200 OK.
+    description: *~1v1~1countries-200-summary
+    value:
+      - alpha2Code: AF
+        englishName: Afghanistan
+        frenchName: Afghanistan (l')
+        internetCctld: .af
+        numericCode: 004
+        portugueseName: Afeganistão
+      - alpha2Code: LY
+        englishName: Libya
+        frenchName: Libye (la)
+        internetCctld: .ly
+        numericCode: 434
+        portugueseName: Líbia
+      - alpha2Code: ZM
+        englishName: Zambia
+        frenchName: Zambie (la)
+        internetCctld: .zm
+        numericCode: 894
+        portugueseName: Zâmbia
+    #externalValue:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+/v1/countries/{numericCode}:
+  200:
+    summary: &~1v1~1countries~1%7Bid%7D-200-summary 200 OK.
+    description: *~1v1~1countries~1%7Bid%7D-200-summary
+    value:
+      alpha2Code: BR
+      englishName: Brazil
+      frenchName: Brésil (le)
+      internetCctld: .br
+      numericCode: 076
+      portugueseName: Brasil
+    #externalValue:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+alpha2Code:
+  summary: &alpha2Code-summary ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1.
+  description: *alpha2Code-summary
+  value: BR
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+englishName:
+  summary: &englishName-summary The term country refers to a political state or nation or its territory.
+  description: *englishName-summary
+  value: Brazil
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+frenchName:
+  summary: &frenchName-summary Le terme pays fait référence à un État politique ou à une nation ou à son territoire.
+  description: *frenchName-summary
+  value: Brésil (le)
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+internetCctld:
+  summary: &internetCctld-summary Country code top-level domain (ccTLD).
+  description: *internetCctld-summary
+  value: .br
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+numericCode:
+  summary: &numericCode-summary ISO 3166-1 numeric codes are three-digit (left padded with zero) country codes defined in ISO 3166-1.
+  description: *numericCode-summary
+  value: 076
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+portugueseName:
+  summary: &portugueseName-summary O termo país refere-se a um estado político ou nação ou seu território.
+  description: *portugueseName-summary
+  value: Brasil
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)

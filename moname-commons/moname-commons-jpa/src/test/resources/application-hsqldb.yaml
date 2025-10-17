@@ -14,7 +14,11 @@ spring:
       # Will be executed after every new connection creation before adding it to the pool.
       # If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
       # Default: none
-      connection-init-sql: &connection-init-sql SELECT 1 FROM information_schema.system_users
+      connection-init-sql: &connection-init-sql >-
+        SELECT
+          1
+        FROM
+          information_schema.system_users
       #
       # ${connection-test-query}
       # If your driver supports JDBC4 we strongly recommend not setting this property.
@@ -44,15 +48,13 @@ spring:
       # For maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
       # Default: same as ${maximum-pool-size}.
       minimum-idle: *maximum-pool-size
-    password: moname
     url: jdbc:hsqldb:mem:moname_commons_jpa_test
-    username: moname
   jpa:
     #
     # ${database}
     # README#org.hibernate.dialect.Database
-    database: HSQL
-    database-platform: org.hibernate.dialect.HSQLDialect
+    #database: HSQL
+    #database-platform: org.hibernate.dialect.HSQLDialect
   sql:
     init:
       platform: hsqldb

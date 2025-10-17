@@ -10,6 +10,6 @@ databaseChangeLog:
   - includeAll:
       context: test
       errorIfMissingOrEmpty: true
-      filter: liquibase.changelog.DmlIncludeAllFilter
+      filter: com.kinlhp.moname.commons.jpa.liquibase.changelog.DmlIncludeAllFilter
       path: dml
       relativeToChangelogFile: true

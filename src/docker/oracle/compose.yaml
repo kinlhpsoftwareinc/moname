@@ -1,0 +1,24 @@
+# https://github.com/compose-spec/compose-spec/blob/main/schema/compose-spec.json
+services:
+  oracle:
+    #env_file:
+      #- oracle/.env
+    image: ${ORACLE_IMAGE:?unset or empty in the .env file}
+    container_name: ${ORACLE_NAME:?unset or empty in the .env file}
+    volumes:
+      #- ${HOME:?unset or empty in the .env file}/.docker/volumes/${ORACLE_NAME:?unset or empty in the .env file}-data:/opt/oracle/oradata
+      - type: volume
+        source: ${ORACLE_NAME:?unset or empty in the .env file}-data
+        target: /opt/oracle/oradata
+    networks:
+      - moname
+    ports:
+      - ${ORACLE_PORT:?unset or empty in the .env file}
+    #command: ${ORACLE_COMMAND:?unset or empty in the .env file}
+    #healthcheck: # TODO
+    restart: ${RESTART_POLICY:?unset or empty in the .env file}
+volumes:
+  oracle-data:
+    name: ${ORACLE_NAME:?unset or empty in the .env file}-data
+    labels:
+      spring.jpa.database: ORACLE

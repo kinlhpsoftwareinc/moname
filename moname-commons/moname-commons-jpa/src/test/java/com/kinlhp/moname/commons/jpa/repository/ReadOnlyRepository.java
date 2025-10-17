@@ -3,11 +3,11 @@ package com.kinlhp.moname.commons.jpa.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.kinlhp.moname.commons.jpa.entity.ReadOnlyEntity;
+import com.kinlhp.moname.commons.jpa.entity.ReadOnly;
 
 /**
  * Read-only test repository.
  */
 @Repository
-public interface ReadOnlyRepository extends JpaRepository<ReadOnlyEntity, Integer> {
+public interface ReadOnlyRepository extends JpaRepository<ReadOnly, Integer> {
 }

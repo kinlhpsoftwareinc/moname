@@ -1,0 +1,38 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+# README#spring-boot
+# README#spring-security
+application:
+  spring:
+    security:
+      oauth2:
+        resourceserver:
+          jwt:
+            #issuer-uri: http://localhost:${random.int[1024,49151]}/auth/realms/moname
+            issuer-uri: http://keycloak:8080/auth/realms/moname
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          #
+          # ${issuer-uri}
+          # OpenID Connect Discovery | OpenID Provider Issuer Discovery
+          # https://openid.net/specs/openid-connect-discovery-1_0.html#IssuerDiscovery
+          #
+          # Spring Security | Servlet Applications | OAuth2 | OAuth2 Resource Server | JWT | Specifying the Authorization Server
+          # https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#_specifying_the_authorization_server
+          #issuer-uri: "${application.spring.security.oauth2.resourceserver.jwt.issuer-uri.scheme:http}://\
+          #  ${application.spring.security.oauth2.resourceserver.jwt.issuer-uri.authority.host:localhost}:\
+          #  ${application.spring.security.oauth2.resourceserver.jwt.issuer-uri.authority.port:${random.int[1024,49151]}}\
+          #  ${application.spring.security.oauth2.resourceserver.jwt.issuer-uri.relative-path:/auth}\
+          #  /realms/moname\
+          #  ?TC_MEMORY=512MB\
+          #  &TC_REUSABLE=true"
+          issuer-uri: "${application.spring.security.oauth2.resourceserver.jwt.issuer-uri}\
+            ?TC_MEMORY=512MB\
+            &TC_REUSABLE=true"
+          #
+          # ${jwk-set-uri}
+          # Spring Security | Servlet Applications | OAuth2 | OAuth2 Resource Server | JWT | Specifying the Authorization Server JWK Set Uri Directly
+          # https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#oauth2resourceserver-jwt-jwkseturi
+          jwk-set-uri: ${application.spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs

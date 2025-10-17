@@ -4,18 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### git-mergetool ###
-*.orig
-
 ### IntelliJ IDEA ###
 .attach_pid*
 .idea
@@ -33,5 +21,21 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### TLS ###
+*.p12
+*.pem
+
 ### VS Code ###
 .vscode/
+
+### git-mergetool ###
+*.orig

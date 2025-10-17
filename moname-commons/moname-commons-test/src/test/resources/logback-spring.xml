@@ -1,0 +1,6 @@
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+	<include resource="com/kinlhp/moname/commons/logging/logback/shared.xml"/>
+	<logger name="org.springframework.security" level="TRACE"/>
+	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="INFO"/>
+</configuration>

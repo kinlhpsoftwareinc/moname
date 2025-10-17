@@ -1,0 +1,5 @@
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+	<include resource="com/kinlhp/moname/commons/logging/logback/shared.xml"/>
+	<logger name="net.ttddyy.dsproxy.listener.logging" level="DEBUG"/>
+</configuration>

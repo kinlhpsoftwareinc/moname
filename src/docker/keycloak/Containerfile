@@ -1,0 +1,121 @@
+# #syntax=docker/dockerfile:1.22.0
+# #check=skip=SecretsUsedInArgOrEnv;error=true
+
+# README#parser-directives
+# README#build-checks
+
+# [Creating a customized and optimized container image](https://www.keycloak.org/server/containers)
+ARG keycloakImage
+
+FROM ${keycloakImage} AS builder
+
+LABEL maintainer="Luis Henrique Pereira <lhp.kin@gmail.com>"
+
+WORKDIR /opt/keycloak
+
+ARG KC_DB
+ARG KC_FEATURES
+ARG KC_HEALTH_ENABLED
+ARG KC_HOSTNAME
+ARG KC_HTTP_MANAGEMENT_RELATIVE_PATH
+ARG KC_HTTP_RELATIVE_PATH
+ARG KC_METRICS_ENABLED
+
+ENV KC_DB=${KC_DB}
+ENV KC_FEATURES=${KC_FEATURES}
+ENV KC_HEALTH_ENABLED=${KC_HEALTH_ENABLED}
+ENV KC_HOSTNAME=${KC_HOSTNAME}
+ENV KC_HTTP_MANAGEMENT_RELATIVE_PATH=${KC_HTTP_MANAGEMENT_RELATIVE_PATH}
+ENV KC_HTTP_RELATIVE_PATH=${KC_HTTP_RELATIVE_PATH}
+ENV KC_METRICS_ENABLED=${KC_METRICS_ENABLED}
+
+# `--build-context keycloak=<...>` or `compose.yaml#services.keycloak.build.additional_contexts.keycloak: <...>`
+#COPY --chmod=444 --chown=keycloak:root --from=keycloak tls conf
+
+#RUN echo '[HTTP Over TLS](https://datatracker.ietf.org/doc/html/rfc2818)' \
+#  && bin/kc.sh build \
+#  && bin/kc.sh show-config
+
+RUN echo '[The keytool Command](https://docs.oracle.com/en/java/javase/23/docs/specs/man/keytool.html)' \
+        && echo '[HTTP Over TLS](https://datatracker.ietf.org/doc/html/rfc2818)' \
+        && keytool \
+                -alias ${KC_HOSTNAME} \
+                -dname "CN=${KC_HOSTNAME}, OU=moname\, Project to money me with no name., O=Kin.LHP® Software\, Inc., L=Cianorte, S=Paraná, C=BR" \
+                -ext "SAN:critical=DNS:${KC_HOSTNAME}" \
+                -genkeypair \
+                -groupname ed25519 \
+                -keyalg EdDSA \
+                -keypass moname \
+                -keystore conf/keystore.ed25519.p12 \
+                -storepass moname \
+                -storetype PKCS12 \
+                -v \
+                -validity 365 \
+        && keytool \
+                -alias ${KC_HOSTNAME} \
+                -dname "CN=${KC_HOSTNAME}, OU=moname\, Project to money me with no name., O=Kin.LHP® Software\, Inc., L=Cianorte, S=Paraná, C=BR" \
+                -ext "SAN:critical=DNS:${KC_HOSTNAME}" \
+                -genkeypair \
+                -keyalg RSA \
+                -keypass moname \
+                -keysize 4096 \
+                -keystore conf/keystore.rsa.p12 \
+                -storepass moname \
+                -storetype PKCS12 \
+                -v \
+                -validity 365 \
+        && bin/kc.sh build \
+        && bin/kc.sh show-config
+
+FROM ${keycloakImage}
+
+LABEL maintainer="Luis Henrique Pereira <lhp.kin@gmail.com>"
+
+# alpine image
+#RUN adduser -D -u 1001 keycloak
+# non-alpine image
+#RUN useradd --create-home --uid 1001 keycloak
+
+WORKDIR /opt/keycloak
+
+COPY --from=builder /opt/keycloak .
+# `--build-context keycloak=<...>` or `compose.yaml#services.keycloak.build.additional_contexts.keycloak: <...>`
+COPY --chmod=544 --chown=keycloak:root --from=keycloak moname-realm.json data/import/moname-realm.json
+
+ARG KC_DB
+# TODO: WARN: SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "KC_DB_PASSWORD")
+#       https://docs.docker.com/reference/build-checks/secrets-used-in-arg-or-env
+ARG KC_DB_PASSWORD
+#ARG KC_DB_URL
+ARG KC_DB_URL_DATABASE
+ARG KC_DB_URL_HOST
+ARG KC_DB_URL_PORT
+ARG KC_DB_URL_PROPERTIES
+ARG KC_DB_USERNAME
+ARG KC_HOSTNAME
+ARG KC_HTTPS_KEY_STORE_FILE
+# TODO: WARN: SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "KC_HTTPS_KEY_STORE_PASSWORD")
+#       https://docs.docker.com/reference/build-checks/secrets-used-in-arg-or-env
+ARG KC_HTTPS_KEY_STORE_PASSWORD
+ARG KC_HTTPS_PROTOCOLS
+
+ENV KC_DB=${KC_DB}
+# TODO: WARN: SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "KC_DB_PASSWORD")
+#       https://docs.docker.com/reference/build-checks/secrets-used-in-arg-or-env
+ENV KC_DB_PASSWORD=${KC_DB_PASSWORD}
+#ENV KC_DB_URL=${KC_DB_URL}
+ENV KC_DB_URL_DATABASE=${KC_DB_URL_DATABASE}
+ENV KC_DB_URL_HOST=${KC_DB_URL_HOST}
+ENV KC_DB_URL_PORT=${KC_DB_URL_PORT}
+ENV KC_DB_URL_PROPERTIES=${KC_DB_URL_PROPERTIES}
+ENV KC_DB_USERNAME=${KC_DB_USERNAME}
+ENV KC_HOSTNAME=${KC_HOSTNAME}
+ENV KC_HTTPS_KEY_STORE_FILE=${KC_HTTPS_KEY_STORE_FILE}
+# TODO: WARN: SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "KC_HTTPS_KEY_STORE_PASSWORD"
+#       https://docs.docker.com/reference/build-checks/secrets-used-in-arg-or-env
+ENV KC_HTTPS_KEY_STORE_PASSWORD=${KC_HTTPS_KEY_STORE_PASSWORD}
+ENV KC_HTTPS_PROTOCOLS=${KC_HTTPS_PROTOCOLS}
+
+USER keycloak
+
+ENTRYPOINT ["bin/kc.sh"]

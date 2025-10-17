@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Shared logback configuration provided for import
+-->
+
+<included>
+	<logger name="com.kinlhp" level="TRACE"/>
+	<logger name="org.springframework.boot.autoconfigure.condition" level="TRACE"/>
+	<logger name="org.testcontainers.utility.RyukResourceReaper" level="ERROR"/>
+</included>

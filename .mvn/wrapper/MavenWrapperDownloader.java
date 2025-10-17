@@ -130,5 +130,4 @@ public final class MavenWrapperDownloader {
 		fos.close();
 		rbc.close();
 	}
-
 }

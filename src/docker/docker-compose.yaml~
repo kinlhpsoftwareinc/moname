@@ -1,0 +1,194 @@
+# https://github.com/compose-spec/compose-spec/blob/main/schema/compose-spec.json
+name: ${MONAME:?unset or empty in the .env file}
+services:
+  keycloak:
+    build:
+      context: .
+      dockerfile: ${KEYCLOAK_NAME:?unset or empty in the .env file}/Containerfile
+      args:
+        keycloakImage: ${KEYCLOAK_IMAGE:?unset or empty in the .env file}
+        KC_DB: ${KEYCLOAK_DATABASE_VENDOR:?unset or empty in the .env file}
+        KC_DB_PASSWORD: ${MONAME}
+        #KC_DB_URL: "jdbc:${KEYCLOAK_DATABASE_VENDOR:?unset or empty in the .env file}://${MYSQL_NAME}:${MYSQL_PORT}/${KEYCLOAK_NAME}_test\
+        #  ?cachePrepStmts=true\
+        #  &cacheResultSetMetadata=true\
+        #  &cacheServerConfiguration=true\
+        #  &characterEncoding=UTF-8\
+        #  &connectionCollation=utf8mb4_general_ci\
+        #  &connectionTimeZone=UTC\
+        #  &createDatabaseIfNotExist=true\
+        #  &elideSetAutoCommits=true\
+        #  &maintainTimeStats=false\
+        #  &prepStmtCacheSize=256\
+        #  &prepStmtCacheSqlLimit=2048\
+        #  &rewriteBatchedStatements=true\
+        #  &useLocalSessionState=true\
+        #  &useServerPrepStmts=true"
+        KC_DB_URL_DATABASE: ${KEYCLOAK_NAME}_test
+        KC_DB_URL_HOST: ${MYSQL_NAME}
+        KC_DB_URL_PORT: ${MYSQL_PORT}
+        KC_DB_URL_PROPERTIES: "?cachePrepStmts=true\
+          &cacheResultSetMetadata=true\
+          &cacheServerConfiguration=true\
+          &characterEncoding=UTF-8\
+          &connectionCollation=utf8mb4_general_ci\
+          &connectionTimeZone=UTC\
+          &createDatabaseIfNotExist=true\
+          &elideSetAutoCommits=true\
+          &maintainTimeStats=false\
+          &prepStmtCacheSize=256\
+          &prepStmtCacheSqlLimit=2048\
+          &rewriteBatchedStatements=true\
+          &useLocalSessionState=true\
+          &useServerPrepStmts=true"
+        KC_DB_USERNAME: ${KEYCLOAK_NAME}
+        KC_FEATURES: hostname:v2,token-exchange:v1
+        KC_HEALTH_ENABLED: true
+        KC_HOSTNAME: ${KEYCLOAK_NAME}
+        KC_HTTP_MANAGEMENT_RELATIVE_PATH: /management
+        KC_HTTP_RELATIVE_PATH: /auth
+        KC_HTTPS_KEY_STORE_FILE: /opt/${KEYCLOAK_NAME}/conf/keystore.ed25519.p12
+        #KC_HTTPS_KEY_STORE_FILE: /opt/${KEYCLOAK_NAME}/conf/keystore.rsa.p12
+        KC_HTTPS_KEY_STORE_PASSWORD: ${MONAME}
+        KC_HTTPS_PROTOCOLS: TLSv1.3
+        KC_METRICS_ENABLED: true
+      additional_contexts:
+        keycloak: ../../${MONAME}-commons/${MONAME}-commons-test/src/main/resources/oidc/${KEYCLOAK_NAME}
+    command: ${KEYCLOAK_COMMAND:?unset or empty in the .env file}
+    container_name: ${KEYCLOAK_NAME}
+    depends_on:
+      mysql:
+        condition: service_healthy
+        required: true
+        restart: true
+    env_file:
+      - ${KEYCLOAK_NAME}/.env
+    expose:
+      - ${KEYCLOAK_HTTP_MANAGEMENT_PORT:?unset or empty in the .env file}
+      - ${KEYCLOAK_HTTPS_PORT:?unset or empty in the .env file}
+    healthcheck:
+      disable: false
+      interval: 5s
+      retries: 6
+      test: [
+        'CMD-SHELL',
+        '${KEYCLOAK_HEALTHCHECK:?unset or empty in the .env file}'
+      ]
+      timeout: 3s
+      #start_period:
+      #start_interval:
+    hostname: ${KEYCLOAK_NAME}
+    image: ${KEYCLOAK_IMAGE}-optimized
+    networks:
+      - ${MONAME}
+    ports:
+      - ${KEYCLOAK_HTTPS_PORT}:${KEYCLOAK_HTTPS_PORT}
+      - ${KEYCLOAK_HTTP_MANAGEMENT_PORT}:${KEYCLOAK_HTTP_MANAGEMENT_PORT}
+    restart: ${RESTART_POLICY:?unset or empty in the .env file}
+    volumes:
+      #- ${HOME:?unset or empty in the .env file}/.docker/volumes/${KEYCLOAK_NAME}-data:/opt/${KEYCLOAK_NAME}
+      - type: volume
+        source: ${KEYCLOAK_NAME}-data
+        target: /opt/${KEYCLOAK_NAME}
+  mysql:
+    command: ${MYSQL_COMMAND:?unset or empty in the .env file}
+    container_name: ${MYSQL_NAME:?unset or empty in the .env file}
+    env_file:
+      - ${MYSQL_NAME}/.env
+    expose:
+      - ${MYSQL_PORT:?unset or empty in the .env file}
+    healthcheck:
+      disable: false
+      interval: 5s
+      retries: 3
+      test: [
+        'CMD-SHELL',
+        '${MYSQL_HEALTHCHECK:?unset or empty in the .env file}'
+      ]
+      timeout: 3s
+      #start_period:
+      #start_interval:
+    hostname: ${MYSQL_NAME}
+    image: ${MYSQL_IMAGE:?unset or empty in the .env file}
+    networks:
+      - ${MONAME}
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    restart: ${RESTART_POLICY:?unset or empty in the .env file}
+    volumes:
+      #- ../../${MONAME}-commons/${MONAME}-commons-test/src/main/resources/db/${MYSQL_NAME}/initial-setup.sql:/docker-entrypoint-initdb.d/initial-setup.sql
+      - type: bind
+        source: ../../${MONAME}-commons/${MONAME}-commons-test/src/main/resources/db/${MYSQL_NAME}/initial-setup.sql
+        target: /docker-entrypoint-initdb.d/initial-setup.sql
+        read_only: true
+      #- ${HOME:?unset or empty in the .env file}/.docker/volumes/${MYSQL_NAME}-data:/var/lib/${MYSQL_NAME}
+      - type: volume
+        source: ${MYSQL_NAME}-data
+        target: /var/lib/${MYSQL_NAME}
+  oracle:
+    env_file:
+      - oracle/.env
+    image: ${ORACLE_IMAGE:?unset or empty in the .env file}
+    container_name: ${ORACLE_NAME:?unset or empty in the .env file}
+    volumes:
+      #- ${HOME:?unset or empty in the .env file}/.docker/volumes/${ORACLE_NAME:?unset or empty in the .env file}-data:/opt/oracle/oradata
+      - type: volume
+        source: ${ORACLE_NAME:?unset or empty in the .env file}-data
+        target: /opt/oracle/oradata
+    networks:
+      - moname
+    ports:
+      - ${ORACLE_PORT:?unset or empty in the .env file}
+    #command: ${ORACLE_COMMAND:?unset or empty in the .env file}
+    #healthcheck: # TODO
+    restart: ${RESTART_POLICY:?unset or empty in the .env file}
+  sqlserver:
+    env_file:
+      - sqlserver/.env
+    image: ${SQLSERVER_IMAGE:?unset or empty in the .env file}
+    container_name: ${SQLSERVER_NAME:?unset or empty in the .env file}
+    volumes:
+      #- ../../moname-commons/moname-commons-test/src/main/resources/db/sqlserver/initial-command.sh:/home/mssql/initial-command.sh
+      - type: bind
+        source: ../../moname-commons/moname-commons-test/src/main/resources/db/sqlserver/initial-command.sh
+        target: /home/mssql/initial-command.sh
+        read_only: true
+      #- ../../moname-commons/moname-commons-test/src/main/resources/db/sqlserver/initial-setup.sql:/home/mssql/initial-setup.sql
+      - type: bind
+        source: ../../moname-commons/moname-commons-test/src/main/resources/db/sqlserver/initial-setup.sql
+        target: /home/mssql/initial-setup.sql
+        read_only: true
+      #- ${HOME:?unset or empty in the .env file}/.docker/volumes/${SQLSERVER_NAME:?unset or empty in the .env file}-data:/var/opt/mssql
+      - type: volume
+        source: ${SQLSERVER_NAME:?unset or empty in the .env file}-data
+        target: /var/opt/mssql
+    networks:
+      - moname
+    ports:
+      - ${SQLSERVER_PORT:?unset or empty in the .env file}
+    command: ${SQLSERVER_COMMAND:?unset or empty in the .env file}
+    #healthcheck: # TODO
+    restart: ${RESTART_POLICY:?unset or empty in the .env file}
+networks:
+  moname:
+    name: ${MONAME}
+    driver: ${NETWORK_DRIVER:?unset or empty in the .env file}
+    labels:
+      project: ${MONAME}
+volumes:
+  keycloak-data:
+    name: ${KEYCLOAK_NAME}-data
+    labels:
+      spring.security.oauth2.client.provider: ${KEYCLOAK_NAME}
+  mysql-data:
+    name: ${MYSQL_NAME}-data
+    labels:
+      spring.jpa.database: MYSQL
+  oracle-data:
+    name: ${ORACLE_NAME:?unset or empty in the .env file}-data
+    labels:
+      spring.jpa.database: ORACLE
+  sqlserver-data:
+    name: ${SQLSERVER_NAME:?unset or empty in the .env file}-data
+    labels:
+      spring.jpa.database: SQLSERVER

@@ -1,0 +1,13 @@
+# https://github.com/compose-spec/compose-spec/blob/main/schema/compose-spec.json
+name: ${MONAME:?unset or empty in the .env file}
+include:
+  - keycloak/compose.yaml
+  - mysql/compose.yaml
+  - oracle/compose.yaml
+  - sqlserver/compose.yaml
+networks:
+  moname:
+    name: ${MONAME}
+    driver: ${NETWORK_DRIVER:?unset or empty in the .env file}
+    labels:
+      project: ${MONAME}

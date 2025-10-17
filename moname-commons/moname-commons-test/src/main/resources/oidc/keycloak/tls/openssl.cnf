@@ -1,0 +1,19 @@
+[ req ]
+distinguished_name = req_distinguished_name
+prompt = no
+x509_extensions = v3_req
+
+[ req_distinguished_name ]
+C = BR
+ST = Paraná
+L = Cianorte
+O = Kin.LHP® Software, Inc.
+OU = moname, Project to money me with no name.
+CN = keycloak
+
+[ v3_req ]
+subjectAltName = @alt_names
+#subjectAltName = critical,@alt_names
+
+[ alt_names ]
+DNS.1 = keycloak

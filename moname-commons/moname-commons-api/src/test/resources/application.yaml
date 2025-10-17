@@ -1,2 +1,7 @@
 # https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
-spring.profiles.active: @test.profile@
+spring:
+  profiles:
+    active: @test.profile@, @security.profile@, keycloak
+    group:
+      keycloak:
+        - @keycloak.profile@

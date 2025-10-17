@@ -1,0 +1,130 @@
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schema
+#
+# [Escaped forward-slash is necessary when using JSON/YAML references:](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationref-examples)
+# escaped = "~" ( "0" / "1" )
+#   ; representing '~' and '/', respectively
+#
+# [Percent-encoded curly brackets is necessary when using JSON/YAML references:](https://stackoverflow.com/a/44164413)
+# unescaped = "%" ( "7B" / "7D" )
+#   ; representing '{' and '}', respectively
+openapi: 3.1.0
+info:
+  title: moname-addressing-api
+  summary: &info-summary Project to money me with no name [addressing-api].
+  description: *info-summary
+  termsOfService: https://moname.kinlhp.com/api/terms
+  contact:
+    name: Kin.LHP® Software, Inc.
+    url: https://kinlhp.com
+    email: lhp.kin@gmail.com
+    #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  license:
+    name: MIT License
+    #identifier: MIT # attribute info.license.identifier is unexpected
+    url: https://opensource.org/license/mit
+    #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  version: 1.0.0.BUILD-SNAPSHOT
+  #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+#jsonSchemaDialect:
+servers:
+  - url: http://{host}:{port}/{basePath}
+    description: The local development API server.
+    variables:
+      host:
+        # NOTE! No enum here means it is an open value.
+        enum:
+          - &servers-variables-host localhost
+        default: *servers-variables-host
+        description: The server host.
+        #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      port:
+        # NOTE! No enum here means it is an open value.
+        enum:
+          - &servers-variables-port 8080
+        default: *servers-variables-port
+        description: The server port.
+        #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+      basePath:
+        # NOTE! No enum here means it is an open value.
+        #       Open meaning there is the opportunity to use special base paths
+        #       as assigned by the provider, default is `api` in this case.
+        enum:
+          - &servers-variables-basePath api
+        default: *servers-variables-basePath
+        description: The API base path.
+        #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  - url: https://{host}
+    description: The production API server.
+    variables:
+      host:
+        # NOTE! No enum here means it is an open value.
+        enum:
+          - &servers-variables-host api.addressing.moname.kinlhp.com
+        default: *servers-variables-host
+        description: The server host.
+        #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+    #^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+paths:
+  /v1/countries:
+    $ref: paths/v1/countries.yaml#/~1v1~1countries
+    #summary:
+    #description:
+    #get:
+    #put:
+    #post:
+    #delete:
+    #options:
+    #head:
+    #patch:
+    #trace:
+    #servers:
+    #parameters:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  /v1/countries/{numeric-code}:
+    $ref: paths/v1/countries.yaml#/~1v1~1countries~1%7BnumericCode%7D
+    #summary:
+    #description:
+    #get:
+    #put:
+    #post:
+    #delete:
+    #options:
+    #head:
+    #patch:
+    #trace:
+    #servers:
+    #parameters:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+#webhooks:
+components:
+  #schemas:
+  #responses:
+  #parameters:
+  #examples:
+  #requestBodies:
+  #headers:
+  securitySchemes:
+    oauth2:
+      $ref: components/securitySchemes/oauth2.yaml
+      #type:
+      #description:
+      #name:
+      #in:
+      #scheme:
+      #bearerFormat:
+      #flows:
+      #openIdConnectUrl:
+      #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+  #links:
+  #callbacks:
+  #pathItems:
+#security:
+tags:
+  - name: countries
+    description: Country related resources.
+    #externalDocs:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+#externalDocs:
+#^x-: # [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)

@@ -14,7 +14,9 @@
 	<name>${project.artifactId}</name>
 	<description>Project to money me with no name [addressing].</description>
 	<modules>
+		<module>moname-addressing-api</module>
 		<module>moname-addressing-domain</module>
+		<module>moname-addressing-jpa</module>
 	</modules>
 	<properties>
 		<main.basedir>${basedir}/..</main.basedir>

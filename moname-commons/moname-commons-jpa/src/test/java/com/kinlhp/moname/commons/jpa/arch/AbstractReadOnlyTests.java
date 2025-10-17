@@ -6,10 +6,11 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.Access;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.NotNull;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -18,132 +19,132 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import com.kinlhp.moname.commons.jpa.AbstractReadOnly;
-import com.kinlhp.moname.commons.jpa.ReadOnlyListener;
-import com.kinlhp.moname.commons.jpa.Readable;
+import com.kinlhp.moname.commons.jpa.entity.AbstractReadOnly;
+import com.kinlhp.moname.commons.jpa.entity.Readable;
+import com.kinlhp.moname.commons.jpa.listener.ReadOnlyListener;
 
 /**
  * Architectural tests for abstract implementation of read-only entities.
  */
 class AbstractReadOnlyTests implements AbstractReadOnlyArchTests<AbstractReadOnly<Serializable>, Serializable> {
 
-	private static final int GET_PK_METHOD_VISIBILITY = Modifier.PUBLIC;
+	private static final int GET_PK_METHOD_VISIBILITY = Modifier.PUBLIC | Modifier.ABSTRACT;
 	private static final int PK_FIELD_VISIBILITY = Modifier.PRIVATE;
 	private static final int SET_PK_METHOD_VISIBILITY = Modifier.PUBLIC;
 	private static final int TYPE_VISIBILITY = Modifier.PUBLIC | Modifier.ABSTRACT;
 
 	@Override
 	@ParameterizedTest
-	@ValueSource(classes = { AbstractReadOnly.class })
-	public final void assertAbstractReadOnlyArch(final Class<AbstractReadOnly<Serializable>> clazz) throws
+	@ValueSource(classes = AbstractReadOnly.class)
+	public final void assertAbstractReadOnlyArch(@Nonnull final Class<AbstractReadOnly<Serializable>> type) throws
 		NoSuchMethodException, NoSuchFieldException {
-		AbstractReadOnlyArchTests.super.assertAbstractReadOnlyArch(clazz);
+		AbstractReadOnlyArchTests.super.assertAbstractReadOnlyArch(type);
 	}
 
-	@DisplayName(value = "It has an {Serializable getPk()} method.")
+	@DisplayName("It has an {Serializable getPk()} method")
 	@Override
-	public final void assertGetPkMethod(final Class<AbstractReadOnly<Serializable>> clazz) throws
+	public final void assertGetPkMethod(@Nonnull final Class<AbstractReadOnly<Serializable>> type) throws
 		NoSuchMethodException {
-		final var method = clazz.getDeclaredMethod("getPk");
+		@Nonnull final var method = type.getMethod("getPk");
 		Assertions.assertAll("getPk()",
 			() -> Assertions.assertEquals(GET_PK_METHOD_VISIBILITY, method.getModifiers(),
-				"{getPk()} Public visibility."),
-			() -> Assertions.assertEquals(0, method.getParameterCount(), "{getPk()} With no one parameter."),
+				"{getPk()} Public visibility"),
+			() -> Assertions.assertEquals(0, method.getParameterCount(), "{getPk()} With no one parameter"),
 			() -> Assertions.assertEquals(Serializable.class, method.getReturnType(),
-				"{getPk()} Returns a Serializable.")
+				"{getPk()} Returns a Serializable")
 		);
 	}
 
-	@DisplayName(value = "It is implementing only Readable.")
+	@DisplayName("It is implementing only Readable")
 	@Override
-	public final void assertImplements(final Class<AbstractReadOnly<Serializable>> clazz) {
-		final var superclasses = clazz.getInterfaces();
+	public final void assertImplements(@Nonnull final Class<AbstractReadOnly<Serializable>> type) {
+		@Nonnull final var superclasses = type.getInterfaces();
 		Assertions.assertAll("implementing",
-			() -> Assertions.assertEquals(Readable.class, superclasses[0], "It is implementing Readable."),
-			() -> Assertions.assertEquals(1, superclasses.length, "It is implementing only Readable.")
+			() -> Assertions.assertEquals(Readable.class, superclasses[0], "It is implementing Readable"),
+			() -> Assertions.assertEquals(1, superclasses.length, "It is implementing only Readable")
 		);
 	}
 
-	@DisplayName(value = "It is inheriting Object.")
+	@DisplayName("It is inheriting Object")
 	@Override
-	public final void assertInherits(final Class<AbstractReadOnly<Serializable>> clazz) {
-		final var superclass = clazz.getSuperclass();
+	public final void assertInherits(@Nonnull final Class<AbstractReadOnly<Serializable>> type) {
+		@Nonnull final var superclass = type.getSuperclass();
 		Assertions.assertAll("inheriting",
-			() -> Assertions.assertEquals(Object.class, superclass, "It is inheriting Object.")
+			() -> Assertions.assertEquals(Object.class, superclass, "It is inheriting Object")
 		);
 	}
 
-	@DisplayName(value = "It is annotated.")
+	@DisplayName("It is annotated")
 	@Override
-	public final void assertIsAnnotated(final Class<AbstractReadOnly<Serializable>> clazz) {
-		MatcherAssert.assertThat("It is annotated.",
-			Arrays.stream(clazz.getDeclaredAnnotations()).map(Annotation::annotationType)
+	public final void assertIsAnnotated(@Nonnull final Class<AbstractReadOnly<Serializable>> type) {
+		MatcherAssert.assertThat("It is annotated",
+			Arrays.stream(type.getDeclaredAnnotations()).map(Annotation::annotationType)
 				.collect(Collectors.toUnmodifiableSet()),
 			Matchers.containsInAnyOrder(EntityListeners.class, MappedSuperclass.class)
 		);
 	}
 
-	@DisplayName(value = "It is not an annotation.")
+	@DisplayName("It is not an annotation")
 	@Override
-	public final void assertIsNotAnnotation(final Class<AbstractReadOnly<Serializable>> clazz) {
-		Assertions.assertFalse(clazz.isAnnotation(), "It is not an annotation.");
+	public final void assertIsNotAnnotation(@Nonnull final Class<AbstractReadOnly<Serializable>> type) {
+		Assertions.assertFalse(type.isAnnotation(), "It is not an annotation");
 	}
 
-	@DisplayName(value = "It has an {Serializable pk} declared field.")
+	@DisplayName("It has an {Serializable pk} declared field")
 	@Override
-	public final void assertPkField(final Class<AbstractReadOnly<Serializable>> clazz) throws NoSuchFieldException {
-		final var field = clazz.getDeclaredField("pk");
+	public final void assertPKField(@Nonnull final Class<AbstractReadOnly<Serializable>> type) throws NoSuchFieldException {
+		@Nonnull final var field = type.getDeclaredField("pk");
 		Assertions.assertAll("pk",
-			() -> Assertions.assertEquals(PK_FIELD_VISIBILITY, field.getModifiers(), "{pk} Private visibility."),
-			() -> Assertions.assertEquals(Serializable.class, field.getType(), "{pk} Serializable."),
-			() -> Assertions.assertNotNull(field.getDeclaredAnnotationsByType(Id.class), "{pk} Id annotation."),
-			() -> Assertions.assertEquals(1, field.getDeclaredAnnotations().length, "{pk} Id annotation only.")
+			() -> Assertions.assertEquals(PK_FIELD_VISIBILITY, field.getModifiers(), "{pk} Private visibility"),
+			() -> Assertions.assertEquals(Serializable.class, field.getType(), "{pk} Serializable"),
+			() -> Assertions.assertNotNull(field.getDeclaredAnnotationsByType(Id.class), "{pk} ID annotation"),
+			() -> Assertions.assertEquals(1, field.getDeclaredAnnotations().length, "{pk} ID annotation only"),
+			() -> Assertions.assertNotNull(field.getDeclaredAnnotation(Access.class))
 		);
 	}
 
-	@DisplayName(value = "It is listened only from ReadOnlyListener.")
+	@DisplayName("It is listened only from ReadOnlyListener")
 	@Override
-	public final void assertReadOnlyListener(final Class<AbstractReadOnly<Serializable>> clazz) {
-		final var callbacks = clazz.getDeclaredAnnotation(EntityListeners.class).value();
+	public final void assertReadOnlyListener(@Nonnull final Class<AbstractReadOnly<Serializable>> type) {
+		@Nonnull final var callbacks = type.getDeclaredAnnotation(EntityListeners.class).value();
 		Assertions.assertAll("callbacks",
 			() -> Assertions.assertEquals(ReadOnlyListener.class, callbacks[0],
-				"It is listened from ReadOnlyListener."),
-			() -> Assertions.assertEquals(1, callbacks.length, "It is listened only from ReadOnlyListener.")
+				"It is listened from ReadOnlyListener"),
+			() -> Assertions.assertEquals(1, callbacks.length, "It is listened only from ReadOnlyListener")
 		);
 	}
 
-	@DisplayName(value = "It has an {void setPk(Serializable)} declared method.")
+	@DisplayName("It has an {void setPk(Serializable)} declared method")
 	@Override
-	public final void assertSetPkMethod(final Class<AbstractReadOnly<Serializable>> clazz) throws
+	public final void assertSetPkMethod(@Nonnull final Class<AbstractReadOnly<Serializable>> type) throws
 		NoSuchMethodException {
-		final var method = clazz.getDeclaredMethod("setPk", Serializable.class);
+		@Nonnull final var method = type.getDeclaredMethod("setPk", Serializable.class);
 		Assertions.assertAll("setPk(Serializable)",
 			() -> Assertions.assertEquals(SET_PK_METHOD_VISIBILITY, method.getModifiers(),
-				"{setPk(Serializable)} Public visibility."),
+				"{setPk(Serializable)} Public visibility"),
 			() -> Assertions.assertEquals(1, method.getParameterCount(),
-				"{setPk(Serializable)} With only one parameter."),
+				"{setPk(Serializable)} With only one parameter"),
 			() -> Assertions.assertEquals(Serializable.class, method.getParameters()[0].getType(),
-				"{setPk(Serializable)} Serializable as first parameter."),
+				"{setPk(Serializable)} Serializable as first parameter"),
 			() -> Assertions.assertEquals(Modifier.FINAL, (method.getParameters()[0].getModifiers() | Modifier.FINAL),
-				"{setPk(Serializable)} First parameter is final."),
-			() -> Assertions.assertNotNull(method.getParameters()[0].getDeclaredAnnotation(NotNull.class),
-				"{setPk(Serializable)} First parameter annotated with NotNull."),
+				"{setPk(Serializable)} First parameter is final"),
+			() -> Assertions.assertNotNull(method.getParameters()[0].getDeclaredAnnotation(Nonnull.class),
+				"{setPk(Serializable)} First parameter annotated with NotNull"),
 			() -> Assertions.assertEquals(1, method.getParameters()[0].getDeclaredAnnotations().length,
-				"{setPk(Serializable)} First parameter annotated only with NotNull."),
-			() -> Assertions.assertEquals(Void.TYPE, method.getReturnType(), "{setPk(Serializable)} Void return.")
+				"{setPk(Serializable)} First parameter annotated only with NotNull"),
+			() -> Assertions.assertEquals(Void.TYPE, method.getReturnType(), "{setPk(Serializable)} Void return")
 		);
 	}
 
-	@DisplayName(value = "It's an class.")
+	@DisplayName("It's a class")
 	@Override
-	public final void assertType(final Class<AbstractReadOnly<Serializable>> clazz) {
-		Assertions.assertFalse(clazz.isInterface(), "It's an class.");
+	public final void assertType(@Nonnull final Class<AbstractReadOnly<Serializable>> type) {
+		Assertions.assertFalse(type.isInterface(), "It's a class");
 	}
 
-	@DisplayName(value = "It's abstract with public visibility.")
+	@DisplayName("It's abstract with public visibility")
 	@Override
-	public final void assertVisibility(final Class<AbstractReadOnly<Serializable>> clazz) {
-		Assertions.assertEquals(TYPE_VISIBILITY, clazz.getModifiers(), "It's abstract with public visibility.");
+	public final void assertVisibility(@Nonnull final Class<AbstractReadOnly<Serializable>> type) {
+		Assertions.assertEquals(TYPE_VISIBILITY, type.getModifiers(), "It's abstract with public visibility");
 	}
-
 }

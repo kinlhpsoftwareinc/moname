@@ -1,0 +1,3 @@
+# https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide#auto-configuration-files
+com.kinlhp.moname.commons.test.testcontainers.autoconfigure.keycloak.KeycloakAutoConfiguration
+com.kinlhp.moname.commons.test.spring.jpa.persistenceunit.PersistenceUnitNameCustomizerAutoConfiguration

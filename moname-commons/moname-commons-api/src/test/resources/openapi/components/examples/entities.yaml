@@ -1,0 +1,43 @@
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#example-object
+#
+# [Escaped forward-slash is necessary when using JSON/YAML references:](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationref-examples)
+# escaped = "~" ( "0" / "1" )
+#   ; representing '~' and '/', respectively
+#
+# [Percent-encoded curly brackets is necessary when using JSON/YAML references:](https://stackoverflow.com/a/44164413)
+# unescaped = "%" ( "7B" / "7D" )
+#   ; representing '{' and '}', respectively
+/v1/entities:
+  200:
+    summary: &~1v1~1entities-200-summary 200 OK.
+    description: *~1v1~1entities-200-summary
+    value:
+      - description: a
+        id: 1
+      - description: l
+        id: 5
+      - description: z
+        id: 9
+    #externalValue:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+/v1/entities/{id}:
+  200:
+    summary: &~1v1~1entities~1%7Bid%7D-200-summary 200 OK.
+    description: *~1v1~1entities~1%7Bid%7D-200-summary
+    value:
+      description: b
+      id: 2
+    #externalValue:
+    #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+description:
+  summary: &description-summary The entity description.
+  description: *description-summary
+  value: c
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
+id:
+  summary: &id-summary The entity ID.
+  description: *id-summary
+  value: 3
+  #externalValue:
+  #^x-: [This object MAY be extended with Specification Extensions.](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specification-extensions)
