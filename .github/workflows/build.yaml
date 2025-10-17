@@ -1,0 +1,88 @@
+# GitHub Actions | Reference | Workflows and actions | Workflow syntax
+# https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+#
+# GitHub Actions | Reference | Workflows and actions | Reusable workflows
+# https://docs.github.com/en/actions/reference/workflows-and-actions/reusable-workflows
+#
+# https://www.schemastore.org/github-workflow.json
+name: build
+on:
+  workflow_call:
+    inputs:
+      database-profile:
+        required: false
+        type: string
+        default: hsqldb
+      keycloak-profile:
+        required: false
+        type: string
+        default: keycloak-unoptimized
+      runs-on:
+        required: false
+        type: string
+        default: ubuntu-latest
+      security-profile:
+        required: false
+        type: string
+        default: security
+      test-profile:
+        required: false
+        type: string
+        default: test
+env:
+  ACTIVATE_PROFILES: ${{ inputs.test-profile }},${{ inputs.database-profile }},${{ inputs.security-profile }}${{ inputs.security-profile != 'non-security' && format(',{0}', inputs.keycloak-profile) || '' }}
+jobs:
+  package-phase:
+    # | `security-profile`   | `keycloak-profile`     | `--activate-profiles`                             |
+    # |:---------------------|:-----------------------|:--------------------------------------------------|
+    # | `security`           | `keycloak-unoptimized` | runs with `...,security,keycloak-unoptimized`     |
+    # | `security`           | `keycloak-optimized`   | runs with `...,security,keycloak-optimized`       |
+    # | `non-security`       | `keycloak-unoptimized` | runs with `...,non-security` (keycloak discarded) |
+    # | `non-security`       | `keycloak-optimized`   | skipped (it would be duplicated)                  |
+    if: inputs.security-profile != 'non-security' || inputs.keycloak-profile != 'keycloak-optimized'
+    name: package-phase on ${{ inputs.runs-on }}
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: set-up-jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+          architecture: x64
+          cache: maven
+      - name: package-phase (${{ env.ACTIVATE_PROFILES }})
+        run: "./mvnw \
+          --activate-profiles ${{ env.ACTIVATE_PROFILES }} \
+          --batch-mode \
+          --define skipTests=true \
+          --no-transfer-progress \
+          --threads 1C \
+          --update-snapshots \
+          clean package"
+  verify-phase:
+    name: verify-phase on ${{ inputs.runs-on }}
+    needs: package-phase
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: set-up-jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+          architecture: x64
+          cache: maven
+      - name: dev-CI parity
+        run: echo "127.0.0.1 keycloak" | sudo tee -a /etc/hosts # TODO: Replace with `SAN:DNS:keycloak,DNS:localhost,IP:127.0.0.1` and `container.getHost() + getMappedPort()`
+      - name: verify-phase (${{ env.ACTIVATE_PROFILES }})
+        run: "./mvnw \
+          --activate-profiles ${{ env.ACTIVATE_PROFILES }} \
+          --batch-mode \
+          --no-transfer-progress \
+          --threads 1C \
+          --update-snapshots \
+          clean verify"
+run-name: ${{ github.actor }} is executing build lifecycle

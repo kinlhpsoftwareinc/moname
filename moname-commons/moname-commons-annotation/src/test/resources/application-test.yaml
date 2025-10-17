@@ -1,0 +1,9 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+info:
+  application:
+    description: @project.description@
+    name: @project.name@-test
+    version: @project.version@
+spring:
+  application:
+    name: ${info.application.name}

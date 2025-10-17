@@ -1,4 +1,7 @@
 # https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+# com/kinlhp/moname/commons/jpa/defaults.yaml
+# com/kinlhp/moname/commons/jpa/defaults-test.yaml
+# com/kinlhp/moname/commons/jpa/defaults-sqlserver.yaml
 spring:
   datasource:
     #
@@ -14,4 +17,8 @@ spring:
     #
     # Testcontainers JDBC support
     # https://www.testcontainers.org/modules/databases/jdbc
-    url: jdbc:tc:sqlserverext:2022-latest:////;databaseName=moname_commons_jpa_test;sendStringParametersAsUnicode=false;TC_REUSABLE=true
+    url: "jdbc:tc:sqlserverext:2022-latest:////\
+      ;databaseName=moname_commons_jpa_test\
+      ;sendStringParametersAsUnicode=false\
+      ;TC_MEMORY=1536MB\
+      ;TC_REUSABLE=true"

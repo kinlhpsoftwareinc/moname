@@ -13,39 +13,115 @@
 	<description>Project to money me with no name [commons-api].</description>
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
-		<!-- # third party # -->
-		<openapi-generator.input-spec>
-			${project.basedir}/src/test/resources/openapi/specification.yaml
-		</openapi-generator.input-spec>
+		<openapi-generator.input-spec>${project.build.testOutputDirectory}/openapi/specification.yaml</openapi-generator.input-spec>
+		<openapi-generator.template-resource-path>${project.build.testOutputDirectory}/${moname-commons-api.includes}/templates/JavaSpring</openapi-generator.template-resource-path>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.kinlhp</groupId>
+			<artifactId>moname-commons-logging</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!-- # third party # -->
-		<!-- hibernate -->
+		<!-- jakarta -->
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- jspecify -->
+		<dependency>
+			<groupId>org.jspecify</groupId>
+			<artifactId>jspecify</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<!-- README#jsr-380 -->
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- mapstruct -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<!-- openapitools -->
 		<dependency>
 			<groupId>org.openapitools</groupId>
 			<artifactId>jackson-databind-nullable</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- springframework -->
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-actuator-autoconfigure</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- swagger -->
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
 			<artifactId>swagger-annotations</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
 			<artifactId>swagger-models</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<!-- # third party # -->
+			<!-- maven -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<!-- excludes generated OpenAPI classes -->
+						<exclude>${openapi-generator.base-package-path}/</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
 			<id>test</id>
@@ -69,6 +145,55 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<!-- java.lang.IllegalStateException: Failed to find merged annotation for @org.springframework.test.context.BootstrapWith(org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper.class) -->
+							<!-- https://stackoverflow.com/a/73892829 -->
+							<classesDirectory>${project.build.outputDirectory}</classesDirectory>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>default-copy-openapi-common-resources</id>
+								<phase>${openapi-generator.phase}</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.testOutputDirectory}/${moname-commons-api.includes}</outputDirectory>
+									<resources>
+										<!-- https://maven.apache.org/ref/current/maven-model/maven.html#resource -->
+										<resource>
+											<!-- README#property-expansion -->
+											<filtering>true</filtering>
+											<!-- OpenAPI common specifications -->
+											<directory>${project.build.resources[0].directory}/${moname-commons-api.includes}</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>default-copy-openapi-test-resources</id>
+								<phase>${openapi-generator.phase}</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.testOutputDirectory}/openapi</outputDirectory>
+									<resources>
+										<!-- https://maven.apache.org/ref/current/maven-model/maven.html#resource -->
+										<resource>
+											<!-- README#property-expansion -->
+											<filtering>true</filtering>
+											<!-- OpenAPI test specifications -->
+											<directory>${project.build.testResources[0].directory}/openapi</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -84,10 +209,134 @@
 			<dependencies>
 				<dependency>
 					<groupId>com.kinlhp</groupId>
+					<artifactId>moname-commons-jpa</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.kinlhp</groupId>
+					<artifactId>moname-commons-stream</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.kinlhp</groupId>
 					<artifactId>moname-commons-test</artifactId>
 					<scope>test</scope>
 				</dependency>
+				<!-- # third party # -->
+				<!-- apache -->
+				<dependency>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-lang3</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- glassfish -->
+				<dependency>
+					<!-- README#jsr-380 -->
+					<groupId>org.glassfish.expressly</groupId>
+					<artifactId>expressly</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- hibernate -->
+				<dependency>
+					<!-- README#jsr-380 -->
+					<groupId>org.hibernate.validator</groupId>
+					<artifactId>hibernate-validator</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- springframework -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-test</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-testcontainers</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-test</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- testcontainers -->
+				<dependency>
+					<groupId>com.github.dasniko</groupId>
+					<artifactId>testcontainers-keycloak</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<!--
+					Required by `META-INF/services/org.testcontainers.containers.JdbcDatabaseContainerProvider`:
+					com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: org/testcontainers/containers/MSSQLServerContainerProvider
+					-->
+					<groupId>org.testcontainers</groupId>
+					<artifactId>mssqlserver</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<!-- Optimized Keycloak container requires a MySQL instance having mysql as hostname on the same bridge network -->
+					<groupId>org.testcontainers</groupId>
+					<artifactId>mysql</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<!--
+					Required by `META-INF/services/org.testcontainers.containers.JdbcDatabaseContainerProvider`:
+					com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: org/testcontainers/oracle/OracleContainerProvider
+					-->
+					<groupId>org.testcontainers</groupId>
+					<artifactId>oracle-free</artifactId>
+					<scope>test</scope>
+				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<!-- Optimized Keycloak container requires a MySQL instance having mysql as hostname on the same bridge network -->
+			<id>mysql</id>
+			<dependencies>
+				<!-- # third party # -->
+				<!-- mysql -->
+				<dependency>
+					<groupId>com.mysql</groupId>
+					<artifactId>mysql-connector-j</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<!-- springframework -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-data-jpa</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>security</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>non-security</id>
+		</profile>
+		<profile>
+			<id>keycloak-optimized</id>
+			<build>
+				<plugins>
+					<!-- # third party # -->
+					<!-- maven -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>keycloak-unoptimized</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 	</profiles>
 </project>

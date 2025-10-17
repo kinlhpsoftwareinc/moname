@@ -1,0 +1,40 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="package [test,oracle,security,keycloak-unoptimized]" type="MavenRunConfiguration" factoryName="Maven" folderName="package">
+    <MavenSettings>
+      <option name="myGeneralSettings" />
+      <option name="myRunnerSettings" />
+      <option name="myRunnerParameters">
+        <MavenRunnerParameters>
+          <option name="cmdOptions" />
+          <option name="profiles">
+            <set />
+          </option>
+          <option name="goals">
+            <list>
+              <option value="--activate-profiles" />
+              <option value="test,oracle,security,keycloak-unoptimized" />
+              <option value="--batch-mode" />
+              <option value="--define" />
+              <option value="skipTests" />
+              <option value="--no-transfer-progress" />
+              <option value="--threads" />
+              <option value="1C" />
+              <option value="package" />
+            </list>
+          </option>
+          <option name="multimoduleDir" />
+          <option name="pomFileName" />
+          <option name="profilesMap">
+            <map />
+          </option>
+          <option name="projectsCmdOptionValues">
+            <list />
+          </option>
+          <option name="resolveToWorkspace" value="false" />
+          <option name="workingDirPath" value="$PROJECT_DIR$" />
+        </MavenRunnerParameters>
+      </option>
+    </MavenSettings>
+    <method v="2" />
+  </configuration>
+</component>

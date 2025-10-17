@@ -1,0 +1,13 @@
+package com.kinlhp.moname.commons.domain.entity;
+
+import java.io.Serial;
+
+class Parent extends AbstractIdentifiable<Parent, Integer> {
+
+	@Serial
+	private static final long serialVersionUID = 2913276736907117032L;
+
+	Parent(final Integer identity) {
+		super(identity);
+	}
+}

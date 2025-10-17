@@ -1,0 +1,8 @@
+﻿# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+# com/kinlhp/moname/commons/jpa/defaults.yaml
+# com/kinlhp/moname/commons/jpa/defaults-test.yaml
+# com/kinlhp/moname/commons/jpa/defaults-hsqldb.yaml
+spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:moname_addressing_jpa_test

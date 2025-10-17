@@ -2,19 +2,19 @@ package com.kinlhp.moname.commons.jpa.arch;
 
 import java.io.Serializable;
 
-import com.kinlhp.moname.commons.jpa.AbstractPersistable;
+import com.kinlhp.moname.commons.jpa.entity.AbstractPersistable;
 
+@SuppressWarnings("java:S119")
 interface AbstractPersistableArchTests<T extends AbstractPersistable<PK>, PK extends Serializable> extends
 	PersistableArchTests<T, PK> {
 
-	default void assertAbstractPersistableArch(final Class<T> clazz) throws NoSuchMethodException {
-		PersistableArchTests.super.assertPersistableArch(clazz);
+	default void assertAbstractPersistableArch(final Class<T> type) throws NoSuchMethodException {
+		PersistableArchTests.super.assertPersistableArch(type);
 	}
 
-	void assertImplements(Class<T> clazz);
+	void assertImplements(Class<T> type);
 
-	void assertIsAnnotated(Class<T> clazz);
+	void assertIsAnnotated(Class<T> type);
 
-	void assertPkField(Class<T> clazz) throws NoSuchFieldException;
-
+	void assertPKField(Class<T> type) throws NoSuchFieldException;
 }

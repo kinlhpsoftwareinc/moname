@@ -1,0 +1,13 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+# com/kinlhp/moname/commons/jpa/defaults.yaml
+# com/kinlhp/moname/commons/jpa/defaults-test.yaml
+# com/kinlhp/moname/commons/jpa/defaults-oracle.yaml
+spring:
+  datasource:
+    #
+    # ${url}
+    # Testcontainers JDBC support
+    # https://www.testcontainers.org/modules/databases/jdbc
+    url: "jdbc:tc:oracleext:23.26.3-slim-faststart:////moname_addressing_jpa_test\
+      ?TC_MEMORY=2560MB\
+      &TC_REUSABLE=true"
