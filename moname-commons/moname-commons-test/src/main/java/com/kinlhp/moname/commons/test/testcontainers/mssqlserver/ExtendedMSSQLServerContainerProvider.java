@@ -1,13 +1,13 @@
 package com.kinlhp.moname.commons.test.testcontainers.mssqlserver;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.containers.MSSQLServerContainerProvider;
 import org.testcontainers.jdbc.ConnectionUrl;
 import org.testcontainers.utility.DockerImageName;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Factory for extended MS SQL Server containers.
@@ -29,13 +29,9 @@ public class ExtendedMSSQLServerContainerProvider extends MSSQLServerContainerPr
 
 	@Nonnull
 	@Override
-	@SuppressWarnings({"rawtypes", "resource"})
+	@SuppressWarnings("rawtypes")
 	public JdbcDatabaseContainer newInstance(@Nonnull final ConnectionUrl connectionUrl) {
-		return super.newInstanceFromConnectionUrl(connectionUrl, USER_PARAM, PASSWORD_PARAM)
-				//.withDatabaseName(connectionUrl.getDatabaseName().orElseThrow().split(";")[0])
-				//.withPassword(ExtendedMSSQLServerContainer.MSSQL_PASSWORD)
-				//.withUsername(ExtendedMSSQLServerContainer.MSSQL_USER)
-				;
+		return super.newInstanceFromConnectionUrl(connectionUrl, USER_PARAM, PASSWORD_PARAM);
 	}
 
 	@Nonnull

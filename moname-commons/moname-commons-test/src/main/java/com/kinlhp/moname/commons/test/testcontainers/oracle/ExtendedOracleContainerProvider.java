@@ -11,8 +11,7 @@ import jakarta.annotation.Nullable;
 /**
  * Factory for extended Oracle containers.
  */
-public class ExtendedOracleContainerProvider extends OracleContainerProvider
-		/*// TODO: implements ConfigurableMemory<ExtendedOracleContainer>*/ {
+public class ExtendedOracleContainerProvider extends OracleContainerProvider {
 
 	@Nonnull
 	private static final DockerImageName DEFAULT_IMAGE_NAME = DockerImageName.parse("gvenzl/oracle-xe");
@@ -44,11 +43,9 @@ public class ExtendedOracleContainerProvider extends OracleContainerProvider
 
 	@Nonnull
 	@Override
-	@SuppressWarnings({"rawtypes", "resource"})
+	@SuppressWarnings("rawtypes")
 	public JdbcDatabaseContainer newInstance(@Nonnull final ConnectionUrl connectionUrl) {
-		return newInstanceFromConnectionUrl(connectionUrl, USER_PARAM, PASSWORD_PARAM)
-				//.withDatabaseName(connectionUrl.getDatabaseName().orElseThrow())
-				;
+		return newInstanceFromConnectionUrl(connectionUrl, USER_PARAM, PASSWORD_PARAM);
 	}
 
 	@Nonnull

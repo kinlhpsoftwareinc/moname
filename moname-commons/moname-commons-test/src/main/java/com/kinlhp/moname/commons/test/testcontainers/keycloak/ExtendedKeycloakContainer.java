@@ -10,7 +10,6 @@ import org.testcontainers.utility.MountableFile;
 
 import jakarta.annotation.Nonnull;
 import java.net.URI;
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
@@ -122,14 +121,6 @@ public class ExtendedKeycloakContainer<SELF extends ExtendedKeycloakContainer<SE
 		return KC_HTTP_RELATIVE_PATH_PATTERN.formatted(KEYCLOAK, getHttpsPort(), getContextPath());
 	}
 
-	//@Nonnull
-	//@Override
-	//@SuppressWarnings({"TypeParameterHidesVisibleType", "java:S119", "java:S4977"})
-	//public <SELF extends GenericContainer<SELF>> SELF getContainer() {
-	//	//noinspection unchecked
-	//	return (SELF) this;
-	//}
-
 	@Nonnull
 	@Override
 	public String getContextPath() {
@@ -215,8 +206,7 @@ public class ExtendedKeycloakContainer<SELF extends ExtendedKeycloakContainer<SE
 				// TODO: Caused by: java.lang.RuntimeException: javax.net.ssl.SSLHandshakeException: PKIX path building
 				//  failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid
 				//  certification path to requested target
-				.allowInsecure()
-				.withStartupTimeout(Duration.ofMinutes(2L));
+				.allowInsecure();
 		super.setWaitStrategy(waitStrategy);
 		return super.self();
 	}
@@ -263,7 +253,6 @@ public class ExtendedKeycloakContainer<SELF extends ExtendedKeycloakContainer<SE
 	}
 
 	@Nonnull
-	//@SuppressWarnings("UnusedReturnValue")
 	private ExtendedKeycloakContainer<SELF> withNetworkAliases() {
 		return super.withNetworkAliases(KEYCLOAK);
 	}

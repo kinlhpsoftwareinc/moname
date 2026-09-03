@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.kinlhp.moname.commons.jpa.entity.ulid.uuid.AbstractUuidMonotonicUlidIdentifiable;
 
 /**
- * UUID {@link com.kinlhp.shaded.org.hibernate.annotations.UlidGenerator.Style#MONOTONIC MONOTONIC} ULID identifiable
+ * UUID {@link com.kinlhp.moname.commons.jpa.annotations.UlidGenerator.Style#MONOTONIC MONOTONIC} ULID identifiable
  * test repository.
  */
 @Repository

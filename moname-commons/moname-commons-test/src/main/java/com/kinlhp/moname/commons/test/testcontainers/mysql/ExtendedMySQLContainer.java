@@ -84,20 +84,7 @@ public class ExtendedMySQLContainer<SELF extends ExtendedMySQLContainer<SELF>>
 		return JdbcDatabaseUriExtractableContainer.super
 				.constructUrlParameters(urlParameters, startCharacter, delimiter, endCharacter)
 				.orElse("");
-		//return urlParameters.isEmpty()
-		//		? ""
-		//		: sortParams(urlParameters, startCharacter, delimiter, endCharacter);
 	}
-
-	//@Nonnull
-	//private String sortUrlParameters(@Nonnull final String startCharacter, @Nonnull final String delimiter,
-	//		@Nonnull final String endCharacter) {
-	//	@Nonnull final var sortedUrlParameters = urlParameters.entrySet().stream()
-	//			.map(Object::toString)
-	//			.sorted()
-	//			.collect(Collectors.joining(delimiter));
-	//	return "%s%s%s".formatted(startCharacter, sortedUrlParameters, endCharacter);
-	//}
 
 	@Nonnull
 	@Override
@@ -162,12 +149,6 @@ public class ExtendedMySQLContainer<SELF extends ExtendedMySQLContainer<SELF>>
 		createContainerCmd.withHostName(MYSQL);
 	}
 
-	//@Nonnull
-	//@Override
-	//public SELF withDatabaseName() {
-	//	return MemoryConfigurableUriExtractableJdbcDatabaseContainer.super.withDatabaseName();
-	//}
-
 	@Nonnull
 	private ExtendedMySQLContainer<SELF> withEnv() {
 		return super.withEnv("MYSQL_DATABASE", super.getDatabaseName())
@@ -178,12 +159,6 @@ public class ExtendedMySQLContainer<SELF extends ExtendedMySQLContainer<SELF>>
 				.withEnv("MYSQL_USER", getUsername());
 	}
 
-	//@Nonnull
-	//@Override
-	//public SELF withMemory() {
-	//	return MemoryConfigurableUriExtractableJdbcDatabaseContainer.super.withMemory();
-	//}
-
 	@Nonnull
 	private ExtendedMySQLContainer<SELF> withNetwork() {
 		return super.withNetwork(SharedNetwork.getSingleton().getNetwork());
@@ -193,24 +168,4 @@ public class ExtendedMySQLContainer<SELF extends ExtendedMySQLContainer<SELF>>
 	private ExtendedMySQLContainer<SELF> withNetworkAliases() {
 		return super.withNetworkAliases(MYSQL);
 	}
-
-	//@Nonnull
-	//@SuppressWarnings("UnusedReturnValue")
-	//private ExtendedMySQLContainer<SELF> withUrlParam() {
-	//	// TODO: Get from `super.getJdbcUrl()` parameters
-	//	return super.withUrlParam("cachePrepStmts", "true")
-	//			.withUrlParam("cacheResultSetMetadata", "true")
-	//			.withUrlParam("cacheServerConfiguration", "true")
-	//			.withUrlParam("characterEncoding", "UTF-8")
-	//			.withUrlParam("connectionCollation", "utf8mb4_general_ci")
-	//			.withUrlParam("connectionTimeZone", "UTC")
-	//			.withUrlParam("createDatabaseIfNotExist", "true")
-	//			.withUrlParam("elideSetAutoCommits", "true")
-	//			.withUrlParam("maintainTimeStats", "false")
-	//			.withUrlParam("prepStmtCacheSize", "256")
-	//			.withUrlParam("prepStmtCacheSqlLimit", "2048")
-	//			.withUrlParam("rewriteBatchedStatements", "true")
-	//			.withUrlParam("useLocalSessionState", "true")
-	//			.withUrlParam("useServerPrepStmts", "true");
-	//}
 }

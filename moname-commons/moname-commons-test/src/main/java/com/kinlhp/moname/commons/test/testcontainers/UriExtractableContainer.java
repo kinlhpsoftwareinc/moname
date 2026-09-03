@@ -210,16 +210,6 @@ public interface UriExtractableContainer<SELF extends GenericContainer<SELF> & U
 				.toList();
 	}
 
-	//private void withAutoResolvedTcPatternUriParameters(@Nonnull final Entry<String, String> pair) {
-	//	withAutoResolvedTcPatternUriParameter(pair);
-	//	//noinspection unchecked
-	//	Memory.of(pair.getKey())
-	//			.ifPresent(memory -> memory.type.accept((SELF) this, DataSize.parse(pair.getValue())));
-	//	//noinspection unchecked
-	//	Behavior.of(pair.getKey())
-	//			.ifPresent(behavior -> behavior.parameter.accept((SELF) this, Boolean.parseBoolean(pair.getValue())));
-	//}
-
 	@Nonnull
 	default SELF withUri(@Nonnull final URI uri) {
 		throw new UnsupportedOperationException("It is unclear what to do with the URI %s here".formatted(uri));
@@ -244,7 +234,17 @@ public interface UriExtractableContainer<SELF extends GenericContainer<SELF> & U
 		}
 	}
 
+	/**
+	 * @see <a href="https://docs.docker.com/engine/containers/resource_constraints/">Resource constraints</a>
+	 * @see <a href="https://docs.docker.com/engine/containers/run/#runtime-constraints-on-resources">
+	 * Runtime constraints on resources
+	 * </a>
+	 * @see <a href="https://fabiokung.com/2014/03/13/memory-inside-linux-containers/">
+	 * Memory inside Linux containers
+	 * </a>
+	 */
 	@SuppressWarnings({"java:S1117"})
+	// TODO: Tests to be implemented
 	enum Memory {
 
 		TC_MEMORY(Memory::withMemory),
@@ -269,6 +269,10 @@ public interface UriExtractableContainer<SELF extends GenericContainer<SELF> & U
 					.collect(SingletonCollector.toSingle());
 		}
 
+		/**
+		 * The maximum amount of memory the container can use. If you set this option, the minimum allowed value is
+		 * {@code 6m} (6 megabytes). That is, you must set the value to at least 6 megabytes.
+		 */
 		private static void withMemory(@Nonnull final GenericContainer<?> container,
 				@DataSizeUnit(BYTES) @Nonnull DataSize memory) {
 			container.withCreateContainerCmdModifier(
@@ -282,6 +286,13 @@ public interface UriExtractableContainer<SELF extends GenericContainer<SELF> & U
 			);
 		}
 
+		/**
+		 * The amount of memory this container is allowed to swap to disk.
+		 *
+		 * @see <a href="https://docs.docker.com/engine/containers/resource_constraints/#--memory-swap-details">
+		 * --memory-swap details
+		 * </a>
+		 */
 		private static void withMemorySwap(@Nonnull final GenericContainer<?> container,
 				@DataSizeUnit(BYTES) @Nonnull DataSize memorySwap) {
 			container.withCreateContainerCmdModifier(
@@ -295,6 +306,15 @@ public interface UriExtractableContainer<SELF extends GenericContainer<SELF> & U
 			);
 		}
 
+		/**
+		 * By default, the host kernel can swap out a percentage of anonymous pages used by a container. You can set
+		 * {@code --memory-swappiness} to a value between {@code 0} and {@code 100}, to tune this percentage.
+		 *
+		 * @see <a href="https://docs.docker.com/engine/containers/resource_constraints/#--memory-swappiness-details">
+		 * --memory-swappiness details
+		 * </a>
+		 * @see <a href="https://docs.docker.com/engine/containers/run/#swappiness-constraint">Swappiness constraint</a>
+		 */
 		private static void withMemorySwappiness(@Nonnull final GenericContainer<?> container,
 				@DataSizeUnit(BYTES) @Nonnull DataSize memorySwappiness) {
 			container.withCreateContainerCmdModifier(
@@ -308,6 +328,12 @@ public interface UriExtractableContainer<SELF extends GenericContainer<SELF> & U
 			);
 		}
 
+		/**
+		 * Size of {@code /dev/shm}. The format is {@code <number><unit>}. {@code number} must be greater than {@code 0}.
+		 * Unit is optional and can be {@code b} (bytes), {@code k} (kilobytes), {@code m} (megabytes), or {@code g}
+		 * (gigabytes). If you omit the unit, the system uses bytes. If you omit the size entirely, the system uses
+		 * {@code 64m}.
+		 */
 		private static void withShmSize(@Nonnull final GenericContainer<?> container,
 				@DataSizeUnit(BYTES) @Nonnull DataSize shmSize) {
 			container.withCreateContainerCmdModifier(

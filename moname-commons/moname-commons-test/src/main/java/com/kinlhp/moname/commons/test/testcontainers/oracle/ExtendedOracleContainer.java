@@ -66,17 +66,6 @@ public class ExtendedOracleContainer<SELF extends JdbcDatabaseContainer<SELF>
 		// TODO: https://www.docker.com/blog/testcontainers-best-practices
 		super.configure();
 		//noinspection resource
-		//withAddExposedPort()
-		//		.withAddParameters()
-		//		.withClasspathResourceMapping()
-		//		.withCommand()
-		//		.withEnv()
-		//		.withNetworkAliases()
-		//		.withUrlParam()
-		//		.withDatabaseName()
-		//		.withAutoResolvedMemoryUriParameters();
-
-		//noinspection resource
 		withAddExposedPort()
 				.withEnv()
 				.withNetworkAliases()
@@ -93,10 +82,8 @@ public class ExtendedOracleContainer<SELF extends JdbcDatabaseContainer<SELF>
 		return JdbcDatabaseUriExtractableContainer.super
 				.constructUrlParameters(urlParameters, startCharacter, delimiter, endCharacter)
 				.orElse("");
-		//return urlParameters.isEmpty()
-		//		? ""
-		//		: sortParams(urlParameters, startCharacter, delimiter, endCharacter);
 	}
+
 	@Nonnull
 	@Override
 	public String getDriverClassName() {
@@ -139,13 +126,6 @@ public class ExtendedOracleContainer<SELF extends JdbcDatabaseContainer<SELF>
 		JdbcDatabaseUriExtractableContainer.super.withAutoResolvedTcPatternUriParameter(parameter);
 	}
 
-	//@Nonnull
-	//@Override
-	//public ExtendedOracleContainer<SELF> withDatabaseName() {
-	//	//noinspection unchecked
-	//	return (SELF) ExtendableOracleContainer.super.withDatabaseName();
-	//}
-
 	@Nonnull
 	private ExtendedOracleContainer<SELF> withEnv() {
 		super.withEnv("APP_USER", getUsername())
@@ -153,13 +133,6 @@ public class ExtendedOracleContainer<SELF extends JdbcDatabaseContainer<SELF>
 				.withEnv("ORACLE_DATABASE", getDatabaseName());
 		return this;
 	}
-
-	//@Nonnull
-	//@Override
-	//public SELF withMemory() {
-	//noinspection unchecked
-	//return (SELF) ExtendableOracleContainer.super.withMemory();
-	//}
 
 	@Nonnull
 	private ExtendedOracleContainer<SELF> withNetworkAliases() {

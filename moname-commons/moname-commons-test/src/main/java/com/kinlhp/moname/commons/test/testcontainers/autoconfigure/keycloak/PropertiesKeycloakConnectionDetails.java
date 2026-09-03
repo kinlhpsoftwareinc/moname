@@ -2,10 +2,8 @@ package com.kinlhp.moname.commons.test.testcontainers.autoconfigure.keycloak;
 
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
-import org.springframework.boot.ssl.SslBundles;
 
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import java.net.URI;
 
 import static com.kinlhp.moname.commons.test.testcontainers.SharedNetwork.KEYCLOAK;
@@ -21,20 +19,10 @@ public class PropertiesKeycloakConnectionDetails implements KeycloakConnectionDe
 	@Nonnull
 	private final OAuth2ClientProperties clientProperties;
 
-	/**
-	 * @see org.springframework.boot.autoconfigure.kafka.PropertiesKafkaConnectionDetails#sslBundles sslBundles
-	 * @deprecated Check if it is still needed.
-	 */
-	@Deprecated(forRemoval = true, since = "1.0.0.BUILD-SNAPSHOT")
-	@Nullable
-	private final SslBundles sslBundles; // TODO: Check if it is still needed.
-
 	PropertiesKeycloakConnectionDetails(@Nonnull final OAuth2ResourceServerProperties resourceServerProperties,
-			@Nonnull final OAuth2ClientProperties clientProperties,
-			@Nullable final SslBundles sslBundles) {
+			@Nonnull final OAuth2ClientProperties clientProperties) {
 		this.resourceServerProperties = resourceServerProperties;
 		this.clientProperties = clientProperties;
-		this.sslBundles = sslBundles;
 	}
 
 	@Nonnull

@@ -122,20 +122,7 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 		return JdbcDatabaseUriExtractableContainer.super
 				.constructUrlParameters(urlParameters, startCharacter, delimiter, endCharacter)
 				.orElse("");
-		//return urlParameters.isEmpty()
-		//		? ""
-		//		: sortParams(urlParameters, startCharacter, delimiter, endCharacter);
 	}
-
-	//@Nonnull
-	//private String sortUrlParameters(@Nonnull final String startCharacter, @Nonnull final String delimiter,
-	//		@Nonnull final String endCharacter) {
-	//	@Nonnull final var sortedUrlParameters = urlParameters.entrySet().stream()
-	//			.map(Object::toString)
-	//			.sorted()
-	//			.collect(Collectors.joining(delimiter));
-	//	return "%s%s%s".formatted(startCharacter, sortedUrlParameters, endCharacter);
-	//}
 
 	@Nonnull
 	private static Path getContainerPath() {
@@ -205,7 +192,6 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 	@Nonnull
 	@Override
 	public String getPassword() {
-		//return password;
 		return getUsername();
 	}
 
@@ -249,36 +235,32 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 		return SUBPROTOCOL;
 	}
 
-	//@Nonnull
-	//@Override
-	//public Optional<URI> getUri() {
-	//	return MemoryConfigurableUriExtractableJdbcDatabaseContainer.super.getContainerDatabaseDriverJdbcUri();
-	//}
-
 	@Nonnull
 	@Override
+	@SuppressWarnings("java:S4275")
 	public String getUsername() {
-		//return username;
 		return MSSQL_USER;
 	}
 
-	//private void with() {
-	//	withClasspathResourceMapping(RESOURCE_SH_PATH.toString(), CONTAINER_SH_PATH.toString(), BindMode.READ_ONLY)
-	//			.withClasspathResourceMapping(
-	//					RESOURCE_SQL_PATH.toString(),
-	//					CONTAINER_SQL_PATH.toString(),
-	//					BindMode.READ_ONLY
-	//			)
-	//			.withCommand(commandParts())
-	//			.withEnv("ACCEPT_EULA", ACCEPT_EULA)
-	//			.withEnv("MSSQL_DATABASE", getDatabaseName())
-	//			.withEnv("MSSQL_PASSWORD", getPassword())
-	//			.withEnv("MSSQL_PID", MSSQL_PID)
-	//			.withEnv("MSSQL_SA_PASSWORD", MSSQL_SA_PASSWORD)
-	//			.withEnv("MSSQL_USER", getUsername())
-	//			.withUrlParam("databaseName", getDatabaseName())
-	//			.withUrlParam("sendStringParametersAsUnicode", "false");
-	//}
+	/*
+	private void with() {
+		withClasspathResourceMapping(RESOURCE_SH_PATH.toString(), CONTAINER_SH_PATH.toString(), BindMode.READ_ONLY)
+				.withClasspathResourceMapping(
+						RESOURCE_SQL_PATH.toString(),
+						CONTAINER_SQL_PATH.toString(),
+						BindMode.READ_ONLY
+				)
+				.withCommand(commandParts())
+				.withEnv("ACCEPT_EULA", ACCEPT_EULA)
+				.withEnv("MSSQL_DATABASE", getDatabaseName())
+				.withEnv("MSSQL_PASSWORD", getPassword())
+				.withEnv("MSSQL_PID", MSSQL_PID)
+				.withEnv("MSSQL_SA_PASSWORD", MSSQL_SA_PASSWORD)
+				.withEnv("MSSQL_USER", getUsername())
+				.withUrlParam("databaseName", getDatabaseName())
+				.withUrlParam("sendStringParametersAsUnicode", "false");
+	}
+	 */
 
 	@Nonnull
 	private ExtendedMSSQLServerContainer<SELF> withAddExposedPort() {
@@ -309,23 +291,8 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 	@Nonnull
 	private String[] commandParts() {
 		// TODO: Use bash -c "$(cat /home/mssql/initial-command.sh)"
-		//return new String[]{
-		//		"sh",
-		//		"-c",
-		//		"""
-		//				sleep 5s \
-		//				&& /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P %s -No -d master -i %s \
-		//				& /opt/mssql/bin/sqlservr"""
-		//				.formatted(MSSQL_SA_PASSWORD, CONTAINER_SQL_PATH)
-		//};
 		return new String[]{"sh", CONTAINER_SH_PATH.toString()};
 	}
-
-	//@Nonnull
-	//private ExtendedMSSQLServerContainer<SELF> withDatabaseName() {
-	//	return withDatabaseName(MemoryConfigurableUriExtractableJdbcDatabaseContainer.super.getParamValue("databaseName")
-	//			.orElse("%s_test".formatted(MONAME)));
-	//}
 
 	/**
 	 * @see ExtendedMSSQLServerContainer#getDatabaseName() getDatabaseName
@@ -354,12 +321,6 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 				.withEnv("MSSQL_USER", getUsername());
 	}
 
-	//@Nonnull
-	//@Override
-	//public SELF withMemory() {
-	//	return MemoryConfigurableUriExtractableJdbcDatabaseContainer.super.withMemory();
-	//}
-
 	@Nonnull
 	private ExtendedMSSQLServerContainer<SELF> withNetworkAliases() {
 		return super.withNetworkAliases(SQLSERVER);
@@ -371,14 +332,6 @@ public class ExtendedMSSQLServerContainer<SELF extends ExtendedMSSQLServerContai
 		this.password = password;
 		return super.self();
 	}
-
-	//@Nonnull
-	//@SuppressWarnings("UnusedReturnValue")
-	//private ExtendedMSSQLServerContainer<SELF> withUrlParam() {
-	//	// TODO: Get from `super.getJdbcUrl()` parameters
-	//	return super.withUrlParam("databaseName", getDatabaseName())
-	//			.withUrlParam("sendStringParametersAsUnicode", "false");
-	//}
 
 	@Nonnull
 	@Override

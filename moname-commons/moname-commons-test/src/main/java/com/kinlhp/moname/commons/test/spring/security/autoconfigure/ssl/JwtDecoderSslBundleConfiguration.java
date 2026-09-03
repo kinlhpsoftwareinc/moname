@@ -157,6 +157,7 @@ public class JwtDecoderSslBundleConfiguration {
 
 	@Nonnull
 	private Optional<String> sslBundleName() {
+		// TODO: Get the SSLBundle name from the application property `server.ssl.bundle`
 		@Nonnull final var bundleName = "ed25519-p12";
 		LOG.trace("Looking for an SSLBundle named {} to be used when making JWKS (JSON Web Key Set) requests",
 				bundleName);

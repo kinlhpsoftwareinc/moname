@@ -3,7 +3,6 @@ package com.kinlhp.moname.commons.test.testcontainers.autoconfigure.keycloak;
 import dasniko.testcontainers.keycloak.ExtendableKeycloakContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -12,7 +11,6 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2Res
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.PropertyMapper;
 import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
-import org.springframework.boot.ssl.SslBundles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
@@ -25,6 +23,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.annotation.PostConstruct;
 import java.net.URI;
+import java.time.Duration;
 import java.util.function.Supplier;
 
 import com.kinlhp.moname.commons.test.spring.security.autoconfigure.ssl.JwtDecoderSslBundleConfiguration;
@@ -90,10 +89,8 @@ public class KeycloakAutoConfiguration implements PriorityOrdered {
 	@Nonnull
 	<T extends ExtendableKeycloakContainer<T>> PropertiesKeycloakConnectionDetails keycloakConnectionDetails(
 			@Nonnull final OAuth2ResourceServerProperties resourceServerProperties,
-			@Nonnull final OAuth2ClientProperties clientProperties,
-			@Nonnull final ObjectProvider<SslBundles> sslBundles) {
-		return new PropertiesKeycloakConnectionDetails(resourceServerProperties, clientProperties,
-				sslBundles.getIfAvailable());
+			@Nonnull final OAuth2ClientProperties clientProperties) {
+		return new PropertiesKeycloakConnectionDetails(resourceServerProperties, clientProperties);
 	}
 
 	@Bean({
@@ -106,16 +103,12 @@ public class KeycloakAutoConfiguration implements PriorityOrdered {
 	@Profile("mysql & keycloak-optimized")
 	<T extends ExtendableKeycloakContainer<T>, S extends MySQLContainer<S>> T optimizedKeycloakContainer(
 			/*// TODO: The database testcontainer is not a bean in the Spring context*/@Lazy @Nonnull final S mysql,
-			//@Nonnull final OAuth2ResourceServerProperties resourceServerProperties,
-			//@Nonnull final OAuth2ClientProperties clientProperties) {
 			@Nonnull final PropertiesKeycloakConnectionDetails keycloakConnectionDetails) {
 		//noinspection unchecked
 		@Nonnull final var keycloak = getSingleton(() ->
 				(T) createOptimizedKeycloakContainer(mysql, keycloakConnectionDetails));
 		LOG.debug("Starting optimized Keycloak container");
 		keycloak.start();
-		// TODO: Move to here the javax.net.ssl configurations (AbstractTlsClientCredentialsFlowTests)
-		//mapProperties(keycloak, resourceServerProperties, clientProperties);
 		mapProperties(keycloak, keycloakConnectionDetails);
 		return keycloak;
 	}
@@ -128,14 +121,13 @@ public class KeycloakAutoConfiguration implements PriorityOrdered {
 			//noinspection unchecked
 			keycloak = (T) new ExtendedKeycloakContainer<>(
 					self -> reconfigureKeycloakContainerMemory(self, keycloakConnectionDetails),
-					//self -> ((T) self).withCreateContainerCmdModifier(createContainerCmd -> reconfigureKeycloakContainerMemory(createContainerCmd, keycloakConnectionDetails)),
-					//self -> reconfigureKeycloakContainerNetwork((T) self, mysql)
 					self -> {
 						LOG.debug("""
 								Reconfiguring optimized Keycloak container to reach MySQL container on the same network
 								""");
-						reconfigureKeycloakContainerNetwork(self);
-					}
+						reconfigureKeycloakContainerNetwork(self, mysql);
+					},
+					self -> self.withStartupTimeout(Duration.ofMinutes(2L))
 			);
 		}
 		return keycloak;
@@ -150,43 +142,18 @@ public class KeycloakAutoConfiguration implements PriorityOrdered {
 		}
 	}
 
-	//private void reconfigureKeycloakContainerMemory(@Nonnull final CreateContainerCmd createContainerCmd,
-	//		@Nonnull final PropertiesKeycloakConnectionDetails keycloakConnectionDetails) {
-	//	optionalHostConfigOf(createContainerCmd).ifPresentOrElse(
-	//			hostConfig -> doReconfigureKeycloakContainerMemory(hostConfig, keycloakConnectionDetails),
-	//			() -> LOG.warn("HostConfig is null, cannot reconfigure optimized Keycloak container memory")
-	//	);
-	//}
-
-	//private void doReconfigureKeycloakContainerMemory(@Nonnull final HostConfig hostConfig,
-	//		@Nonnull final PropertiesKeycloakConnectionDetails keycloakConnectionDetails) {
-	//	LOG.debug("Reconfiguring optimized Keycloak container memory: [mem: 2GB | swap: 0B | shm: 0B]");
-	//	// TODO: Use `application.yaml` and `@DataSizeUnit(BYTES) @Nonnull DataSize memory`
-	//	//hostConfig.withMemory(2L * 1024L * 1024L * 1024L) // 2GB
-	//	//		.withMemorySwap(0L)
-	//	//		.withShmSize(0L);
-	//	hostConfig.withMemory(keycloakConnectionDetails.getIssuerUri().getMemory());
-	//}
-
-	//@Nonnull
-	//private Optional<HostConfig> optionalHostConfigOf(@Nonnull final CreateContainerCmd createContainerCmd) {
-	//	return Optional.ofNullable(createContainerCmd.getHostConfig());
-	//}
-
-	//private <T extends ExtendableKeycloakContainer<T>, S extends MySQLContainer<S>> void reconfigureKeycloakContainerNetwork(
-	//		@Nonnull final T keycloak, @Nonnull final S mysql) {
-	//	LOG.debug("Reconfiguring optimized Keycloak container to reach MySQL container at network {}",
-	//			SharedNetwork.getSingleton().getNetworkName());
-	//	// TODO: The database testcontainer is not a bean in the Spring context
-	//	@Nonnull final var kcDbUrlHost = mysql.getContainerName();
-	//	@Nonnull final var kcDbUrlPort = mysql.getMappedPort(MYSQL_PORT);
-	//	keycloak.withEnv("KC_DB_URL_HOST", kcDbUrlHost)
-	//			.withEnv("KC_DB_URL_PORT", kcDbUrlPort.toString())
-	//			.withNetwork(mysql.getNetwork());
-	//}
-
-	private <T extends ExtendableKeycloakContainer<T>> void reconfigureKeycloakContainerNetwork(
-			@Nonnull final T keycloak) {
+	private <T extends ExtendableKeycloakContainer<T>, S extends MySQLContainer<S>> void reconfigureKeycloakContainerNetwork(
+			@Nonnull final T keycloak, @Nullable final S mysql) {
+		/*
+		// TODO: The database testcontainer is not a bean in the Spring context
+		LOG.debug("Reconfiguring Keycloak container to reach MySQL container on network {}",
+				mysql.getNetwork().getNetworkName());
+		@Nonnull final var kcDbUrlHost = mysql.getContainerName();
+		@Nonnull final var kcDbUrlPort = mysql.getMappedPort(MYSQL_PORT);
+		keycloak.withEnv("KC_DB_URL_HOST", kcDbUrlHost)
+				.withEnv("KC_DB_URL_PORT", kcDbUrlPort.toString())
+				.withNetwork(mysql.getNetwork());
+		 */
 		@Nonnull final var network = SharedNetwork.getSingleton();
 		LOG.debug("Reconfiguring Keycloak container to reach other containers on network {}", network.getNetworkName());
 		keycloak.withNetwork(network.getNetwork());
@@ -201,15 +168,12 @@ public class KeycloakAutoConfiguration implements PriorityOrdered {
 	@Nonnull
 	@Profile("!(mysql & keycloak-optimized)")
 	<T extends ExtendableKeycloakContainer<T>> T unoptimizedKeycloakContainer(
-			//@Nonnull final OAuth2ResourceServerProperties resourceServerProperties,
-			//@Nonnull final OAuth2ClientProperties clientProperties) {
 			@Nonnull final PropertiesKeycloakConnectionDetails keycloakConnectionDetails) {
 		//noinspection unchecked
 		@Nonnull @SuppressWarnings("RedundantCast") final T keycloak = getSingleton(() ->
 				(T) createUnoptimizedKeycloakContainer(keycloakConnectionDetails));
 		LOG.debug("Starting unoptimized Keycloak container");
 		keycloak.start();
-		//mapProperties(keycloak, resourceServerProperties, clientProperties);
 		mapProperties(keycloak, keycloakConnectionDetails);
 		return keycloak;
 	}
@@ -226,16 +190,13 @@ public class KeycloakAutoConfiguration implements PriorityOrdered {
 					.withEnv("KC_BOOTSTRAP_ADMIN_USERNAME", MONAME)
 					.withContextPath(KC_HTTP_RELATIVE_PATH)
 					.withRealmImportFile(REALM_RESOURCE_NAME_CLASSPATH);
-					//.withNetwork(SharedNetwork.getSingleton().getNetwork());
 			reconfigureKeycloakContainerMemory(keycloak, keycloakConnectionDetails);
-			reconfigureKeycloakContainerNetwork(keycloak);
+			reconfigureKeycloakContainerNetwork(keycloak, null);
 		}
 		return keycloak;
 	}
 
 	private <T extends ExtendableKeycloakContainer<T>> void mapProperties(@Nonnull final T keycloak,
-			//@Nonnull final OAuth2ResourceServerProperties resourceServerProperties,
-			//@Nonnull final OAuth2ClientProperties clientProperties) {
 			@Nonnull final PropertiesKeycloakConnectionDetails keycloakConnectionDetails) {
 		LOG.debug("""
 						Post-processing Keycloak container startup: Mapping from Keycloak container URI {} to Spring \
@@ -245,9 +206,6 @@ public class KeycloakAutoConfiguration implements PriorityOrdered {
 				getIssuerUri(keycloak), OAuth2ResourceServerProperties.class.getName(),
 				OAuth2ClientProperties.class.getName());
 		@Nonnull final var propertyMapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
-		//propertyMapper.from(getIssuerUri(keycloak).toString()).to(resourceServerProperties.getJwt()::setIssuerUri);
-		//propertyMapper.from(getJwksUri(keycloak).toString()).to(resourceServerProperties.getJwt()::setJwkSetUri);
-		//propertyMapper.from(getTokenEndpointUri(keycloak)).to(tokenUri -> clientProperties.getProvider().get(KEYCLOAK).setTokenUri(tokenUri));
 		propertyMapper.from(getIssuerUri(keycloak)).to(keycloakConnectionDetails::setIssuerUri);
 		propertyMapper.from(getJwksUri(keycloak)).to(keycloakConnectionDetails::setJwkSetUri);
 		propertyMapper.from(getTokenEndpointUri(keycloak)).to(keycloakConnectionDetails::setTokenUri);

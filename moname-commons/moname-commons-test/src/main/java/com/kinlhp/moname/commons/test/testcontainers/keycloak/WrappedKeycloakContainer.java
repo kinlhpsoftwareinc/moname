@@ -28,8 +28,9 @@ public class WrappedKeycloakContainer<SELF extends WrappedKeycloakContainer<SELF
 	private static final Logger LOG = LoggerFactory.getLogger(WrappedKeycloakContainer.class);
 
 	@Nonnull
-	//private URI issuerUri = URI.create("%s%s".formatted(getAuthServerUrl(), REALM_PATH));
-	private URI issuerUri = URI.create("%s%s".formatted(KC_HTTP_RELATIVE_PATH_PATTERN.formatted(KEYCLOAK, KC_HTTPS_PORT, KC_HTTP_RELATIVE_PATH), REALM_PATH));
+	private URI issuerUri = URI.create("%s%s".formatted(
+			KC_HTTP_RELATIVE_PATH_PATTERN.formatted(KEYCLOAK, KC_HTTPS_PORT, KC_HTTP_RELATIVE_PATH),
+			REALM_PATH));
 
 	@Nonnull
 	public Optional<URI> getIssuerUri() {
